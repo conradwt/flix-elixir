@@ -2,21 +2,25 @@ defmodule FlixWeb.Router do
   use FlixWeb, :router
 
   pipeline :browser do
-    plug :accepts, ["html"]
-    plug :fetch_session
-    plug :fetch_flash
-    plug :protect_from_forgery
-    plug :put_secure_browser_headers
+    plug(:accepts, ["html"])
+    plug(:fetch_session)
+    plug(:fetch_flash)
+    plug(:protect_from_forgery)
+    plug(:put_secure_browser_headers)
   end
 
   pipeline :api do
-    plug :accepts, ["json"]
+    plug(:accepts, ["json"])
   end
 
   scope "/", FlixWeb do
-    pipe_through :browser
+    pipe_through(:browser)
 
-    get "/", PageController, :index
+    get("/", MovieController, :index)
+
+    get "/movies/filter/:filter", MovieController, :index, as: :filtered_movies
+
+    resources("/movies", MovieController)
   end
 
   # Other scopes may use custom stacks.
@@ -35,8 +39,8 @@ defmodule FlixWeb.Router do
     import Phoenix.LiveDashboard.Router
 
     scope "/" do
-      pipe_through :browser
-      live_dashboard "/dashboard", metrics: FlixWeb.Telemetry
+      pipe_through(:browser)
+      live_dashboard("/dashboard", metrics: FlixWeb.Telemetry)
     end
   end
 end

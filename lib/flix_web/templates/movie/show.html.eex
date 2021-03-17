@@ -1,0 +1,48 @@
+<h1>Show Movie</h1>
+
+<ul>
+
+  <li>
+    <strong>Title:</strong>
+    <%= @movie.title %>
+  </li>
+
+  <li>
+    <strong>Rating:</strong>
+    <%= @movie.rating %>
+  </li>
+
+  <li>
+    <strong>Total gross:</strong>
+    <%= @movie.total_gross %>
+  </li>
+
+  <li>
+    <strong>Description:</strong>
+    <%= @movie.description %>
+  </li>
+
+  <li>
+    <strong>Released on:</strong>
+    <%= @movie.released_on %>
+  </li>
+
+  <li>
+    <strong>Director:</strong>
+    <%= @movie.director %>
+  </li>
+
+  <li>
+    <strong>Duration:</strong>
+    <%= @movie.duration %>
+  </li>
+
+  <li>
+    <strong>Slug:</strong>
+    <%= @movie.slug %>
+  </li>
+
+</ul>
+
+<span><%= link "Edit", to: Routes.movie_path(@conn, :edit, @movie) %></span>
+<span><%= link "Back", to: Routes.movie_path(@conn, :index) %></span>
