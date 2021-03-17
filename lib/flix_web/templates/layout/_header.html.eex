@@ -1,0 +1,39 @@
+<header>
+  <nav>
+    <%= img_tag("/images/logo.png") %>
+    <ul class="left">
+      <li>
+        <%= link "Released", to: Routes.movie_path(@conn, :index) %>
+      </li>
+      <li>
+        <%#= link "Upcoming", to: Routes.filtered_movies_path(@conn, :filter, :upcoming) %>
+      </li>
+      <li>
+        <%#= link "Recent", to: Routes.filtered_movies_path(@conn, :filter, :recent) %>
+      </li>
+      <li>
+        <%#= link "Hits", to: Routes.filtered_movies_path(@conn, :filter, :hits) %>
+      </li>
+      <li>
+        <%#= link "Flops", to: Routes.filtered_movies_path(@conn, :filter, :flops) %>
+      </li>
+    </ul>
+    <ul class="right">
+      <% if @current_user do %>
+        <li>
+          <%= link @current_user.email, to: Routes.movie_path(@conn, :index) %>
+        </li>
+        <li>
+          <%= link "Sign Out", to: Routes.user_session_path(@conn, :delete), method: :delete, class: "button" %>
+        </li>
+      <% else %>
+        <li>
+          <%= link "Sign In", to: Routes.user_session_path(@conn, :new), class: "button" %>
+        </li>
+        <li>
+          <%= link "Sign Up", to: Routes.user_registration_path(@conn, :new), class: "button" %>
+        </li>
+      <% end %>
+    </ul>
+  </nav>
+</header>
