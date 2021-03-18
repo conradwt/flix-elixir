@@ -6,20 +6,20 @@
         <%= link "Released", to: Routes.movie_path(@conn, :index) %>
       </li>
       <li>
-        <%#= link "Upcoming", to: Routes.filtered_movies_path(@conn, :filter, :upcoming) %>
+        <%= link "Upcoming", to: Routes.filtered_movies_path(@conn, :index, :upcoming) %>
       </li>
       <li>
-        <%#= link "Recent", to: Routes.filtered_movies_path(@conn, :filter, :recent) %>
+        <%= link "Recent", to: Routes.filtered_movies_path(@conn, :index, :recent) %>
       </li>
       <li>
-        <%#= link "Hits", to: Routes.filtered_movies_path(@conn, :filter, :hits) %>
+        <%= link "Hits", to: Routes.filtered_movies_path(@conn, :index, :hits) %>
       </li>
       <li>
-        <%#= link "Flops", to: Routes.filtered_movies_path(@conn, :filter, :flops) %>
+        <%= link "Flops", to: Routes.filtered_movies_path(@conn, :index, :flops) %>
       </li>
     </ul>
     <ul class="right">
-      <% if @current_user do %>
+      <%= if @current_user do %>
         <li>
           <%= link @current_user.email, to: Routes.movie_path(@conn, :index) %>
         </li>
