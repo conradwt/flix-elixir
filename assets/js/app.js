@@ -15,4 +15,4 @@ import "../css/app.scss"
 import "phoenix_html"
 
 // Bootstrap support
-import 'bootstrap';
+// import 'bootstrap';

@@ -1,5 +1,7 @@
 /* This file is for your main application css. */
-@import './phoenix.css';
+// @import './phoenix.css';
+@import '~bootstrap/scss/bootstrap.scss';
+@import './css/custom.scss';
 
 /* Alerts and form errors */
 .alert {
