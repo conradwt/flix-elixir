@@ -18,6 +18,9 @@
 #   movies = Movie.create([{ name: 'Star Wars' }, { name: 'Lord of the Rings' }])
 #   Character.create(name: 'Luke', movie: movies.first)
 
+# delete movie records in movies table.
+Flix.Repo.delete_all("movies")
+
 alias Flix.Catalogs
 
 movie_data = [
