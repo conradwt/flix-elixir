@@ -20,7 +20,7 @@ defmodule Flix.MixProject do
   def application do
     [
       mod: {Flix.Application, []},
-      extra_applications: [:logger, :runtime_tools]
+      extra_applications: [:logger, :runtime_tools, :phoenix_html_simplified_helpers]
     ]
   end
 
@@ -46,7 +46,9 @@ defmodule Flix.MixProject do
       {:gettext, "~> 0.11"},
       {:jason, "~> 1.0"},
       {:plug_cowboy, "~> 2.0"},
-      {:phx_gen_auth, "~> 0.6", only: [:dev], runtime: false}
+      {:phx_gen_auth, "~> 0.6", only: [:dev], runtime: false},
+      {:number, "~> 1.0"},
+      {:phoenix_html_simplified_helpers, "~> 2.1"}
     ]
   end
 

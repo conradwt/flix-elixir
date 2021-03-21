@@ -62,6 +62,7 @@ defmodule FlixWeb do
     quote do
       # Use all HTML functionality (forms, tags, etc)
       use Phoenix.HTML
+      use Phoenix.HTML.SimplifiedHelpers
 
       # Import basic rendering functionality (render, render_layout, etc)
       import Phoenix.View
