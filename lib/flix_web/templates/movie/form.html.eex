@@ -33,9 +33,9 @@
   <%= text_input f, :duration %>
   <%= error_tag f, :duration %>
 
-  <%= label f, :slug %>
-  <%= text_input f, :slug %>
-  <%= error_tag f, :slug %>
+  <%= label f, :main_image %>
+  <%= text_input f, :main_image %>
+  <%= error_tag f, :main_image %>
 
   <div>
     <%= submit "Save" %>

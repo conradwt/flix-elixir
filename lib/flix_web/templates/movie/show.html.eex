@@ -1,48 +1,76 @@
-<h1>Show Movie</h1>
+<section class="movie-details">
+  <div class="image">
+    <%= main_image(@movie) %>
+    <%= if @current_user do %>
+      <div class="faves">
+        <%# <%= fave_or_unfave_button(@movie, @favorite) %> %>
+        <div class="count">
+          <%# <%= @fans.size %> %>
+        </div>
+      </div>
+    <% end %>
+  </div>
 
-<ul>
+  <div class="details">
+    <h1><%= @movie.title %></h1>
+    <h2>
+      <%= year_of(@movie) %> &bull; <%= @movie.rating %>
+    </h2>
+    <div class="reviews">
+      <%#= render "shared/stars", percent: @movie.average_stars_as_percent %>
+      <%#= link_to pluralize(@movie.reviews.count, 'review'), movie_reviews_path(@movie) %>
+    </div>
+    <p>
+      <%= @movie.description %>
+    </p>
+    <table>
+      <tr>
+        <th>Director:</th>
+        <td><%= @movie.director %></td>
+      </tr>
+      <tr>
+        <th>Duration:</th>
+        <td><%= @movie.duration %></td>
+      </tr>
+      <tr>
+        <th>Total Gross:</th>
+        <td><%= total_gross(@movie) %></td>
+      </tr>
+    </table>
+    <div class="review">
+      <%#= link_to 'Write Review', new_movie_review_path(@movie) %>
+    </div>
+  </div>
+  <aside>
+    <%# <% if @fans.present? %>
+      <h4>Fans</h4>
+        <ul>
+          <%# @fans.each do |user| %>
+            <li>
+              <%#= link_to user.name, user %>
+            </li>
+          <%# end %>
+        </ul>
+    <%# end %>
+    <%# if @genres.present? %>
+      <h4>Genres</h4>
+        <ul>
+          <%# @genres.each do |genre| %>
+            <li>
+              <%#= genre.name %>
+            </li>
+          <%# end %>
+        </ul>
+    <%# end %>
+  </aside>
+</section>
 
-  <li>
-    <strong>Title:</strong>
-    <%= @movie.title %>
-  </li>
-
-  <li>
-    <strong>Rating:</strong>
-    <%= @movie.rating %>
-  </li>
-
-  <li>
-    <strong>Total gross:</strong>
-    <%= @movie.total_gross %>
-  </li>
-
-  <li>
-    <strong>Description:</strong>
-    <%= @movie.description %>
-  </li>
-
-  <li>
-    <strong>Released on:</strong>
-    <%= @movie.released_on %>
-  </li>
-
-  <li>
-    <strong>Director:</strong>
-    <%= @movie.director %>
-  </li>
-
-  <li>
-    <strong>Duration:</strong>
-    <%= @movie.duration %>
-  </li>
-
-  <li>
-    <strong>Slug:</strong>
-    <%= @movie.slug %>
-  </li>
-
-</ul>
-
-<span><%= link "Edit", to: Routes.movie_path(@conn, :edit, @movie) %></span>
-<span><%= link "Back", to: Routes.movie_path(@conn, :index) %></span>
+<%# if current_user_admin? %>
+<%= if @current_user do %>
+  <section class="admin">
+    <%= link "Edit", to: Routes.movie_path(@conn, :edit, @movie) %>
+    <%= link "Delete", to: Routes.movie_path(@conn, :delete, @movie),
+                           method: :delete,
+                           data: [confirm: "Are you sure?"] %>
+  </section>
+<% end %>

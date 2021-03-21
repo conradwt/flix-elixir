@@ -56,6 +56,24 @@ defmodule Flix.Catalogs do
   end
 
   @doc """
+  Creates a movie.
+
+  ## Examples
+
+      iex> create_movie!(%{field: value})
+      {:ok, %Movie{}}
+
+      iex> create_movie!(%{field: bad_value})
+      {:error, %Ecto.Changeset{}}
+
+  """
+  def create_movie!(attrs \\ %{}) do
+    %Movie{}
+    |> Movie.changeset(attrs)
+    |> Repo.insert!()
+  end
+
+  @doc """
   Updates a movie.
 
   ## Examples
