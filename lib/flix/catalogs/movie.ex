@@ -17,6 +17,8 @@ defmodule Flix.Catalogs.Movie do
     timestamps()
   end
 
+  def filters, do: ~w(released upcoming recent hits flops)
+
   def ratings, do: ~w(G PG PG-13 R NC-17)
 
   @doc false
