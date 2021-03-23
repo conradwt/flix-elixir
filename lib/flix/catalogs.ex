@@ -13,7 +13,7 @@ defmodule Flix.Catalogs do
 
   ## Examples
 
-      iex> list_movies()
+      iex> list_movies(filter)
       [%Movie{}, ...]
 
   """
@@ -25,6 +25,15 @@ defmodule Flix.Catalogs do
     end
   end
 
+  @doc """
+  Returns the list of movies.
+
+  ## Examples
+
+      iex> list_movies()
+      [%Movie{}, ...]
+
+  """
   def list_movies() do
     Repo.all(Movie)
   end
