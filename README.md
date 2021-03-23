@@ -70,7 +70,7 @@ TBD
 
 Ready to run in production? Please [check our deployment guides](https://hexdocs.pm/phoenix/deployment.html).
 
-## Rails References
+## Phoenix References
 
 - Official website: https://www.phoenixframework.org/
 - Guides: https://hexdocs.pm/phoenix/overview.html
