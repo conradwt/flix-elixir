@@ -8,6 +8,8 @@ defmodule Flix.Catalogs do
 
   alias Flix.Catalogs.Movie
 
+  @filters ~w(released upcoming recent hits flops)
+
   @doc """
   Returns the list of movies.
 
@@ -17,7 +19,15 @@ defmodule Flix.Catalogs do
       [%Movie{}, ...]
 
   """
-  def list_movies do
+  def list_movies(filter) do
+    if Enum.member?(@filters, filter) do
+      apply(Movie, filter |> String.to_atom(), [Movie]) |> Repo.all()
+    else
+      list_movies()
+    end
+  end
+
+  def list_movies() do
     Repo.all(Movie)
   end
 

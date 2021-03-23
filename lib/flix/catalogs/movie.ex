@@ -1,6 +1,7 @@
 defmodule Flix.Catalogs.Movie do
   use Ecto.Schema
   import Ecto.Changeset
+  import Ecto.Query, only: [from: 2]
 
   schema "movies" do
     field :description, :string
@@ -47,13 +48,55 @@ defmodule Flix.Catalogs.Movie do
     |> validate_inclusion(:rating, ratings())
   end
 
+  def flops(query) do
+    from movie in query,
+      where: movie.total_gross < 225_000_000
+  end
+
+  def grossed_greater_than(query, amount) do
+    from movie in query,
+      where: movie.total_gross > ^amount
+  end
+
+  def grossed_less_than(query, amount) do
+    from movie in query,
+      where: movie.total_gross < ^amount
+  end
+
+  def hits(query) do
+    from movie in query,
+      where: movie.total_gross >= 300_000_000,
+      order_by: [desc: movie.total_gross]
+  end
+
+  def recent(query, max_number \\ 5) do
+    from movie in query,
+      where: movie.released_on < ^Date.utc_today(),
+      order_by: [desc: movie.released_on],
+      limit: ^max_number
+  end
+
+  def released(query) do
+    from movie in query,
+      where: movie.released_on < ^Date.utc_today(),
+      order_by: [desc: movie.released_on]
+  end
+
+  def upcoming(query) do
+    from movie in query,
+      where: movie.released_on > ^Date.utc_today(),
+      order_by: [asc: movie.released_on]
+  end
+
   def flop?(movie) do
     movie.total_gross < 225_000_000
   end
 
-  # def self.created do
-  #   order(created_at: :desc).limit(3)
-  # end
+  def created(query) do
+    from movie in query,
+      order_by: [:desc, movie.created_at],
+      limit: 3
+  end
 
   # def average_stars_as_percent do
   #   average_stars / 5.0 * 100

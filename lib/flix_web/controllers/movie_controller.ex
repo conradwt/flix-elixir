@@ -4,6 +4,13 @@ defmodule FlixWeb.MovieController do
   alias Flix.Catalogs
   alias Flix.Catalogs.Movie
 
+  require Logger
+
+  def index(conn, %{"filter" => filter}) do
+    movies = Catalogs.list_movies(filter)
+    render(conn, "index.html", movies: movies)
+  end
+
   def index(conn, _params) do
     movies = Catalogs.list_movies()
     render(conn, "index.html", movies: movies)
