@@ -2,12 +2,19 @@ defmodule Flix.Accounts.User do
   use Ecto.Schema
   import Ecto.Changeset
 
+  alias Flix.Catalogs.{Favorite, Review}
+
   @derive {Inspect, except: [:password]}
   schema "users" do
     field :email, :string
+    field :username, :string
     field :password, :string, virtual: true
     field :hashed_password, :string
     field :confirmed_at, :naive_datetime
+    field :admin, :boolean
+
+    has_many :reviews, Review
+    has_many :favorites, Favorite
 
     timestamps()
   end
@@ -31,10 +38,16 @@ defmodule Flix.Accounts.User do
   """
   def registration_changeset(user, attrs, opts \\ []) do
     user
-    |> cast(attrs, [:email, :password])
+    |> cast(attrs, [:email, :password, :username])
     |> validate_email()
     |> validate_password(opts)
+    |> validate_username()
   end
+
+  # defp validate_admin(changeset) do
+  #   changeset
+  #   |> validate_required([:admin])
+  # end
 
   defp validate_email(changeset) do
     changeset
@@ -66,6 +79,12 @@ defmodule Flix.Accounts.User do
     else
       changeset
     end
+  end
+
+  defp validate_username(changeset) do
+    changeset
+    |> validate_required([:username])
+    |> unique_constraint(:username)
   end
 
   @doc """
