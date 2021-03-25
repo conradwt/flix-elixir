@@ -3,6 +3,8 @@ defmodule Flix.Catalogs.Movie do
   import Ecto.Changeset
   import Ecto.Query, only: [from: 2]
 
+  alias Flix.Catalogs.{Favorite, Review, Characterization}
+
   schema "movies" do
     field :description, :string
     field :director, :string
@@ -14,63 +16,121 @@ defmodule Flix.Catalogs.Movie do
     field :total_gross, :decimal
     field :main_image, :string
 
+    has_many :reviews, Review
+    has_many :favorites, Favorite
+    # TODO: In Rails: has_many :fans, through: :favorites, source: :user
+    has_many :fans, through: [:favorites, :user]
+    has_many :characterizations, Characterization
+    has_many :genres, through: [:characterizations, :genre]
+
     timestamps()
   end
 
+  @doc false
   def filters, do: ~w(released upcoming recent hits flops)
 
+  @doc false
   def ratings, do: ~w(G PG PG-13 R NC-17)
 
   @doc false
   def changeset(movie, attrs) do
     movie
     |> cast(attrs, [
-      :title,
-      :rating,
-      :total_gross,
       :description,
-      :released_on,
       :director,
       :duration,
-      :slug,
-      :main_image
-    ])
-    |> validate_required([
-      :title,
+      :main_image,
       :rating,
-      :total_gross,
-      :description,
       :released_on,
-      :director,
-      :duration
+      :slug,
+      :title,
+      :total_gross
     ])
-    |> unique_constraint(:title)
-    |> validate_length(:description, min: 25)
-    |> validate_number(:total_gross, greater_than_or_equal_to: 0)
-    |> validate_inclusion(:rating, ratings())
+    |> validate_description(min: 25)
+    |> validate_director
+    |> validate_duration
+    |> validate_main_image
+    |> validate_rating(ratings())
+    |> validate_released_on
+    |> validate_slug
+    |> validate_title
+    |> validate_total_gross(greater_than_or_equal_to: 0)
   end
 
+  defp validate_description(changeset, options) do
+    changeset
+    |> validate_required([:description])
+    |> validate_length(:description, options)
+  end
+
+  defp validate_director(changeset) do
+    changeset
+    |> validate_required([:director])
+  end
+
+  defp validate_duration(changeset) do
+    changeset
+    |> validate_required([:duration])
+  end
+
+  defp validate_main_image(changeset) do
+    changeset
+    |> validate_required([:main_image])
+  end
+
+  defp validate_rating(changeset, options) do
+    changeset
+    |> validate_required([:rating])
+    |> validate_inclusion(:rating, options)
+  end
+
+  defp validate_released_on(changeset) do
+    changeset
+    |> validate_required([:released_on])
+  end
+
+  defp validate_slug(changeset) do
+    changeset
+  end
+
+  defp validate_title(changeset) do
+    changeset
+    |> validate_required([:title])
+    |> unique_constraint(:title)
+  end
+
+  defp validate_total_gross(changeset, options) do
+    changeset
+    |> validate_required([:total_gross])
+    |> validate_number(:total_gross, options)
+  end
+
+  @doc false
   def flops(query) do
     from movie in query,
       where: movie.total_gross < 225_000_000
   end
 
+  @doc false
   def grossed_greater_than(query, amount) do
     from movie in query,
       where: movie.total_gross > ^amount
   end
 
+  @doc false
   def grossed_less_than(query, amount) do
     from movie in query,
       where: movie.total_gross < ^amount
   end
 
+  @doc false
   def hits(query) do
     from movie in query,
       where: movie.total_gross >= 300_000_000,
       order_by: [desc: movie.total_gross]
   end
 
+  @doc false
   def recent(query, max_number \\ 5) do
     from movie in query,
       where: movie.released_on < ^Date.utc_today(),
@@ -78,22 +138,26 @@ defmodule Flix.Catalogs.Movie do
       limit: ^max_number
   end
 
+  @doc false
   def released(query) do
     from movie in query,
       where: movie.released_on < ^Date.utc_today(),
       order_by: [desc: movie.released_on]
   end
 
+  @doc false
   def upcoming(query) do
     from movie in query,
       where: movie.released_on > ^Date.utc_today(),
       order_by: [asc: movie.released_on]
   end
 
+  @doc false
   def flop?(movie) do
     movie.total_gross < 225_000_000
   end
 
+  @doc false
   def created(query) do
     from movie in query,
       order_by: [:desc, movie.created_at],
@@ -104,6 +168,7 @@ defmodule Flix.Catalogs.Movie do
   #   average_stars / 5.0 * 100
   # end
 
+  # TODO: https://hexdocs.pm/ecto/aggregates-and-subqueries.html#aggregates
   # def average_stars do
   #   reviews.average(:stars) || 0.0
   # end
