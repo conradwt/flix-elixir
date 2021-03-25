@@ -4,7 +4,9 @@ defmodule FlixWeb.MovieController do
   alias Flix.Catalogs
   alias Flix.Catalogs.Movie
 
-  require Logger
+  import FlixWeb.UserAuth, only: [require_authenticated_user: 2]
+
+  plug :require_authenticated_user when action not in [:index, :show]
 
   def index(conn, %{"filter" => filter}) do
     movies = Catalogs.list_movies(filter)
@@ -65,16 +67,5 @@ defmodule FlixWeb.MovieController do
     conn
     |> put_flash(:info, "Movie deleted successfully.")
     |> redirect(to: Routes.movie_path(conn, :index))
-  end
-
-  ## WIP
-  def movies_filter do
-    params = %{filter: "recent"}
-
-    if Enum.member?(["upcoming", "recent", "hits", "flops"], params[:filter]) do
-      apply(Movie, params[:filter], [])
-    else
-      apply(Movie, :released, [])
-    end
   end
 end
