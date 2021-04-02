@@ -5,7 +5,7 @@
     <span>★</span>
     <span>★</span>
     <span>★</span>
-    <div class="front-stars" style="width: <%= percent %>%">
+    <div class="front-stars" style="width: <%= @percent %>%">
       <span>★</span>
       <span>★</span>
       <span>★</span>

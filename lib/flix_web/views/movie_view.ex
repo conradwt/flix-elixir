@@ -3,22 +3,27 @@ defmodule FlixWeb.MovieView do
 
   import Number.Currency
   import Phoenix.HTML.SimplifiedHelpers.Truncate
-  import Phoenix.HTML.SimplifiedHelpers.TimeAgoInWords
 
   alias Flix.Catalogs.Movie
 
-  # def average_stars(movie) do
-  #   average = movie.average_stars
-  #   average.zero? ? 'No reviews' : number_with_precision(average, precision: 1)
-  # end
+  def average_stars_as_percent(movie) do
+    average_stars(movie)
+  end
 
-  # def average_stars_as_percent do
-  #   average_stars(self)
-  # end
+  def average_stars(movie) do
+    average = movie |> Movie.average_stars()
 
-  # def description(movie) do
-  #   truncate(movie.description, length: 40, separator: ' ')
-  # end
+    if average == 0 do
+      "No reviews"
+    else
+      # number_with_precision(average, precision: 1)
+      :erlang.float_to_binary(average, decimals: 1)
+    end
+  end
+
+  def description(movie) do
+    truncate(movie.description, length: 40, separator: " ")
+  end
 
   def main_image(movie) do
     # if movie.main_image.attached?
@@ -27,7 +32,11 @@ defmodule FlixWeb.MovieView do
     #   image_tag 'placeholder.png'
     # end
 
-    img_tag("/images/#{movie.main_image}")
+    if File.exists?("#{File.cwd!()}/assets/static/images/#{movie.main_image}") do
+      img_tag("/images/#{movie.main_image}")
+    else
+      img_tag("/images/placeholder.png")
+    end
   end
 
   def nav_link_to(text, url) do
@@ -52,5 +61,13 @@ defmodule FlixWeb.MovieView do
 
   defp current_page?(_url) do
     true
+  end
+
+  def pluralize(n, word) do
+    case n do
+      0 -> "0 #{word}s"
+      1 -> "1 #{word}"
+      n -> "#{n} #{word}s"
+    end
   end
 end

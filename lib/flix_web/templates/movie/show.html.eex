@@ -17,8 +17,11 @@
       <%= year_of(@movie) %> &bull; <%= @movie.rating %>
     </h2>
     <div class="reviews">
-      <%#= render "shared/stars", percent: @movie.average_stars_as_percent %>
-      <%#= link_to pluralize(@movie.reviews.count, 'review'), movie_reviews_path(@movie) %>
+      <%= render FlixWeb.SharedView,
+        "_stars.html",
+        percent: Movie.average_stars_as_percent(@movie)
+      %>
+      <%= link pluralize(@count, 'Review'), to: movie_review_path(@conn, :index, @movie) %>
     </div>
     <p>
       <%= @movie.description %>
@@ -38,7 +41,7 @@
       </tr>
     </table>
     <div class="review">
-      <%#= link_to 'Write Review', new_movie_review_path(@movie) %>
+      <%= link "Write Review", to: movie_review_path(@conn, :new, @movie) %>
     </div>
   </div>
   <aside>
@@ -66,7 +69,7 @@
 </section>
 
 <%# if current_user_admin? %>
-<%= if @current_user do %>
+<%= if false do %>
   <section class="admin">
     <%= link "Edit", to: Routes.movie_path(@conn, :edit, @movie) %>
     <%= link "Delete", to: Routes.movie_path(@conn, :delete, @movie),

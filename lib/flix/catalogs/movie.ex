@@ -3,25 +3,27 @@ defmodule Flix.Catalogs.Movie do
   import Ecto.Changeset
   import Ecto.Query, only: [from: 2]
 
+  alias Flix.Catalogs
   alias Flix.Catalogs.{Favorite, Review, Characterization}
+  alias Flix.Repo
 
   schema "movies" do
-    field :description, :string
-    field :director, :string
-    field :duration, :string
-    field :rating, :string
-    field :released_on, :date
-    field :slug, :string
-    field :title, :string
-    field :total_gross, :decimal
-    field :main_image, :string
+    field(:description, :string)
+    field(:director, :string)
+    field(:duration, :string)
+    field(:rating, :string)
+    field(:released_on, :date)
+    field(:slug, :string)
+    field(:title, :string)
+    field(:total_gross, :decimal)
+    field(:main_image, :string)
 
-    has_many :reviews, Review
-    has_many :favorites, Favorite
+    has_many(:reviews, Review)
+    has_many(:favorites, Favorite)
     # TODO: In Rails: has_many :fans, through: :favorites, source: :user
-    has_many :fans, through: [:favorites, :user]
-    has_many :characterizations, Characterization
-    has_many :genres, through: [:characterizations, :genre]
+    has_many(:fans, through: [:favorites, :user])
+    has_many(:characterizations, Characterization)
+    has_many(:genres, through: [:characterizations, :genre])
 
     timestamps()
   end
@@ -107,49 +109,56 @@ defmodule Flix.Catalogs.Movie do
 
   @doc false
   def flops(query) do
-    from movie in query,
+    from(movie in query,
       where: movie.total_gross < 225_000_000
+    )
   end
 
   @doc false
   def grossed_greater_than(query, amount) do
-    from movie in query,
+    from(movie in query,
       where: movie.total_gross > ^amount
+    )
   end
 
   @doc false
   def grossed_less_than(query, amount) do
-    from movie in query,
+    from(movie in query,
       where: movie.total_gross < ^amount
+    )
   end
 
   @doc false
   def hits(query) do
-    from movie in query,
+    from(movie in query,
       where: movie.total_gross >= 300_000_000,
       order_by: [desc: movie.total_gross]
+    )
   end
 
   @doc false
   def recent(query, max_number \\ 5) do
-    from movie in query,
+    from(movie in query,
       where: movie.released_on < ^Date.utc_today(),
       order_by: [desc: movie.released_on],
       limit: ^max_number
+    )
   end
 
   @doc false
   def released(query) do
-    from movie in query,
+    from(movie in query,
       where: movie.released_on < ^Date.utc_today(),
       order_by: [desc: movie.released_on]
+    )
   end
 
   @doc false
   def upcoming(query) do
-    from movie in query,
+    from(movie in query,
       where: movie.released_on > ^Date.utc_today(),
       order_by: [asc: movie.released_on]
+    )
   end
 
   @doc false
@@ -159,19 +168,32 @@ defmodule Flix.Catalogs.Movie do
 
   @doc false
   def created(query) do
-    from movie in query,
+    from(movie in query,
       order_by: [:desc, movie.created_at],
       limit: 3
+    )
   end
 
-  # def average_stars_as_percent do
-  #   average_stars / 5.0 * 100
-  # end
+  def average_stars_as_percent(movie) do
+    average = movie |> average_stars()
+    average / 5.0 * 100
+  end
 
-  # TODO: https://hexdocs.pm/ecto/aggregates-and-subqueries.html#aggregates
-  # def average_stars do
-  #   reviews.average(:stars) || 0.0
-  # end
+  def average_stars(movie) do
+    movie = movie |> Repo.preload(:reviews)
+
+    if Enum.empty?(movie.reviews) do
+      0.0
+    else
+      Repo.one(
+        from(r in Review,
+          where: ^movie.id == r.movie_id,
+          select: avg(r.stars)
+        )
+      )
+      |> Decimal.to_float()
+    end
+  end
 
   # TODO: remove as this will be taken care of
   # defp to_param do

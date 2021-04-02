@@ -1,0 +1,27 @@
+<h1>Reviews for <%= link @movie.title, to: Routes.movie_path(@conn, :show, @movie)  %></h1>
+<ul class="reviews">
+  <%= for review <- @reviews do %>
+    <li>
+      <p>
+        <%= render FlixWeb.SharedView, "_stars.html", percent: Review.stars_as_percent(review) %>
+      </p>
+      <p>
+        <%#= profile_image(review.user, 35) %>
+        <%#= link_to review.user.name, review.user %>
+        <span class="date">
+          <%= time_ago_in_words(review.inserted_at) %> ago
+        </span>
+      </p>
+      <p>
+        <%= review.comment %>
+      </p>
+
+      <div class="admin">
+        <%= if (@current_user.id == review.user_id) || @current_user.admin do %>
+          <%= link 'Edit', to: Routes.movie_review_path(@conn, :edit, @movie, review)  %>
+          <%= link 'Delete',to: Routes.movie_review_path(@conn, :delete, @movie, review), method: :delete, data: [confirm: "Are you sure?"] %>
+        <% end  %>
+      </div>
+    </li>
+  <% end %>
+</ul>
