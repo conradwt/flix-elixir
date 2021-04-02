@@ -5,7 +5,7 @@
   <%= email_input f, :email, required: true %>
 
   <div>
-    <%= submit "Resend confirmation instructions" %>
+    <%= submit "Resend confirmation instructions", class: "btn btn-primary" %>
   </div>
 <% end %>
 

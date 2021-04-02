@@ -5,7 +5,7 @@
   <%= email_input f, :email, required: true %>
 
   <div>
-    <%= submit "Send instructions to reset password" %>
+    <%= submit "Send instructions to reset password", class: "btn btn-primary" %>
   </div>
 <% end %>
 

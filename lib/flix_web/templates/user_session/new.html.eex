@@ -19,11 +19,7 @@
   <%= label f, :remember_me, "Keep me logged in for 60 days" %>
   <%= checkbox f, :remember_me %>
 
-  <div class="">
-
-  <%= submit "Sign In" %>
-  </div>
-
+  <%= submit "Sign In", class: "btn btn-primary" %>
 <% end %>
 
 <p>

@@ -20,7 +20,7 @@
   <%= error_tag f, :password %>
 
   <div>
-    <%= submit "Register" %>
+    <%= submit "Register", class: "btn btn-primary" %>
   </div>
 <% end %>
 

@@ -16,7 +16,7 @@
   <%= error_tag f, :password_confirmation %>
 
   <div>
-    <%= submit "Reset password" %>
+    <%= submit "Reset password", class: "btn btn-primary" %>
   </div>
 <% end %>
 
