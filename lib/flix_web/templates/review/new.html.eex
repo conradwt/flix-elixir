@@ -1,0 +1,3 @@
+<h1>New Review for <%= link @movie.title, to: movie_path(@conn, :show, @movie) %></h1>
+
+<%= render "form.html", Map.put(assigns, :action, movie_review_path(@conn, :create, @movie)) %>

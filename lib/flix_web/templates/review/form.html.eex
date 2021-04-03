@@ -1,0 +1,19 @@
+<%= form_for @changeset, @action, fn f -> %>
+  <%= if @changeset.action do %>
+    <div class="alert alert-danger">
+      <p>Oops, something went wrong! Please check the errors below.</p>
+    </div>
+  <% end %>
+
+  <%= label f, :stars %>
+  <%= number_input f, :stars %>
+  <%= error_tag f, :stars %>
+
+  <%= label f, :comment %>
+  <%= textarea f, :comment %>
+  <%= error_tag f, :comment %>
+
+  <div>
+    <%= submit "Post Review", class: "btn btn-primary" %>
+  </div>
+<% end %>
