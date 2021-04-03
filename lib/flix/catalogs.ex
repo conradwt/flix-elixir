@@ -165,14 +165,20 @@ defmodule Flix.Catalogs do
 
   ## Examples
 
-      iex> get_review!(123)
+      iex> get_review!(movie, 123)
       %Review{}
 
-      iex> get_review!(456)
+      iex> get_review!(movie, 456)
       ** (Ecto.NoResultsError)
 
   """
-  def get_review!(id), do: Repo.get!(Review, id)
+  def get_review!(movie, id) do
+    query =
+      from review in Review,
+        where: review.movie_id == ^movie.id
+
+    Repo.get!(query, id)
+  end
 
   @doc """
   Creates a review.
