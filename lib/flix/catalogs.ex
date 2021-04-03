@@ -1,12 +1,18 @@
+# Reference(s):
+#
+#   https://elixircasts.io/phoenix-contexts
+#   https://hexdocs.pm/ecto/Ecto.Schema.html
+#   https://hexdocs.pm/ecto/Ecto.Repo.html
+#
 defmodule Flix.Catalogs do
   @moduledoc """
   The Catalogs context.
   """
 
   import Ecto.Query, warn: false
-  alias Flix.Repo
 
-  alias Flix.Catalogs.Movie
+  alias Flix.Catalogs.{Genre, Favorite, Movie, Review}
+  alias Flix.Repo
 
   @doc """
   Returns the list of movies.
@@ -135,5 +141,245 @@ defmodule Flix.Catalogs do
   """
   def change_movie(%Movie{} = movie, attrs \\ %{}) do
     Movie.changeset(movie, attrs)
+  end
+
+  @doc """
+  Returns the list of reviews for a given movie.
+
+  ## Examples
+
+      iex> list_reviews(movie)
+      [%Review{}, ...]
+
+  """
+  def list_reviews(movie) do
+    movie
+    |> Ecto.assoc(:reviews)
+    |> Repo.all()
+  end
+
+  @doc """
+  Gets a single review.
+
+  Raises `Ecto.NoResultsError` if the Review does not exist.
+
+  ## Examples
+
+      iex> get_review!(123)
+      %Review{}
+
+      iex> get_review!(456)
+      ** (Ecto.NoResultsError)
+
+  """
+  def get_review!(id), do: Repo.get!(Review, id)
+
+  @doc """
+  Creates a review.
+
+  ## Examples
+
+      iex> create_review(%{field: value})
+      {:ok, %Review{}}
+
+      iex> create_review(%{field: bad_value})
+      {:error, %Ecto.Changeset{}}
+
+  """
+  def create_review(attrs \\ %{}) do
+    %Review{}
+    |> Review.changeset(attrs)
+    |> Repo.insert()
+  end
+
+  @doc """
+  Updates a review.
+
+  ## Examples
+
+      iex> update_review(review, %{field: new_value})
+      {:ok, %Review{}}
+
+      iex> update_review(review, %{field: bad_value})
+      {:error, %Ecto.Changeset{}}
+
+  """
+  def update_review(%Review{} = review, attrs) do
+    review
+    |> Review.changeset(attrs)
+    |> Repo.update()
+  end
+
+  @doc """
+  Deletes a review.
+
+  ## Examples
+
+      iex> delete_review(review)
+      {:ok, %Review{}}
+
+      iex> delete_review(review)
+      {:error, %Ecto.Changeset{}}
+
+  """
+  def delete_review(%Review{} = review) do
+    Repo.delete(review)
+  end
+
+  @doc """
+  Returns an `%Ecto.Changeset{}` for tracking review changes.
+
+  ## Examples
+
+      iex> change_review(review)
+      %Ecto.Changeset{data: %Review{}}
+
+  """
+  def change_review(%Review{} = review, attrs \\ %{}) do
+    Review.changeset(review, attrs)
+  end
+
+  @doc """
+  Returns the list of genres.
+
+  ## Examples
+
+      iex> list_genres()
+      [%Genre{}, ...]
+
+  """
+  def list_genres do
+    Repo.all(Genre)
+  end
+
+  @doc """
+  Gets a single genre.
+
+  Raises `Ecto.NoResultsError` if the Genre does not exist.
+
+  ## Examples
+
+      iex> get_genre!(123)
+      %Genre{}
+
+      iex> get_genre!(456)
+      ** (Ecto.NoResultsError)
+
+  """
+  def get_genre!(id), do: Repo.get!(Genre, id)
+
+  @doc """
+  Creates a genre.
+
+  ## Examples
+
+      iex> create_genre(%{field: value})
+      {:ok, %Genre{}}
+
+      iex> create_genre(%{field: bad_value})
+      {:error, %Ecto.Changeset{}}
+
+  """
+  def create_genre(attrs \\ %{}) do
+    %Genre{}
+    |> Genre.changeset(attrs)
+    |> Repo.insert()
+  end
+
+  @doc """
+  Updates a genre.
+
+  ## Examples
+
+      iex> update_genre(genre, %{field: new_value})
+      {:ok, %Genre{}}
+
+      iex> update_genre(genre, %{field: bad_value})
+      {:error, %Ecto.Changeset{}}
+
+  """
+  def update_genre(%Genre{} = genre, attrs) do
+    genre
+    |> Genre.changeset(attrs)
+    |> Repo.update()
+  end
+
+  @doc """
+  Deletes a genre.
+
+  ## Examples
+
+      iex> delete_genre(genre)
+      {:ok, %Genre{}}
+
+      iex> delete_genre(genre)
+      {:error, %Ecto.Changeset{}}
+
+  """
+  def delete_genre(%Genre{} = genre) do
+    Repo.delete(genre)
+  end
+
+  @doc """
+  Returns an `%Ecto.Changeset{}` for tracking genre changes.
+
+  ## Examples
+
+      iex> change_genre(genre)
+      %Ecto.Changeset{data: %Genre{}}
+
+  """
+  def change_genre(%Genre{} = genre, attrs \\ %{}) do
+    Genre.changeset(genre, attrs)
+  end
+
+  @doc """
+  Gets a single favorite.
+
+  Raises `Ecto.NoResultsError` if the Favorite does not exist.
+
+  ## Examples
+
+      iex> get_favorite!(123)
+      %Favorite{}
+
+      iex> get_favorite!(456)
+      ** (Ecto.NoResultsError)
+
+  """
+  def get_favorite!(id), do: Repo.get!(Favorite, id)
+
+  @doc """
+  Creates a favorite.
+
+  ## Examples
+
+      iex> create_favorite(%{field: value})
+      {:ok, %Favorite{}}
+
+      iex> create_favorite(%{field: bad_value})
+      {:error, %Ecto.Changeset{}}
+
+  """
+  def create_favorite(attrs \\ %{}) do
+    %Favorite{}
+    |> Favorite.changeset(attrs)
+    |> Repo.insert()
+  end
+
+  @doc """
+  Deletes a favorite.
+
+  ## Examples
+
+      iex> delete_favorite(favorite)
+      {:ok, %Favorite{}}
+
+      iex> delete_favorite(favorite)
+      {:error, %Ecto.Changeset{}}
+
+  """
+  def delete_favorite(%Favorite{} = favorite) do
+    Repo.delete(favorite)
   end
 end
