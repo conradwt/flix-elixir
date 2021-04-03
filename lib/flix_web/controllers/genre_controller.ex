@@ -1,6 +1,11 @@
 defmodule FlixWeb.GenreController do
   use FlixWeb, :controller
 
+  import FlixWeb.UserAuth, only: [require_authenticated_user: 2]
+
+  plug :require_authenticated_user
+  # before_action :require_admin, except: %i[index show]
+
   alias Flix.Catalogs
   alias Flix.Catalogs.Genre
 
