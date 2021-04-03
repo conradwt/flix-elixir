@@ -27,7 +27,7 @@ defmodule FlixWeb.Router do
 
     resources "/movies", MovieController do
       resources "/favorites", FavoriteController, only: [:create, :delete]
-      resources "/reviews", ReviewController
+      resources "/reviews", ReviewController, except: [:show]
     end
   end
 
