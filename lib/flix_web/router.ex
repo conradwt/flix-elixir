@@ -21,9 +21,14 @@ defmodule FlixWeb.Router do
 
     get "/", MovieController, :index
 
+    resources "/genres", GenreController
+
     get "/movies/filter/:filter", MovieController, :index, as: :filtered_movies
 
-    resources "/movies", MovieController
+    resources "/movies", MovieController do
+      resources "/favorites", FavoriteController, only: [:create, :delete]
+      resources "/reviews", ReviewController
+    end
   end
 
   # Other scopes may use custom stacks.
