@@ -12,7 +12,7 @@ defmodule FlixWeb.FavoriteController do
     %{movie: movie} = conn.assigns
 
     case Catalogs.create_favorite(favorite_params) do
-      {:ok, favorite} ->
+      {:ok, _favorite} ->
         conn
         |> put_flash(:info, "Favorite created successfully.")
         |> redirect(to: Routes.movie_path(conn, :show, movie))
