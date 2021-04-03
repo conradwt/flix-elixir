@@ -1,12 +1,13 @@
 defmodule FlixWeb.MovieController do
   use FlixWeb, :controller
 
-  alias Flix.Catalogs
-  alias Flix.Catalogs.Movie
-
   import FlixWeb.UserAuth, only: [require_authenticated_user: 2]
 
   plug :require_authenticated_user when action not in [:index, :show]
+  # before_action :require_admin, except: %i[index show]
+
+  alias Flix.Catalogs
+  alias Flix.Catalogs.{Movie}
 
   def index(conn, %{"filter" => filter}) do
     movies = Catalogs.list_movies(filter)
@@ -37,7 +38,8 @@ defmodule FlixWeb.MovieController do
 
   def show(conn, %{"id" => id}) do
     movie = Catalogs.get_movie!(id)
-    render(conn, "show.html", movie: movie)
+    count = Catalogs.list_reviews(movie) |> length
+    render(conn, "show.html", movie: movie, count: count)
   end
 
   def edit(conn, %{"id" => id}) do
