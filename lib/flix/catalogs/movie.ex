@@ -3,7 +3,6 @@ defmodule Flix.Catalogs.Movie do
   import Ecto.Changeset
   import Ecto.Query, only: [from: 2]
 
-  alias Flix.Catalogs
   alias Flix.Catalogs.{Favorite, Review, Characterization}
   alias Flix.Repo
 
