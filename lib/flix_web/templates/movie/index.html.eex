@@ -21,8 +21,8 @@
 <% end %>
 
 <%# if current_user_admin? %>
-<%= if @current_user do %>
+<%= if false do %>
   <section>
-    <<%= link "New Movie", to: Routes.movie_path(@conn, :new) %>
+    <%= link "New Movie", to: Routes.movie_path(@conn, :new) %>
   </section>
 <% end  %>
