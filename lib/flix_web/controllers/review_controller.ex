@@ -26,12 +26,6 @@ defmodule FlixWeb.ReviewController do
       |> Ecto.build_assoc(:reviews, %Review{user_id: current_user.id})
       |> change
 
-    # changeset =
-    #   Catalogs.change_review(%Review{
-    #     user_id: current_user.id,
-    #     movie_id: movie.id
-    #   })
-
     render(conn, "new.html", movie: movie, changeset: changeset)
   end
 
@@ -45,7 +39,7 @@ defmodule FlixWeb.ReviewController do
          ) do
       {:ok, _review} ->
         conn
-        |> put_flash(:info, "Review created successfully.")
+        |> put_flash(:info, "Thanks for your review!")
         |> redirect(to: Routes.movie_path(conn, :show, movie))
 
       {:error, %Ecto.Changeset{} = changeset} ->
@@ -53,45 +47,48 @@ defmodule FlixWeb.ReviewController do
     end
   end
 
-  # def show(conn, %{"id" => id}) do
-  #   review = Catalogs.get_review!(id)
-  #   render(conn, "show.html", review: review)
-  # end
+  def edit(conn, %{"id" => id}) do
+    %{movie: movie} = conn.assigns
+    # current_user = conn.assigns.current_user
 
-  # def edit(conn, %{"id" => id}) do
-  #   %{movie: movie} = conn.assigns
-  #   current_user = conn.assigns.current_user
+    review = Catalogs.get_review!(movie, id)
+    changeset = Catalogs.change_review(review)
+    render(conn, "edit.html", review: review, changeset: changeset)
+  end
 
-  #   review = Catalogs.get_review!(id)
-  #   changeset = Catalogs.change_review(review)
-  #   render(conn, "edit.html", review: review, changeset: changeset)
-  # end
+  def update(conn, %{"id" => id, "review" => review_params}) do
+    %{movie: movie} = conn.assigns
+    # current_user = conn.assigns.current_user
 
-  # def update(conn, %{"id" => id, "review" => review_params}) do
-  #   %{movie: movie} = conn.assigns
-  #   current_user = conn.assigns.current_user
+    review = Catalogs.get_review!(movie, id)
 
-  #   review = Catalogs.get_review!(id)
+    case Catalogs.update_review(review, review_params) do
+      {:ok, _review} ->
+        conn
+        |> put_flash(:info, "Thanks for updating your review!")
+        |> redirect(to: Routes.movie_review_path(conn, :index, movie))
 
-  #   case Catalogs.update_review(review, review_params) do
-  #     {:ok, review} ->
-  #       conn
-  #       |> put_flash(:info, "Review updated successfully.")
-  #       |> redirect(to: Routes.review_path(conn, :show, review))
+      {:error, %Ecto.Changeset{} = changeset} ->
+        render(conn, "edit.html", review: review, changeset: changeset)
+    end
+  end
 
-  #     {:error, %Ecto.Changeset{} = changeset} ->
-  #       render(conn, "edit.html", review: review, changeset: changeset)
-  #   end
-  # end
+  def delete(conn, %{"id" => id}) do
+    %{movie: movie} = conn.assigns
+    review = Catalogs.get_review!(movie, id)
 
-  # def delete(conn, %{"id" => id}) do
-  #   review = Catalogs.get_review!(id)
-  #   {:ok, _review} = Catalogs.delete_review(review)
+    case Catalogs.delete_review(review) do
+      {:ok, _review} ->
+        conn
+        |> put_flash(:info, "Sorry to hear that you're deleting your review.")
+        |> redirect(to: Routes.movie_review_path(conn, :index, movie))
 
-  #   conn
-  #   |> put_flash(:info, "Review deleted successfully.")
-  #   |> redirect(to: Routes.review_path(conn, :index))
-  # end
+      {:error, _error} ->
+        conn
+        |> put_flash(:error, "There was a problem deleting your review.  Please try again.")
+        |> redirect(to: Routes.movie_review_path(conn, :index, movie))
+    end
+  end
 
   defp put_movie(conn, _opts) do
     movie = Catalogs.get_movie!(conn.params["movie_id"])
