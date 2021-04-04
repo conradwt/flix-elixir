@@ -26,6 +26,11 @@ config :logger, :console,
 # Use Jason for JSON parsing in Phoenix
 config :phoenix, :json_library, Jason
 
+# Configure the time zone database.
+# https://mikezornek.com/posts/2020/3/working-with-time-zones-in-an-elixir-phoenix-app
+# https://en.wikipedia.org/wiki/List_of_tz_database_time_zones
+config :elixir, :time_zone_database, Tzdata.TimeZoneDatabase
+
 # Import environment specific config. This must remain at the bottom
 # of this file so it overrides the configuration defined above.
 import_config "#{Mix.env()}.exs"
