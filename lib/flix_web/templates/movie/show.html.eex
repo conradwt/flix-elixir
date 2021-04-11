@@ -3,9 +3,9 @@
     <%= main_image(@movie) %>
     <%= if @current_user do %>
       <div class="faves">
-        <%# <%= fave_or_unfave_button(@movie, @favorite) %> %>
+        <%#= FlixWeb.FavoriteView.fave_or_unfave_button(@conn, @movie, @favorite) %>
         <div class="count">
-          <%# <%= @fans.size %> %>
+          <%= length(@fans) %>
         </div>
       </div>
     <% end %>
@@ -21,7 +21,7 @@
         "_stars.html",
         percent: Movie.average_stars_as_percent(@movie)
       %>
-      <%= link pluralize(@count, 'Review'), to: movie_review_path(@conn, :index, @movie) %>
+      <%= link pluralize(@review_count, 'Review'), to: movie_review_path(@conn, :index, @movie) %>
     </div>
     <p>
       <%= @movie.description %>
@@ -45,31 +45,30 @@
     </div>
   </div>
   <aside>
-    <%# <% if @fans.present? %>
+    <%= if @fans do %>
       <h4>Fans</h4>
         <ul>
-          <%# @fans.each do |user| %>
+          <%= for user <- @fans do %>
             <li>
-              <%#= link_to user.name, user %>
+              <%= user.name %>
             </li>
-          <%# end %>
+          <% end %>
         </ul>
-    <%# end %>
-    <%# if @genres.present? %>
+    <% end %>
+    <%= if @genres do %>
       <h4>Genres</h4>
         <ul>
-          <%# @genres.each do |genre| %>
+          <%= for genre <- @genres do %>
             <li>
-              <%#= genre.name %>
+              <%= genre.name %>
             </li>
-          <%# end %>
+          <% end %>
         </ul>
-    <%# end %>
+    <% end %>
   </aside>
 </section>
 
-<%# if current_user_admin? %>
-<%= if false do %>
+<%= if @current_user && @current_user.admin do %>
   <section class="admin">
     <%= link "Edit", to: Routes.movie_path(@conn, :edit, @movie) %>
     <%= link "Delete", to: Routes.movie_path(@conn, :delete, @movie),

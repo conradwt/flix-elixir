@@ -1,9 +1,6 @@
 defmodule FlixWeb.MovieView do
   use FlixWeb, :view
 
-  import Number.Currency
-  import Phoenix.HTML.SimplifiedHelpers.Truncate
-
   alias Flix.Catalogs.Movie
 
   def average_stars_as_percent(movie) do
@@ -61,13 +58,5 @@ defmodule FlixWeb.MovieView do
 
   defp current_page?(_url) do
     true
-  end
-
-  def pluralize(n, word) do
-    case n do
-      0 -> "0 #{word}s"
-      1 -> "1 #{word}"
-      n -> "#{n} #{word}s"
-    end
   end
 end
