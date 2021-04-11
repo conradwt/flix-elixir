@@ -35,7 +35,7 @@ defmodule FlixWeb.ReviewController do
 
     case Catalogs.create_review(
            review_params
-           |> Map.merge(%{"movie_id" => movie.id, "user_id" => current_user.id})
+           |> Map.merge(%{movie_id: movie.id, user_id: current_user.id})
          ) do
       {:ok, _review} ->
         conn
