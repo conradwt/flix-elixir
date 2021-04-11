@@ -37,7 +37,11 @@
   <%= text_input f, :main_image %>
   <%= error_tag f, :main_image %>
 
+  <%= collection_checkboxes f, :genres,
+        Enum.map(@genres, &({&1.name, &1.id})),
+        selected: Enum.map(f.data.genres, &(&1.id)) %>
+
   <div>
-    <%= submit "Save" %>
+    <%= submit "Save", class: "btn btn-primary" %>
   </div>
 <% end %>

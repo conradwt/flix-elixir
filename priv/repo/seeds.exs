@@ -198,7 +198,7 @@ end)
 #   movie.main_image.attach(io: file filename: file_name)
 
 # create genres
-genre_data = ["Action", "Drama", "Sci-Fi", "Comedy", "Adventure"]
+genre_data = ["Action", "Adventure", "Comedy", "Drama", "Sci-Fi"]
 
 Enum.each(genre_data, fn data ->
   Catalogs.create_genre!(%{name: data})

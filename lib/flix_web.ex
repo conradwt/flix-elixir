@@ -41,6 +41,13 @@ defmodule FlixWeb do
 
       # Include shared imports and aliases for views
       unquote(view_helpers())
+
+      # Include custom helpers.
+      import FlixWeb.Helpers.CheckboxHelper
+      import FlixWeb.Helpers.TextHelper
+      import Number.Currency
+      import Phoenix.HTML.SimplifiedHelpers.Truncate
+      import PhoenixMTM.Helpers
     end
   end
 

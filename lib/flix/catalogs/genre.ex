@@ -2,13 +2,14 @@ defmodule Flix.Catalogs.Genre do
   use Ecto.Schema
   import Ecto.Changeset
 
-  alias Flix.Catalogs.Characterization
+  alias Flix.Catalogs.{Characterization, Movie}
 
   schema "genres" do
-    field :name, :string
+    field(:name, :string)
 
-    has_many :characterizations, Characterization
-    has_many :movies, through: [:characterizations, :movie]
+    # has_many(:characterizations, Characterization)
+    # has_many :movies, through: [:characterizations, :movie]
+    many_to_many(:movies, Movie, join_through: Characterization)
 
     timestamps()
   end
