@@ -43,7 +43,6 @@ defmodule FlixWeb do
       unquote(view_helpers())
 
       # Include custom helpers.
-      import FlixWeb.Helpers.CheckboxHelper
       import FlixWeb.Helpers.TextHelper
       import Number.Currency
       import Phoenix.HTML.SimplifiedHelpers.Truncate
