@@ -6,6 +6,7 @@ defmodule Flix.Accounts.User do
 
   @derive {Inspect, except: [:password]}
   schema "users" do
+    field :name, :string
     field :email, :string
     field :username, :string
     field :password, :string, virtual: true
@@ -38,16 +39,17 @@ defmodule Flix.Accounts.User do
   """
   def registration_changeset(user, attrs, opts \\ []) do
     user
-    |> cast(attrs, [:email, :password, :username])
+    |> cast(attrs, [:email, :name, :password, :username])
     |> validate_email()
     |> validate_password(opts)
+    |> validate_name
     |> validate_username()
   end
 
-  # defp validate_admin(changeset) do
-  #   changeset
-  #   |> validate_required([:admin])
-  # end
+  defp validate_name(changeset) do
+    changeset
+    |> validate_required([:name])
+  end
 
   defp validate_email(changeset) do
     changeset
@@ -85,6 +87,26 @@ defmodule Flix.Accounts.User do
     changeset
     |> validate_required([:username])
     |> unique_constraint(:username)
+  end
+
+  def name_changeset(user, attrs) do
+    user
+    |> cast(attrs, [:name])
+    |> validate_name()
+    |> case do
+      %{changes: %{name: _}} = changeset -> changeset
+      %{} = changeset -> add_error(changeset, :name, "did not change")
+    end
+  end
+
+  def username_changeset(user, attrs) do
+    user
+    |> cast(attrs, [:username])
+    |> validate_username()
+    |> case do
+      %{changes: %{username: _}} = changeset -> changeset
+      %{} = changeset -> add_error(changeset, :username, "did not change")
+    end
   end
 
   @doc """

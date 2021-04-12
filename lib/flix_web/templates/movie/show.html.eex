@@ -3,7 +3,26 @@
     <%= main_image(@movie) %>
     <%= if @current_user do %>
       <div class="faves">
-        <%#= FlixWeb.FavoriteView.fave_or_unfave_button(@conn, @movie, @favorite) %>
+        <%#= FlixWeb.FavoriteView.fave_or_unfave_button(
+              @conn,
+              @movie,
+              @favorite
+            )
+        %>
+
+        <%= if @favorite do %>
+          <%= button(
+            "♡ Unfave",
+            to: Routes.movie_favorite_path(@conn, :delete, @movie, @favorite),
+            method: :delete)
+          %>
+        <% else %>
+          <%= button(
+            "♥️ Fave",
+            to: Routes.movie_favorite_path(@conn, :create, @movie)
+          ) %>
+        <% end %>
+
         <div class="count">
           <%= length(@fans) %>
         </div>
@@ -18,8 +37,8 @@
     </h2>
     <div class="reviews">
       <%= render FlixWeb.SharedView,
-        "_stars.html",
-        percent: Movie.average_stars_as_percent(@movie)
+            "_stars.html",
+            percent: Movie.average_stars_as_percent(@movie)
       %>
       <%= link pluralize(@review_count, 'Review'), to: movie_review_path(@conn, :index, @movie) %>
     </div>

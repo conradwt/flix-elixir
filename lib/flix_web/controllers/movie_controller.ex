@@ -47,21 +47,23 @@ defmodule FlixWeb.MovieController do
 
   def show(conn, %{"id" => id}) do
     current_user = conn.assigns.current_user
-    movie = Catalogs.get_movie!(id) |> Repo.preload([:fans, :genres, :reviews])
-    review_count = length(movie.reviews)
 
-    fans = movie.fans
-    genres = movie.genres
+    movie =
+      Catalogs.get_movie!(id)
+      |> Repo.preload([:fans, :genres, :reviews])
 
-    # favorite = get_user_favorite(movie, current_user)
+    favorite = get_user_favorite(movie, current_user)
+    changeset = Catalogs.change_favorite(%Favorite{user_id: current_user.id, movie_id: movie.id})
 
     render(
       conn,
       "show.html",
       movie: movie,
-      review_count: review_count,
-      fans: fans,
-      genres: genres
+      review_count: length(movie.reviews),
+      fans: movie.fans,
+      genres: movie.genres,
+      favorite: favorite,
+      changeset: changeset
     )
   end
 
@@ -104,25 +106,13 @@ defmodule FlixWeb.MovieController do
   end
 
   defp get_user_favorite(movie, current_user) do
-    favorite =
-      if current_user do
-        query =
-          from(f in Favorite,
-            where:
-              ^movie.id == f.movie_id and
-                ^current_user.id == f.user_id
-          )
-
-        query |> Repo.one()
-      end
-
-    favorite =
-      if favorite != nil do
-        favorite
-      else
-        Catalogs.change_favorite(%Favorite{user_id: current_user.id, movie_id: movie.id})
-      end
-
-    favorite
+    if current_user do
+      from(f in Favorite,
+        where:
+          ^movie.id == f.movie_id and
+            ^current_user.id == f.user_id
+      )
+      |> Repo.one()
+    end
   end
 end
