@@ -7,8 +7,12 @@
     </div>
   <% end %>
 
+  <%= label f, :name %>
+  <%= email_input f, :name, required: true, autofocus: true %>
+  <%= error_tag f, :name %>
+
   <%= label f, :email %>
-  <%= email_input f, :email, required: true, autofocus: true %>
+  <%= email_input f, :email, required: true %>
   <%= error_tag f, :email %>
 
   <%= label f, :username %>

@@ -11,7 +11,10 @@
         <%= total_gross(movie) %>
       </h3>
       <span class="stars">
-        <%#= render "shared/stars", percent: movie.average_stars_as_percent %>
+        <%= render FlixWeb.SharedView,
+          "_stars.html",
+          percent: Movie.average_stars_as_percent(movie)
+        %>
       </span>
       <p>
         <%= truncate(movie.description, length: 150, separator: " ") %>
@@ -20,8 +23,8 @@
   </section>
 <% end %>
 
-<%# if current_user_admin? %>
-<%= if false do %>
+<%= if true do %>
+<%#= if @current_user && @current_user.admin do %>
   <section>
     <%= link "New Movie", to: Routes.movie_path(@conn, :new) %>
   </section>

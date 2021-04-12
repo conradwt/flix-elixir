@@ -12,6 +12,7 @@ defmodule Flix.Catalogs do
   import Ecto.Query, warn: false
 
   alias Flix.Catalogs.{Genre, Favorite, Movie, Review}
+  alias Ecto
   alias Flix.Repo
 
   @doc """
@@ -58,7 +59,7 @@ defmodule Flix.Catalogs do
       ** (Ecto.NoResultsError)
 
   """
-  def get_movie!(id), do: Repo.get!(Movie, id)
+  def get_movie!(id), do: Repo.get!(Movie, id) |> Repo.preload(:genres)
 
   @doc """
   Creates a movie.
@@ -140,7 +141,10 @@ defmodule Flix.Catalogs do
 
   """
   def change_movie(%Movie{} = movie, attrs \\ %{}) do
-    Movie.changeset(movie, attrs)
+    movie
+    |> Repo.preload(:genres)
+    |> Ecto.Changeset.change()
+    |> Movie.changeset(attrs)
   end
 
   @doc """
@@ -174,8 +178,9 @@ defmodule Flix.Catalogs do
   """
   def get_review!(movie, id) do
     query =
-      from review in Review,
+      from(review in Review,
         where: review.movie_id == ^movie.id
+      )
 
     Repo.get!(query, id)
   end
@@ -255,7 +260,12 @@ defmodule Flix.Catalogs do
 
   """
   def list_genres do
-    Repo.all(Genre)
+    query =
+      from(Genre,
+        order_by: [asc: :name]
+      )
+
+    query |> Repo.all()
   end
 
   @doc """
@@ -290,6 +300,24 @@ defmodule Flix.Catalogs do
     %Genre{}
     |> Genre.changeset(attrs)
     |> Repo.insert()
+  end
+
+  @doc """
+  Creates a genre.
+
+  ## Examples
+
+      iex> create_genre!(%{field: value})
+      {:ok, %Genre{}}
+
+      iex> create_genre!(%{field: bad_value})
+      {:error, %Ecto.Changeset{}}
+
+  """
+  def create_genre!(attrs \\ %{}) do
+    %Genre{}
+    |> Genre.changeset(attrs)
+    |> Repo.insert!()
   end
 
   @doc """
@@ -387,5 +415,18 @@ defmodule Flix.Catalogs do
   """
   def delete_favorite(%Favorite{} = favorite) do
     Repo.delete(favorite)
+  end
+
+  @doc """
+  Returns an `%Ecto.Changeset{}` for tracking favorite changes.
+
+  ## Examples
+
+      iex> change_favorite(favorite)
+      %Ecto.Changeset{data: %Favorite{}}
+
+  """
+  def change_favorite(%Favorite{} = favorite, attrs \\ %{}) do
+    Favorite.changeset(favorite, attrs)
   end
 end

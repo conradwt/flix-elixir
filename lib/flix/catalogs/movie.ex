@@ -3,7 +3,7 @@ defmodule Flix.Catalogs.Movie do
   import Ecto.Changeset
   import Ecto.Query, only: [from: 2]
 
-  alias Flix.Catalogs.{Favorite, Review, Characterization}
+  alias Flix.Catalogs.{Favorite, Genre, Review, Characterization}
   alias Flix.Repo
 
   schema "movies" do
@@ -21,8 +21,10 @@ defmodule Flix.Catalogs.Movie do
     has_many(:favorites, Favorite)
     # TODO: In Rails: has_many :fans, through: :favorites, source: :user
     has_many(:fans, through: [:favorites, :user])
-    has_many(:characterizations, Characterization)
-    has_many(:genres, through: [:characterizations, :genre])
+
+    # has_many(:characterizations, Characterization)
+    # has_many(:genres, through: [:characterizations, :genre])
+    many_to_many(:genres, Genre, join_through: Characterization)
 
     timestamps()
   end
@@ -47,9 +49,15 @@ defmodule Flix.Catalogs.Movie do
       :title,
       :total_gross
     ])
+    |> PhoenixMTM.Changeset.cast_collection(:genres, fn ids ->
+      # Convert Strings back to Integers
+      ids = Enum.map(ids, &String.to_integer/1)
+      Repo.all(from(g in Genre, where: g.id in ^ids))
+    end)
     |> validate_description(min: 25)
     |> validate_director
     |> validate_duration
+    # |> validate_genres
     |> validate_main_image
     |> validate_rating(ratings())
     |> validate_released_on
@@ -72,6 +80,11 @@ defmodule Flix.Catalogs.Movie do
   defp validate_duration(changeset) do
     changeset
     |> validate_required([:duration])
+  end
+
+  defp validate_genres(changeset) do
+    changeset
+    |> assoc_constraint(:genres)
   end
 
   defp validate_main_image(changeset) do
