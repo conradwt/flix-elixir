@@ -29,6 +29,9 @@ defmodule FlixWeb.Router do
       resources "/favorites", FavoriteController, only: [:create, :delete]
       resources "/reviews", ReviewController, except: [:show]
     end
+
+    get "/fans", FanController, :index
+    get "/fans/:id", FanController, :show
   end
 
   # Other scopes may use custom stacks.
