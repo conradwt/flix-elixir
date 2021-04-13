@@ -1,0 +1,8 @@
+<section class="user">
+  <p>
+    <%= profile_image(@user) %>
+  </p>
+  <h1><%= @user.name %></h1>
+  <h1><%= link @user.email, to: "mailto:#{@user.email}" %></h1>
+  <h1><%= @user.username %></h1>
+</section>
