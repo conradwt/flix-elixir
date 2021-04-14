@@ -52,8 +52,19 @@ defmodule FlixWeb.MovieController do
       Catalogs.get_movie!(id)
       |> Repo.preload([:fans, :genres, :reviews])
 
-    favorite = get_user_favorite(movie, current_user)
-    changeset = Catalogs.change_favorite(%Favorite{user_id: current_user.id, movie_id: movie.id})
+    favorite =
+      if current_user do
+        get_user_favorite(movie, current_user)
+      else
+        nil
+      end
+
+    changeset =
+      if current_user do
+        Catalogs.change_favorite(%Favorite{user_id: current_user.id, movie_id: movie.id})
+      else
+        Catalogs.change_favorite(%Favorite{})
+      end
 
     render(
       conn,
