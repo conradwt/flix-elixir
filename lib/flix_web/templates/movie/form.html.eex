@@ -14,7 +14,7 @@
   <%= error_tag f, :description %>
 
   <%= label f, :rating %>
-  <%= select f, :rating, Flix.Catalogs.Movie.ratings() %>
+  <%= select f, :rating, Movie.ratings() %>
   <%= error_tag f, :rating %>
 
   <%= label f, :released_on %>
