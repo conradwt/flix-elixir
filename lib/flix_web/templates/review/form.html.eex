@@ -15,7 +15,7 @@
   <%= error_tag f, :stars %>
 
   <%= label f, :comment %>
-  <%= textarea f, :comment %>
+  <%= textarea f, :comment, placeholder: "What did you think?" %>
   <%= error_tag f, :comment %>
 
   <div>
