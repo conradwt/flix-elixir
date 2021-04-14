@@ -6,7 +6,12 @@
   <% end %>
 
   <%= label f, :stars %>
-  <%= number_input f, :stars %>
+  <%= for star <- Review.stars do %>
+    <span class="star">
+      <%= radio_button f, :stars, star %>
+      <%= label f, :stars, star %>
+    </span>
+  <% end %>
   <%= error_tag f, :stars %>
 
   <%= label f, :comment %>
