@@ -2,6 +2,7 @@ defmodule FlixWeb.FanView do
   use FlixWeb, :view
 
   alias Flix.Accounts.User
+  alias Flix.Catalogs.Review
 
   def profile_image(user, size \\ 100) do
     url = "https://www.gravatar.com/avatar/#{User.gravatar_id(user)}?s=#{size}&d=robohash"
