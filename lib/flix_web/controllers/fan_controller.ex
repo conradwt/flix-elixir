@@ -9,7 +9,16 @@ defmodule FlixWeb.FanController do
   end
 
   def show(conn, %{"id" => id}) do
-    user = Catalogs.get_user!(id)
-    render(conn, "show.html", user: user)
+    user = Catalogs.get_user!(id) 
+    reviews = user.reviews
+    favorite_movies = user.favorite_movies
+
+    render(
+      conn,
+      "show.html",
+      favorite_movies: favorite_movies,
+      reviews: reviews,
+      user: user
+    )
   end
 end
