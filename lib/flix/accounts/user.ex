@@ -17,6 +17,8 @@ defmodule Flix.Accounts.User do
 
     has_many :reviews, Review
     has_many :favorites, Favorite
+    # has_many :favorite_movies, through: :favorites, source: :movie
+    has_many :favorite_movies, through: [:favorites, :movie]
 
     timestamps()
   end
