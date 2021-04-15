@@ -1,9 +1,3 @@
-# Reference(s):
-#
-#   https://elixircasts.io/phoenix-contexts
-#   https://hexdocs.pm/ecto/Ecto.Schema.html
-#   https://hexdocs.pm/ecto/Ecto.Repo.html
-#
 defmodule Flix.Catalogs do
   @moduledoc """
   The Catalogs context.
@@ -11,8 +5,8 @@ defmodule Flix.Catalogs do
 
   import Ecto.Query, warn: false
 
-  alias Flix.Catalogs.{Genre, Favorite, Movie, Review}
   alias Ecto
+  alias Flix.Catalogs.{Genre, Favorite, Movie, Review}
   alias Flix.Repo
 
   @doc """
@@ -435,13 +429,13 @@ defmodule Flix.Catalogs do
   def list_users() do
     User
     |> User.by_name()
-    |> User.not_admin()
     |> Repo.all()
   end
 
   def get_user!(id) do
     User
     |> Repo.get_by(id: id)
-    |> Repo.preload(:reviews)
+    |> Repo.preload(:favorite_movies)
+    |> Repo.preload(reviews: :movie)
   end
 end
