@@ -24,7 +24,7 @@ defmodule FlixWeb.UserSettingsController do
 
         conn
         |> put_flash(
-          :info,
+          :notice,
           "A link to confirm your email change has been sent to the new address."
         )
         |> redirect(to: Routes.user_settings_path(conn, :edit))
@@ -41,7 +41,7 @@ defmodule FlixWeb.UserSettingsController do
     case Accounts.update_user_password(user, password, user_params) do
       {:ok, user} ->
         conn
-        |> put_flash(:info, "Password updated successfully.")
+        |> put_flash(:notice, "Password updated successfully.")
         |> put_session(:user_return_to, Routes.user_settings_path(conn, :edit))
         |> UserAuth.log_in_user(user)
 
@@ -54,7 +54,7 @@ defmodule FlixWeb.UserSettingsController do
     case Accounts.update_user_email(conn.assigns.current_user, token) do
       :ok ->
         conn
-        |> put_flash(:info, "Email changed successfully.")
+        |> put_flash(:notice, "Email changed successfully.")
         |> redirect(to: Routes.user_settings_path(conn, :edit))
 
       :error ->

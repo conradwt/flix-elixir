@@ -39,7 +39,7 @@ defmodule FlixWeb.ReviewController do
          ) do
       {:ok, _review} ->
         conn
-        |> put_flash(:info, "Thanks for your review!")
+        |> put_flash(:notice, "Thanks for your review!")
         |> redirect(to: Routes.movie_path(conn, :show, movie))
 
       {:error, %Ecto.Changeset{} = changeset} ->
@@ -65,7 +65,7 @@ defmodule FlixWeb.ReviewController do
     case Catalogs.update_review(review, review_params) do
       {:ok, _review} ->
         conn
-        |> put_flash(:info, "Thanks for updating your review!")
+        |> put_flash(:notice, "Thanks for updating your review!")
         |> redirect(to: Routes.movie_review_path(conn, :index, movie))
 
       {:error, %Ecto.Changeset{} = changeset} ->
@@ -80,7 +80,7 @@ defmodule FlixWeb.ReviewController do
     case Catalogs.delete_review(review) do
       {:ok, _review} ->
         conn
-        |> put_flash(:info, "Sorry to hear that you're deleting your review.")
+        |> put_flash(:notice, "Sorry to hear that you're deleting your review.")
         |> redirect(to: Routes.movie_review_path(conn, :index, movie))
 
       {:error, _error} ->

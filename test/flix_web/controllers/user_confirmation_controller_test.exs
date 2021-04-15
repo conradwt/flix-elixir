@@ -26,7 +26,7 @@ defmodule FlixWeb.UserConfirmationControllerTest do
         })
 
       assert redirected_to(conn) == "/"
-      assert get_flash(conn, :info) =~ "If your email is in our system"
+      assert get_flash(conn, :notice) =~ "If your email is in our system"
       assert Repo.get_by!(Accounts.UserToken, user_id: user.id).context == "confirm"
     end
 
@@ -39,7 +39,7 @@ defmodule FlixWeb.UserConfirmationControllerTest do
         })
 
       assert redirected_to(conn) == "/"
-      assert get_flash(conn, :info) =~ "If your email is in our system"
+      assert get_flash(conn, :notice) =~ "If your email is in our system"
       refute Repo.get_by(Accounts.UserToken, user_id: user.id)
     end
 
@@ -50,7 +50,7 @@ defmodule FlixWeb.UserConfirmationControllerTest do
         })
 
       assert redirected_to(conn) == "/"
-      assert get_flash(conn, :info) =~ "If your email is in our system"
+      assert get_flash(conn, :notice) =~ "If your email is in our system"
       assert Repo.all(Accounts.UserToken) == []
     end
   end
@@ -64,7 +64,7 @@ defmodule FlixWeb.UserConfirmationControllerTest do
 
       conn = get(conn, Routes.user_confirmation_path(conn, :confirm, token))
       assert redirected_to(conn) == "/"
-      assert get_flash(conn, :info) =~ "Account confirmed successfully"
+      assert get_flash(conn, :notice) =~ "Account confirmed successfully"
       assert Accounts.get_user!(user.id).confirmed_at
       refute get_session(conn, :user_token)
       assert Repo.all(Accounts.UserToken) == []

@@ -33,7 +33,7 @@ defmodule FlixWeb.MovieController do
     case Catalogs.create_movie(movie_params) do
       {:ok, movie} ->
         conn
-        |> put_flash(:info, "Movie created successfully.")
+        |> put_flash(:notice, "Movie created successfully.")
         |> redirect(to: Routes.movie_path(conn, :show, movie))
 
       {:error, %Ecto.Changeset{} = changeset} ->
@@ -94,7 +94,7 @@ defmodule FlixWeb.MovieController do
     case Catalogs.update_movie(movie, movie_params) do
       {:ok, movie} ->
         conn
-        |> put_flash(:info, "Movie updated successfully.")
+        |> put_flash(:notice, "Movie updated successfully.")
         |> redirect(to: Routes.movie_path(conn, :show, movie))
 
       {:error, %Ecto.Changeset{} = changeset} ->
@@ -112,7 +112,7 @@ defmodule FlixWeb.MovieController do
     {:ok, _movie} = Catalogs.delete_movie(movie)
 
     conn
-    |> put_flash(:info, "Movie deleted successfully.")
+    |> put_flash(:notice, "Movie deleted successfully.")
     |> redirect(to: Routes.movie_path(conn, :index))
   end
 
