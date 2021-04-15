@@ -189,7 +189,7 @@ defmodule Flix.Accounts.User do
   end
 
   @doc false
-  def not_admin(query) do
+  def not_admins(query) do
     from(user in query,
       where: user.admin == false
     )
