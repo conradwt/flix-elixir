@@ -5,4 +5,53 @@
   <h1><%= @user.name %></h1>
   <h1><%= link @user.email, to: "mailto:#{@user.email}" %></h1>
   <h1><%= @user.username %></h1>
+
+  <%# if current_user?(@user) %>
+  <%= if @current_user.id == @user.id do %>
+    <div class="actions">
+      <%= link "Edit Account",
+            to: Routes.user_settings_path(@conn, :edit),
+            class: "button edit"
+      %>
+      <%#= link 'Delete Account',
+             to: Routes.user_settings_path(@conn, :delete, @user),
+             method: :delete,
+             data: [confirm: "Permanently delete your account!?"] %>
+    </div>
+  <% end %>
+
+  <h3>Member Since</h3>
+  <p>
+    <%= @user.inserted_at |> Calendar.strftime("%B %Y") %>
+  </p>
+
+  <%= unless Enum.empty?(@reviews) do %>
+    <h3>Reviews</h3>
+
+    <%= for review <- @reviews do %>
+      <div class="review">
+        <div class="details">
+          <span class="title">
+            <%= link review.movie.title, to: Routes.movie_path(@conn, :show, review.movie) %>
+          </span>
+          <%= render FlixWeb.SharedView, "_stars.html", percent: Review.stars_as_percent(review) %>
+          <span class="date">
+            <%= time_ago_in_words(review.inserted_at) %> ago
+          </span>
+          <p>
+            <%= review.comment %>
+          </p>
+        </div>
+      </div>
+    <% end %>
+  <% end %>
+
+  <%= unless Enum.empty?(@favorite_movies) do %>
+    <h3>Favorite Movies</h3>
+    <div class="favorite-movies">
+      <%= for movie <- @favorite_movies do %>
+        <%= link FlixWeb.MovieView.main_image(movie), to: Routes.movie_path(@conn, :show, movie) %>
+      <% end %>
+    </div>
+  <% end %>
 </section>
