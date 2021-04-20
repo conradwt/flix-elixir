@@ -125,6 +125,7 @@ defmodule Flix.Catalogs do
 
   """
   def delete_movie(%Movie{} = movie) do
+    :ok = Flix.MainImageUploader.delete({movie.main_image, movie})
     Repo.delete(movie)
   end
 
