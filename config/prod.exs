@@ -20,7 +20,8 @@ config :logger, level: :info
 
 config :waffle,
   storage: Waffle.Storage.S3,
-  bucket: System.get_env("AWS_BUCKET_NAME")
+  bucket: System.get_env("AWS_BUCKET_NAME"),
+  asset_host: System.get_env("AWS_ASSET_HOST")
 
 config :ex_aws,
   json_codec: Jason,
