@@ -29,10 +29,16 @@ defmodule FlixWeb.MovieView do
     #   image_tag 'placeholder.png'
     # end
 
-    if File.exists?("#{File.cwd!()}/assets/static/images/#{movie.main_image}") do
-      img_tag("/images/#{movie.main_image}")
+    # if File.exists?("#{File.cwd!()}/assets/static/images/#{movie.main_image}") do
+    #   img_tag("/images/#{movie.main_image}")
+    # else
+    #   img_tag("/images/placeholder.png")
+    # end
+
+    if movie.main_image do
+      img_tag(Flix.MainImageUploader.url({movie.main_image, movie}, :thumb))
     else
-      img_tag("/images/placeholder.png")
+      img_tag(Flix.MainImageUploader.url(nil))
     end
   end
 

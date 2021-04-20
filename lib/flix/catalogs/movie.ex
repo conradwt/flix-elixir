@@ -1,7 +1,11 @@
 defmodule Flix.Catalogs.Movie do
   use Ecto.Schema
+  use Waffle.Ecto.Schema
+
   import Ecto.Changeset
   import Ecto.Query, only: [from: 2]
+  import Parameterize
+  import Logger
 
   alias Flix.Catalogs.{Favorite, Genre, Review, Characterization}
   alias Flix.Repo
@@ -15,7 +19,7 @@ defmodule Flix.Catalogs.Movie do
     field(:slug, :string)
     field(:title, :string)
     field(:total_gross, :decimal)
-    field(:main_image, :string)
+    field(:main_image, Flix.MainImageUploader.Type)
 
     has_many(:reviews, Review)
     has_many(:favorites, Favorite)
@@ -42,13 +46,13 @@ defmodule Flix.Catalogs.Movie do
       :description,
       :director,
       :duration,
-      :main_image,
       :rating,
       :released_on,
       :slug,
       :title,
       :total_gross
     ])
+    |> cast_attachments(attrs, [:main_image])
     |> PhoenixMTM.Changeset.cast_collection(:genres, fn ids ->
       # Convert Strings back to Integers
       ids = Enum.map(ids, &String.to_integer/1)
@@ -61,9 +65,10 @@ defmodule Flix.Catalogs.Movie do
     |> validate_main_image
     |> validate_rating(ratings())
     |> validate_released_on
-    |> validate_slug
+    # |> validate_slug
     |> validate_title
     |> validate_total_gross(greater_than_or_equal_to: 0)
+    |> slugify_title
   end
 
   defp validate_description(changeset, options) do
@@ -89,7 +94,6 @@ defmodule Flix.Catalogs.Movie do
 
   defp validate_main_image(changeset) do
     changeset
-    |> validate_required([:main_image])
   end
 
   defp validate_rating(changeset, options) do
@@ -103,10 +107,6 @@ defmodule Flix.Catalogs.Movie do
     |> validate_required([:released_on])
   end
 
-  defp validate_slug(changeset) do
-    changeset
-  end
-
   defp validate_title(changeset) do
     changeset
     |> validate_required([:title])
@@ -117,6 +117,22 @@ defmodule Flix.Catalogs.Movie do
     changeset
     |> validate_required([:total_gross])
     |> validate_number(:total_gross, options)
+  end
+
+  defp slugify_title(changeset) do
+    case fetch_change(changeset, :title) do
+      {:ok, new_title} ->
+        put_change(changeset, :slug, parameterize(new_title))
+
+      :error ->
+        changeset
+    end
+  end
+
+  def poster_changeset(movie, attrs) do
+    movie
+    |> cast_attachments(attrs, [:main_image])
+    |> validate_required([:main_image])
   end
 
   @doc false
@@ -206,9 +222,4 @@ defmodule Flix.Catalogs.Movie do
       |> Decimal.to_float()
     end
   end
-
-  # TODO: remove as this will be taken care of
-  # defp to_param do
-  #   slug
-  # end
 end

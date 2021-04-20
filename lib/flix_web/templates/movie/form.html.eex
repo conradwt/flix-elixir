@@ -1,4 +1,4 @@
-<%= form_for @changeset, @action, fn f -> %>
+<%= form_for @changeset, @action, [multipart: true], fn f -> %>
   <%= if @changeset.action do %>
     <div class="alert alert-danger">
       <p>Oops, something went wrong! Please check the errors below.</p>
@@ -34,7 +34,7 @@
   <%= error_tag f, :duration %>
 
   <%= label f, :main_image %>
-  <%= text_input f, :main_image %>
+  <%= file_input f, :main_image %>
   <%= error_tag f, :main_image %>
 
   <%= collection_checkboxes f, :genres,

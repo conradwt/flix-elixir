@@ -1,9 +1,3 @@
-# Reference(s):
-#
-#   https://elixircasts.io/phoenix-contexts
-#   https://hexdocs.pm/ecto/Ecto.Schema.html
-#   https://hexdocs.pm/ecto/Ecto.Repo.html
-#
 defmodule Flix.Catalogs do
   @moduledoc """
   The Catalogs context.
@@ -59,7 +53,10 @@ defmodule Flix.Catalogs do
       ** (Ecto.NoResultsError)
 
   """
-  def get_movie!(id), do: Repo.get!(Movie, id) |> Repo.preload(:genres)
+  def get_movie!(id) do
+    Repo.get_by!(Movie, slug: id)
+    |> Repo.preload(:genres)
+  end
 
   @doc """
   Creates a movie.
