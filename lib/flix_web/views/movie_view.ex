@@ -36,7 +36,11 @@ defmodule FlixWeb.MovieView do
     # end
 
     if movie.main_image do
-      img_tag(Flix.MainImageUploader.url({movie.main_image, movie}, :thumb))
+      # Reference:
+      #
+      # https://aws.amazon.com/premiumsupport/knowledge-center/s3-access-denied-error/
+      #
+      img_tag(Flix.MainImageUploader.url({movie.main_image, movie}, :thumb, signed: true))
     else
       img_tag(Flix.MainImageUploader.url(nil))
     end
