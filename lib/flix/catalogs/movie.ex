@@ -5,7 +5,6 @@ defmodule Flix.Catalogs.Movie do
   import Ecto.Changeset
   import Ecto.Query, only: [from: 2]
   import Parameterize
-  import Logger
 
   alias Flix.Catalogs.{Favorite, Genre, Review, Characterization}
   alias Flix.Repo
@@ -58,23 +57,22 @@ defmodule Flix.Catalogs.Movie do
       ids = Enum.map(ids, &String.to_integer/1)
       Repo.all(from(g in Genre, where: g.id in ^ids))
     end)
-    |> validate_description(min: 25)
+    |> validate_description
     |> validate_director
     |> validate_duration
-    # |> validate_genres
+    |> validate_genres
     |> validate_main_image
-    |> validate_rating(ratings())
+    |> validate_rating
     |> validate_released_on
-    # |> validate_slug
     |> validate_title
-    |> validate_total_gross(greater_than_or_equal_to: 0)
+    |> validate_total_gross
     |> slugify_title
   end
 
-  defp validate_description(changeset, options) do
+  defp validate_description(changeset) do
     changeset
     |> validate_required([:description])
-    |> validate_length(:description, options)
+    |> validate_length(:description, min: 25)
   end
 
   defp validate_director(changeset) do
@@ -89,17 +87,17 @@ defmodule Flix.Catalogs.Movie do
 
   defp validate_genres(changeset) do
     changeset
-    |> assoc_constraint(:genres)
+    # |> assoc_constraint(:genres)
   end
 
   defp validate_main_image(changeset) do
     changeset
   end
 
-  defp validate_rating(changeset, options) do
+  defp validate_rating(changeset) do
     changeset
     |> validate_required([:rating])
-    |> validate_inclusion(:rating, options)
+    |> validate_inclusion(:rating, ratings())
   end
 
   defp validate_released_on(changeset) do
@@ -113,10 +111,10 @@ defmodule Flix.Catalogs.Movie do
     |> unique_constraint(:title)
   end
 
-  defp validate_total_gross(changeset, options) do
+  defp validate_total_gross(changeset) do
     changeset
     |> validate_required([:total_gross])
-    |> validate_number(:total_gross, options)
+    |> validate_number(:total_gross, greater_than_or_equal_to: 0)
   end
 
   defp slugify_title(changeset) do
