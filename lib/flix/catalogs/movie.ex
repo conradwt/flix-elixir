@@ -27,7 +27,12 @@ defmodule Flix.Catalogs.Movie do
 
     # has_many(:characterizations, Characterization)
     # has_many(:genres, through: [:characterizations, :genre])
-    many_to_many(:genres, Genre, join_through: Characterization, on_replace: :delete)
+    # https://hexdocs.pm/phoenix_mtm/PhoenixMTM.Changeset.html
+    many_to_many(:genres, Genre,
+      join_through: Characterization,
+      on_replace: :delete,
+      on_delete: :delete_all
+    )
 
     timestamps()
   end
