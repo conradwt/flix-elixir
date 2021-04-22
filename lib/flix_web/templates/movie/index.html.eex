@@ -23,7 +23,7 @@
   </section>
 <% end %>
 
-<%= if true do %>
+<%= if false do %>
 <%#= if @current_user && @current_user.admin do %>
   <section>
     <%= link "New Movie", to: Routes.movie_path(@conn, :new) %>

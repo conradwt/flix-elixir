@@ -7,7 +7,6 @@ defmodule FlixWeb.FavoriteController do
   plug(:put_movie)
 
   alias Flix.Catalogs
-  alias Flix.Catalogs.Favorite
 
   @spec create(Plug.Conn.t(), map) :: Plug.Conn.t()
   def create(conn, %{"favorite" => favorite_params}) do
