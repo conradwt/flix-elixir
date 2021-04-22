@@ -53,7 +53,10 @@ defmodule Flix.Catalogs do
       ** (Ecto.NoResultsError)
 
   """
-  def get_movie!(id), do: Repo.get!(Movie, id) |> Repo.preload(:genres)
+  def get_movie!(id) do
+    Repo.get_by!(Movie, slug: id)
+    |> Repo.preload(:genres)
+  end
 
   @doc """
   Creates a movie.
@@ -122,6 +125,7 @@ defmodule Flix.Catalogs do
 
   """
   def delete_movie(%Movie{} = movie) do
+    :ok = Flix.MainImageUploader.delete({movie.main_image, movie})
     Repo.delete(movie)
   end
 

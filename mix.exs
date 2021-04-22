@@ -49,7 +49,14 @@ defmodule Flix.MixProject do
       {:phx_gen_auth, "~> 0.6", only: [:dev], runtime: false},
       {:number, "~> 1.0"},
       {:phoenix_html_simplified_helpers, "~> 2.1"},
-      {:phoenix_mtm, "~> 1.0.0"}
+      {:phoenix_mtm, "~> 1.0.0"},
+      {:waffle, "~> 1.1"},
+      {:ex_aws, "~> 2.1.2"},
+      {:ex_aws_s3, "~> 2.0"},
+      {:hackney, "~> 1.9"},
+      {:sweet_xml, "~> 0.6"},
+      {:waffle_ecto, "~> 0.0.10"},
+      {:ex_parameterize, "~> 1.0"}
     ]
   end
 

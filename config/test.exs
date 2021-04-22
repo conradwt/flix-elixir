@@ -23,3 +23,7 @@ config :flix, FlixWeb.Endpoint,
 
 # Print only warnings and errors during test
 config :logger, level: :warn
+
+# Set configuration for image upload.
+config :waffle,
+  storage: Waffle.Storage.Local
