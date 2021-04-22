@@ -18,7 +18,7 @@ defmodule FlixWeb.UserConfirmationController do
     # Regardless of the outcome, show an impartial success/error message.
     conn
     |> put_flash(
-      :info,
+      :notice,
       "If your email is in our system and it has not been confirmed yet, " <>
         "you will receive an email with instructions shortly."
     )
@@ -31,7 +31,7 @@ defmodule FlixWeb.UserConfirmationController do
     case Accounts.confirm_user(token) do
       {:ok, _} ->
         conn
-        |> put_flash(:info, "Account confirmed successfully.")
+        |> put_flash(:notice, "Account confirmed successfully.")
         |> redirect(to: "/")
 
       :error ->

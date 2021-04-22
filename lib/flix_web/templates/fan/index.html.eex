@@ -1,0 +1,10 @@
+<h1><%= pluralize(length(@users), "User") %></h1>
+<ul class="users">
+  <%= for user <- @users do %>
+    <li>
+      <%= link user.name, to: Routes.fan_path(@conn, :show, user) %>
+      created
+      <%= time_ago_in_words(user.inserted_at) %> ago
+    </li>
+  <% end %>
+</ul>

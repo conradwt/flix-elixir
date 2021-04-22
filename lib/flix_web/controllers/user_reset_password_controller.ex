@@ -20,7 +20,7 @@ defmodule FlixWeb.UserResetPasswordController do
     # Regardless of the outcome, show an impartial success/error message.
     conn
     |> put_flash(
-      :info,
+      :notice,
       "If your email is in our system, you will receive instructions to reset your password shortly."
     )
     |> redirect(to: "/")
@@ -36,7 +36,7 @@ defmodule FlixWeb.UserResetPasswordController do
     case Accounts.reset_user_password(conn.assigns.user, user_params) do
       {:ok, _} ->
         conn
-        |> put_flash(:info, "Password reset successfully.")
+        |> put_flash(:notice, "Password reset successfully.")
         |> redirect(to: Routes.user_session_path(conn, :new))
 
       {:error, changeset} ->

@@ -23,7 +23,7 @@ defmodule FlixWeb.GenreController do
     case Catalogs.create_genre(genre_params) do
       {:ok, genre} ->
         conn
-        |> put_flash(:info, "Genre created successfully.")
+        |> put_flash(:notice, "Genre created successfully.")
         |> redirect(to: Routes.genre_path(conn, :show, genre))
 
       {:error, %Ecto.Changeset{} = changeset} ->
@@ -48,7 +48,7 @@ defmodule FlixWeb.GenreController do
     case Catalogs.update_genre(genre, genre_params) do
       {:ok, genre} ->
         conn
-        |> put_flash(:info, "Genre updated successfully.")
+        |> put_flash(:notice, "Genre updated successfully.")
         |> redirect(to: Routes.genre_path(conn, :show, genre))
 
       {:error, %Ecto.Changeset{} = changeset} ->
@@ -61,7 +61,7 @@ defmodule FlixWeb.GenreController do
     {:ok, _genre} = Catalogs.delete_genre(genre)
 
     conn
-    |> put_flash(:info, "Genre deleted successfully.")
+    |> put_flash(:notice, "Genre deleted successfully.")
     |> redirect(to: Routes.genre_path(conn, :index))
   end
 end

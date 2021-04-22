@@ -1,6 +1,7 @@
 defmodule Flix.Accounts.User do
   use Ecto.Schema
   import Ecto.Changeset
+  import Ecto.Query, only: [from: 2]
 
   alias Flix.Catalogs.{Favorite, Review}
 
@@ -16,6 +17,8 @@ defmodule Flix.Accounts.User do
 
     has_many :reviews, Review
     has_many :favorites, Favorite
+    # has_many :favorite_movies, through: :favorites, source: :movie
+    has_many :favorite_movies, through: [:favorites, :movie]
 
     timestamps()
   end
@@ -176,5 +179,27 @@ defmodule Flix.Accounts.User do
     else
       add_error(changeset, :current_password, "is not valid")
     end
+  end
+
+  @doc false
+  def by_name(query) do
+    from(user in query,
+      order_by: [asc: user.name]
+    )
+  end
+
+  @doc false
+  def not_admins(query) do
+    from(user in query,
+      where: user.admin == false
+    )
+  end
+
+  def gravatar_id(user) do
+    user.email
+    |> String.trim()
+    |> String.downcase()
+    |> :erlang.md5()
+    |> Base.encode16(case: :lower)
   end
 end

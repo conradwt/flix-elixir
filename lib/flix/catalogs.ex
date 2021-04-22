@@ -6,8 +6,8 @@ defmodule Flix.Catalogs do
   import Ecto.Query, warn: false
 
   alias Flix.Catalogs.{Genre, Favorite, Movie, Review}
-  alias Ecto
   alias Flix.Repo
+  alias Ecto
 
   @doc """
   Returns the list of movies.
@@ -426,5 +426,21 @@ defmodule Flix.Catalogs do
   """
   def change_favorite(%Favorite{} = favorite, attrs \\ %{}) do
     Favorite.changeset(favorite, attrs)
+  end
+
+  alias Flix.Accounts.User
+
+  def list_users() do
+    User
+    |> User.by_name()
+    |> User.not_admins()
+    |> Repo.all()
+  end
+
+  def get_user!(id) do
+    User
+    |> Repo.get_by(id: id)
+    |> Repo.preload(:favorite_movies)
+    |> Repo.preload(reviews: :movie)
   end
 end
