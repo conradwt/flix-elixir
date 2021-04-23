@@ -80,4 +80,6 @@ config :waffle,
   storage: Waffle.Storage.Local
 
 # Set configuation for sending e-mail.
-# config :flix, Flix.Mailer, adapter: Bamboo.LocalAdapter
+config :flix, Flix.Mailer,
+  adapter: Bamboo.LocalAdapter,
+  open_email_in_browser_url: "http://localhost:4000/sent_emails"

@@ -16,6 +16,10 @@ defmodule FlixWeb.Router do
     plug :accepts, ["json"]
   end
 
+  if Mix.env() == :dev do
+    forward "/sent_emails", Bamboo.SentEmailViewerPlug
+  end
+
   scope "/", FlixWeb do
     pipe_through :browser
 
