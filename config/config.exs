@@ -31,6 +31,10 @@ config :phoenix, :json_library, Jason
 # https://en.wikipedia.org/wiki/List_of_tz_database_time_zones
 config :elixir, :time_zone_database, Tzdata.TimeZoneDatabase
 
+config :flix, Flix.Mailer,
+  adapter: Bamboo.SendGridAdapter,
+  api_key: System.get_env("SENDGRID_API_KEY")
+
 # Import environment specific config. This must remain at the bottom
 # of this file so it overrides the configuration defined above.
 import_config "#{Mix.env()}.exs"

@@ -27,3 +27,6 @@ config :logger, level: :warn
 # Set configuration for image upload.
 config :waffle,
   storage: Waffle.Storage.Local
+
+# Set configuation for sending e-mail.
+config :flix, Flix.Mailer, adapter: Bamboo.TestAdapter
