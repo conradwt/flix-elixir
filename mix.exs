@@ -57,7 +57,8 @@ defmodule Flix.MixProject do
       {:sweet_xml, "~> 0.6"},
       {:waffle_ecto, "~> 0.0.10"},
       {:ex_parameterize, "~> 1.0"},
-      {:bamboo, "~> 2.1.0"}
+      {:bamboo, "~> 2.1.0"},
+      {:bamboo_phoenix, "~> 1.0"}
     ]
   end
 

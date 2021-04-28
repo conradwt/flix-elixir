@@ -1,1 +1,6 @@
-<%= @inner_content %>
+<html>
+	<head></head>
+	<body>
+		<%= @inner_content %>
+	</body>
+</html>

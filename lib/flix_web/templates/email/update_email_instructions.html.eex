@@ -1,10 +1,10 @@
 <p>==============================</p>
 
-<p>Hi <%= user.email %>,</p>
+<p>Hi <%= @user.name %>,</p>
 
 <p>You can change your email by visiting the URL below:</p>
 
-<p><%= url %></p>
+<p><%= @url %></p>
 
 <p>If you didn't request this change, please ignore this.</p>
 

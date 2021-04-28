@@ -1,10 +1,10 @@
 ==============================
 
-Hi #{user.email},
+Hi #{@user.name},
 
 You can confirm your account by visiting the URL below:
 
-#{url}
+#{@url}
 
 If you didn't create an account with us, please ignore this.
 
