@@ -55,7 +55,7 @@ defmodule FlixWeb.Router do
     end
   end
 
-  # 
+  # Enables send e-mails views only for development
 
   if Mix.env() == :dev do
     forward "/sent_emails", Bamboo.SentEmailViewerPlug
