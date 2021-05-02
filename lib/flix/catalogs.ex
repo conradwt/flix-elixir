@@ -427,20 +427,4 @@ defmodule Flix.Catalogs do
   def change_favorite(%Favorite{} = favorite, attrs \\ %{}) do
     Favorite.changeset(favorite, attrs)
   end
-
-  alias Flix.Accounts.User
-
-  def list_users() do
-    User
-    |> User.by_name()
-    |> User.not_admins()
-    |> Repo.all()
-  end
-
-  def get_user!(id) do
-    User
-    |> Repo.get_by(id: id)
-    |> Repo.preload(:favorite_movies)
-    |> Repo.preload(reviews: :movie)
-  end
 end
