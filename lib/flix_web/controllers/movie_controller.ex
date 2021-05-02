@@ -40,7 +40,8 @@ defmodule FlixWeb.MovieController do
         conn
         |> put_flash(:error, "There was a problem creating the movie.  Please try again.")
         |> render("new.html",
-          changeset: changeset
+          changeset: changeset,
+          genres: Catalogs.list_genres()
         )
     end
   end
@@ -102,7 +103,8 @@ defmodule FlixWeb.MovieController do
         |> put_flash(:error, "There was a problem updating the movie.  Please try again.")
         |> render("edit.html",
           movie: movie,
-          changeset: changeset
+          changeset: changeset,
+          genres: Catalogs.list_genres()
         )
     end
   end

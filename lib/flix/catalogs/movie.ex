@@ -71,54 +71,59 @@ defmodule Flix.Catalogs.Movie do
     |> validate_released_on
     |> validate_title
     |> validate_total_gross
-    |> slugify_title
   end
 
   defp validate_description(changeset) do
     changeset
-    |> validate_required([:description])
+    |> validate_required(:description)
     |> validate_length(:description, min: 25)
   end
 
   defp validate_director(changeset) do
     changeset
-    |> validate_required([:director])
+    |> validate_required(:director)
   end
 
   defp validate_duration(changeset) do
     changeset
-    |> validate_required([:duration])
+    |> validate_required(:duration)
   end
 
   defp validate_genres(changeset) do
     changeset
-    # |> assoc_constraint(:genres)
+    |> PhoenixMTM.Changeset.cast_collection(:genres, fn ids ->
+      # Convert Strings back to Integers
+      ids = Enum.map(ids, &String.to_integer/1)
+      Repo.all(from(g in Genre, where: g.id in ^ids))
+    end)
   end
 
   defp validate_main_image(changeset) do
     changeset
+    |> validate_required(:main_image)
   end
 
   defp validate_rating(changeset) do
     changeset
-    |> validate_required([:rating])
+    |> validate_required(:rating)
     |> validate_inclusion(:rating, ratings())
   end
 
   defp validate_released_on(changeset) do
     changeset
-    |> validate_required([:released_on])
+    |> validate_required(:released_on)
   end
 
   defp validate_title(changeset) do
     changeset
-    |> validate_required([:title])
+    |> slugify_title
+    |> validate_required(:title)
     |> unique_constraint(:title)
   end
 
   defp validate_total_gross(changeset) do
     changeset
-    |> validate_required([:total_gross])
+    |> validate_required(:total_gross)
     |> validate_number(:total_gross, greater_than_or_equal_to: 0)
   end
 
@@ -130,12 +135,6 @@ defmodule Flix.Catalogs.Movie do
       :error ->
         changeset
     end
-  end
-
-  def poster_changeset(movie, attrs) do
-    movie
-    |> cast_attachments(attrs, [:main_image])
-    |> validate_required([:main_image])
   end
 
   @doc false
