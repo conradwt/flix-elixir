@@ -64,6 +64,22 @@ defmodule FlixWeb.UserSettingsController do
     end
   end
 
+  def delete(conn, _params) do
+    user = conn.assigns.current_user
+
+    case Accounts.unregister_user(user.id) do
+      {:ok, _user} ->
+        conn
+        |> put_flash(:notice, "Sorry to hear that you're deleting your acount.")
+        |> redirect(to: Routes.movie_path(conn, :index))
+
+      {:error, _error} ->
+        conn
+        |> put_flash(:error, "There was a problem deleting your account.  Please try again.")
+        |> redirect(to: Routes.movie_path(conn, :index))
+    end
+  end
+
   defp assign_email_and_password_changesets(conn, _opts) do
     user = conn.assigns.current_user
 

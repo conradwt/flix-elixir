@@ -7,16 +7,17 @@
   <h1><%= @user.username %></h1>
 
   <%# if current_user?(@user) %>
-  <%= if @current_user.id == @user.id do %>
+  <%= if @current_user && (@current_user.id == @user.id) do %>
     <div class="actions">
       <%= link "Edit Account",
             to: Routes.user_settings_path(@conn, :edit),
             class: "button edit"
       %>
-      <%#= link 'Delete Account',
-             to: Routes.user_settings_path(@conn, :delete, @user),
+      <%= link 'Delete Account',
+             to: Routes.user_settings_path(@conn, :delete),
              method: :delete,
-             data: [confirm: "Permanently delete your account!?"] %>
+             data: [confirm: "Permanently delete your account!?"],
+             class: "button delete" %>
     </div>
   <% end %>
 
