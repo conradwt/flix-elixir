@@ -14,7 +14,7 @@
   <%= error_tag f, :description %>
 
   <%= label f, :rating %>
-  <%= select f, :rating, Movie.ratings() %>
+  <%= select f, :rating, Movie.ratings(), prompt: "Pick one" %>
   <%= error_tag f, :rating %>
 
   <%= label f, :released_on %>
