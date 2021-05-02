@@ -23,9 +23,8 @@
   </section>
 <% end %>
 
-<%= if false do %>
-<%#= if @current_user && @current_user.admin do %>
+<%= if @current_user && @current_user.admin do %>
   <section>
-    <%= link "New Movie", to: Routes.movie_path(@conn, :new) %>
+    <%= link "New Movie", to: Routes.movie_path(@conn, :new), class: "button" %>
   </section>
 <% end  %>
