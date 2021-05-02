@@ -19,7 +19,10 @@ defmodule Flix.Accounts do
 
   """
   def list_users() do
-    Repo.all(User)
+    User
+    |> User.by_name()
+    |> User.not_admins()
+    |> Repo.all()
   end
 
   @doc """
@@ -70,7 +73,12 @@ defmodule Flix.Accounts do
       ** (Ecto.NoResultsError)
 
   """
-  def get_user!(id), do: Repo.get!(User, id)
+  def get_user!(id) do
+    User
+    |> Repo.get_by(id: id)
+    |> Repo.preload(:favorite_movies)
+    |> Repo.preload(reviews: :movie)
+  end
 
   ## User registration
 
@@ -103,6 +111,12 @@ defmodule Flix.Accounts do
   """
   def change_user_registration(%User{} = user, attrs \\ %{}) do
     User.registration_changeset(user, attrs, hash_password: false)
+  end
+
+  @doc false
+  def unregister_user(id) do
+    %User{id: id}
+    |> Flix.Repo.delete()
   end
 
   ## Settings
