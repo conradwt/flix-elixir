@@ -6,8 +6,8 @@
         <%= render FlixWeb.SharedView, "_stars.html", percent: Review.stars_as_percent(review) %>
       </p>
       <p>
-        <%#= profile_image(review.user, 35) %>
-        <%#= link_to review.user.name, review.user %>
+        <%= FlixWeb.FanView.profile_image(review.user, 35) %>
+        <%= link review.user.name, to: Routes.fan_path(@conn, :show, review.user) %>
         <span class="date">
           <%= time_ago_in_words(review.inserted_at) %> ago
         </span>

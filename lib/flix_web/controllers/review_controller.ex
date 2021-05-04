@@ -12,7 +12,10 @@ defmodule FlixWeb.ReviewController do
 
   def index(conn, _params) do
     %{movie: movie} = conn.assigns
-    reviews = Catalogs.list_reviews(movie)
+
+    reviews =
+      Catalogs.list_reviews(movie)
+      |> Flix.Repo.preload(:user)
 
     render(conn, "index.html", movie: movie, reviews: reviews)
   end
