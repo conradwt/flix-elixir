@@ -5,7 +5,7 @@ defmodule FlixWeb.MovieController do
   import FlixWeb.UserAuth, only: [require_authenticated_user: 2]
 
   plug(:require_authenticated_user when action not in [:index, :show])
-  # before_action :require_admin, except: %i[index show]
+  plug :require_admin when action not in [:index, :show]
 
   alias Flix.Catalogs
   alias Flix.Catalogs.{Favorite, Movie}
@@ -126,6 +126,17 @@ defmodule FlixWeb.MovieController do
             ^current_user.id == f.user_id
       )
       |> Repo.one()
+    end
+  end
+
+  defp require_admin(conn, _params) do
+    if conn.assigns.current_user.admin do
+      conn
+    else
+      conn
+      |> put_flash(:error, "Unauthorized access!")
+      |> redirect(to: Routes.movie_path(conn, :index))
+      |> halt()
     end
   end
 end
