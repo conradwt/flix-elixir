@@ -25,6 +25,6 @@
 
 <%= if @current_user && @current_user.admin do %>
   <section>
-    <%= link "New Movie", to: Routes.movie_path(@conn, :new), class: "button" %>
+    <%= link "Add New Movie", to: Routes.movie_path(@conn, :new), class: "button" %>
   </section>
 <% end  %>
