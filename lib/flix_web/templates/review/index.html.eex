@@ -16,12 +16,12 @@
         <%= review.comment %>
       </p>
 
-      <div class="admin">
-        <%= if (@current_user.id == review.user_id) || @current_user.admin do %>
+      <%= if (@current_user.id == review.user_id) || @current_user.admin do %>
+        <div class="admin">
           <%= link 'Edit', to: Routes.movie_review_path(@conn, :edit, @movie, review)  %>
           <%= link 'Delete',to: Routes.movie_review_path(@conn, :delete, @movie, review), method: :delete, data: [confirm: "Are you sure?"] %>
-        <% end  %>
-      </div>
+        </div>
+      <% end  %>
     </li>
   <% end %>
 </ul>
