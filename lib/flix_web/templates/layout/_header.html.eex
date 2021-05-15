@@ -1,6 +1,10 @@
 <header>
   <nav>
-    <%= img_tag("/images/logo.png") %>
+    <%=
+      "/images/logo.png"
+      |> img_tag()
+      |> link(to: Routes.movie_path(@conn, :index))
+    %>
     <ul class="left">
       <li>
         <%= link "Released", to: Routes.movie_path(@conn, :index) %>
