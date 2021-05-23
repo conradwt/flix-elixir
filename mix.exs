@@ -58,7 +58,8 @@ defmodule Flix.MixProject do
       {:waffle_ecto, "~> 0.0.10"},
       {:ex_parameterize, "~> 1.0"},
       {:bamboo, "~> 2.1.0"},
-      {:bamboo_phoenix, "~> 1.0"}
+      {:bamboo_phoenix, "~> 1.0"},
+      {:absinthe_plug, "~> 1.5.8"}
     ]
   end
 
