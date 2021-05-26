@@ -1,6 +1,8 @@
 defmodule FlixWeb.Graphql.Types.Movie do
   use Absinthe.Schema.Notation
 
+  alias FlixWeb.Graphql.Resolvers
+
   import_types Absinthe.Type.Custom
 
   @desc "a movie"
@@ -35,11 +37,14 @@ defmodule FlixWeb.Graphql.Types.Movie do
     # @desc "main image of a movie"
     # field(:main_image, non_null(:string))
 
-    # @desc "a list of friends for our person"
-    # field :friends, list_of(:person) do
-    #   resolve(fn _, %{source: person} ->
-    #     {:ok, Repo.all(assoc(person, :friends))}
-    #   end)
-    # end
+    @desc "a list of genres for our movie"
+    field :genres, list_of(:genre) do
+      resolve &Resolvers.GenreResolver.list_genres/3
+    end
+
+    @desc "a list of reviews for our movie"
+    field :reviews, list_of(:review) do
+      resolve &Resolvers.ReviewResolver.list_reviews/3
+    end
   end
 end

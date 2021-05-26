@@ -2,7 +2,9 @@ defmodule FlixWeb.Graphql.Schema do
   use Absinthe.Schema
 
   import_types(FlixWeb.Graphql.Types.{
+    Genre,
     Movie,
+    Review,
     User
   })
 
