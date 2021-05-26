@@ -1,9 +1,9 @@
 defmodule FlixWeb.Graphql.Types.Movie do
   use Absinthe.Schema.Notation
 
-  alias FlixWeb.Graphql.Resolvers
-
   import_types Absinthe.Type.Custom
+
+  alias FlixWeb.Graphql.Resolvers
 
   @desc "a movie"
   object :movie do
