@@ -4,8 +4,8 @@ defmodule FlixWeb.ReviewController do
   import FlixWeb.UserAuth, only: [require_authenticated_user: 2]
   import Ecto.Changeset
 
-  plug(:require_authenticated_user)
-  plug(:put_movie)
+  plug :require_authenticated_user
+  plug :put_movie
 
   alias Flix.Catalogs
   alias Flix.Catalogs.Review
