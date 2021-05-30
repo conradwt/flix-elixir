@@ -59,7 +59,8 @@ defmodule Flix.MixProject do
       {:ex_parameterize, "~> 1.0"},
       {:bamboo, "~> 2.1.0"},
       {:bamboo_phoenix, "~> 1.0"},
-      {:absinthe_plug, "~> 1.5.8"}
+      {:absinthe_plug, "~> 1.5.8"},
+      {:cors_plug, "~> 2.0.3"}
     ]
   end
 
