@@ -19,6 +19,14 @@ defmodule FlixWeb.Graphql.Types.Movie do
     @desc "duration of a movie"
     field :duration, non_null(:string)
 
+    @desc "poster url of the movie"
+    field :poster_url, non_null(:string) do
+      resolve fn movie, _args, _info ->
+        # https://elixirforum.com/t/absinthe-computed-properties/7444
+        {:ok, Flix.MainImageUploader.url({movie.main_image, movie}, :thumb, signed: true)}
+      end
+    end
+
     @desc "rating of a movie"
     field :rating, non_null(:string)
 
