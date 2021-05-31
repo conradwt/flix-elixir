@@ -1,18 +1,29 @@
 defmodule FlixWeb.Graphql.Types.User do
   use Absinthe.Schema.Notation
 
+  alias Flix.Accounts.User
+
   @desc "a user"
   object :user do
     @desc "unique identifier for the user"
-    field(:id, non_null(:string))
+    field :id, non_null(:string)
 
-    @desc "name of a user"
-    field(:name, non_null(:string))
+    @desc "avatar url for the user"
+    field :avatar_url, non_null(:string) do
+      arg :size, :integer, default_value: 100
 
-    @desc "email of a user"
-    field(:email, non_null(:string))
+      resolve fn user, %{size: size}, _info ->
+        {:ok, "https://www.gravatar.com/avatar/#{User.gravatar_id(user)}?s=#{size}&d=robohash" }
+      end
+    end
 
-    @desc "username of a user"
-    field(:username, non_null(:string))
+    @desc "name for the user"
+    field :name, non_null(:string)
+
+    @desc "email for the user"
+    field :email, non_null(:string)
+
+    @desc "username for the user"
+    field :username, non_null(:string)
   end
 end
