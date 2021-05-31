@@ -22,7 +22,6 @@ defmodule FlixWeb.Graphql.Types.Movie do
     @desc "poster url of the movie"
     field :poster_url, non_null(:string) do
       resolve fn movie, _args, _info ->
-        # https://elixirforum.com/t/absinthe-computed-properties/7444
         {:ok, Flix.MainImageUploader.url({movie.main_image, movie}, :thumb, signed: true)}
       end
     end
