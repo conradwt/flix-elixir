@@ -6,7 +6,7 @@ defmodule FlixWeb.Graphql.Schemas.Queries.Movie do
   object :movie_queries do
     @desc "get a single movie"
     field :movie, :movie do
-      arg :slug, non_null(:string)
+      arg :id, non_null(:id)
 
       resolve &MovieResolver.get_movie/3
     end

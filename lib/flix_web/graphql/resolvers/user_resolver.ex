@@ -5,7 +5,7 @@ defmodule FlixWeb.Graphql.Resolvers.UserResolver do
 
   def get_user(_root, %{id: id}, _info) do
     case User |> Repo.get(id) do
-      nil  -> {:error, "User ID \'#{id}\' not found"}
+      nil  -> {:error, "User id \'#{id}\' not found"}
       user -> {:ok, user}
     end
   end

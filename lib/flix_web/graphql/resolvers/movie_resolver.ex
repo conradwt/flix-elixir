@@ -3,9 +3,9 @@ defmodule FlixWeb.Graphql.Resolvers.MovieResolver do
   alias Flix.Catalogs.Movie
   alias Flix.Repo
 
-  def get_movie(_root, %{slug: slug}, _info) do
-    case Movie |> Repo.get_by(slug: slug) do
-      nil  -> {:error, "Movie slug \'#{slug}\' not found"}
+  def get_movie(_root, %{id: id}, _info) do
+    case Movie |> Repo.get_by(id: id) do
+      nil  -> {:error, "Movie id \'#{id}\' not found"}
       movie -> {:ok, movie}
     end
   end

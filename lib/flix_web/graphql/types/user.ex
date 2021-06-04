@@ -6,7 +6,7 @@ defmodule FlixWeb.Graphql.Types.User do
   @desc "a user"
   object :user do
     @desc "unique identifier for the user"
-    field :id, non_null(:string)
+    field :id, non_null(:id)
 
     @desc "avatar url for the user"
     field :avatar_url, non_null(:string) do
@@ -22,6 +22,13 @@ defmodule FlixWeb.Graphql.Types.User do
 
     @desc "email for the user"
     field :email, non_null(:string)
+
+    @desc "member since for the user"
+    field :member_since, non_null(:string) do
+      resolve fn user, _args, _info ->
+        {:ok, user.inserted_at |> Calendar.strftime("%B %Y")}
+      end
+    end
 
     @desc "username for the user"
     field :username, non_null(:string)
