@@ -8,7 +8,7 @@ defmodule FlixWeb.Graphql.Types.Movie do
   @desc "a movie"
   object :movie do
     @desc "unique identifier for the movie"
-    field :id, non_null(:string)
+    field :id, non_null(:id)
 
     @desc "description of a movie"
     field :description, non_null(:string)
