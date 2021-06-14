@@ -53,8 +53,8 @@ defmodule Flix.Catalogs do
       ** (Ecto.NoResultsError)
 
   """
-  def get_movie!(id) do
-    Repo.get_by!(Movie, slug: id)
+  def get_movie!(slug) do
+    Repo.get_by!(Movie, slug: slug)
     |> Repo.preload(:genres)
   end
 
@@ -246,6 +246,21 @@ defmodule Flix.Catalogs do
   """
   def change_review(%Review{} = review, attrs \\ %{}) do
     Review.changeset(review, attrs)
+  end
+
+  @doc """
+  Returns the list of genres.
+
+  ## Examples
+
+      iex> list_genres(movie)
+      [%Genre{}, ...]
+
+  """
+  def list_genres(movie) do
+    movie
+    |> Ecto.assoc(:genres)
+    |> Repo.all()
   end
 
   @doc """

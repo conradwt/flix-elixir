@@ -7,6 +7,5 @@ defmodule Flix.Repo.Migrations.CreateGenres do
 
       timestamps()
     end
-
   end
 end

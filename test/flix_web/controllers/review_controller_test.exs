@@ -75,6 +75,7 @@ defmodule FlixWeb.ReviewControllerTest do
     test "deletes chosen review", %{conn: conn, review: review} do
       conn = delete(conn, Routes.review_path(conn, :delete, review))
       assert redirected_to(conn) == Routes.review_path(conn, :index)
+
       assert_error_sent 404, fn ->
         get(conn, Routes.review_path(conn, :show, review))
       end

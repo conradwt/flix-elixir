@@ -5,7 +5,7 @@ defmodule Flix.MixProject do
     [
       app: :flix,
       version: "0.1.0",
-      elixir: "~> 1.12.0",
+      elixir: "~> 1.12.1",
       elixirc_paths: elixirc_paths(Mix.env()),
       compilers: [:phoenix, :gettext] ++ Mix.compilers(),
       start_permanent: Mix.env() == :prod,
@@ -58,7 +58,9 @@ defmodule Flix.MixProject do
       {:waffle_ecto, "~> 0.0.10"},
       {:ex_parameterize, "~> 1.0"},
       {:bamboo, "~> 2.1.0"},
-      {:bamboo_phoenix, "~> 1.0"}
+      {:bamboo_phoenix, "~> 1.0"},
+      {:absinthe_plug, "~> 1.5.8"},
+      {:cors_plug, "~> 2.0.3"}
     ]
   end
 

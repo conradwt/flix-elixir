@@ -6,9 +6,36 @@ defmodule Flix.CatalogsTest do
   describe "movies" do
     alias Flix.Catalogs.Movie
 
-    @valid_attrs %{description: "some description", director: "some director", duration: "some duration", rating: "some rating", released_on: ~D[2010-04-17], slug: "some slug", title: "some title", total_gross: "120.5"}
-    @update_attrs %{description: "some updated description", director: "some updated director", duration: "some updated duration", rating: "some updated rating", released_on: ~D[2011-05-18], slug: "some updated slug", title: "some updated title", total_gross: "456.7"}
-    @invalid_attrs %{description: nil, director: nil, duration: nil, rating: nil, released_on: nil, slug: nil, title: nil, total_gross: nil}
+    @valid_attrs %{
+      description: "some description",
+      director: "some director",
+      duration: "some duration",
+      rating: "some rating",
+      released_on: ~D[2010-04-17],
+      slug: "some slug",
+      title: "some title",
+      total_gross: "120.5"
+    }
+    @update_attrs %{
+      description: "some updated description",
+      director: "some updated director",
+      duration: "some updated duration",
+      rating: "some updated rating",
+      released_on: ~D[2011-05-18],
+      slug: "some updated slug",
+      title: "some updated title",
+      total_gross: "456.7"
+    }
+    @invalid_attrs %{
+      description: nil,
+      director: nil,
+      duration: nil,
+      rating: nil,
+      released_on: nil,
+      slug: nil,
+      title: nil,
+      total_gross: nil
+    }
 
     def movie_fixture(attrs \\ %{}) do
       {:ok, movie} =

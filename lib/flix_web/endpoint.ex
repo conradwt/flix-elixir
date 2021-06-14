@@ -52,7 +52,7 @@ defmodule FlixWeb.Endpoint do
   plug(Plug.Telemetry, event_prefix: [:phoenix, :endpoint])
 
   plug(Plug.Parsers,
-    parsers: [:urlencoded, :multipart, :json],
+    parsers: [:urlencoded, :multipart, :json, Absinthe.Plug.Parser],
     pass: ["*/*"],
     json_decoder: Phoenix.json_library()
   )
@@ -60,5 +60,8 @@ defmodule FlixWeb.Endpoint do
   plug(Plug.MethodOverride)
   plug(Plug.Head)
   plug(Plug.Session, @session_options)
+
+  plug CORSPlug, origin: ["*"]
+
   plug(FlixWeb.Router)
 end

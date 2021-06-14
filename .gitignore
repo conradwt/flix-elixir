@@ -33,3 +33,7 @@ npm-debug.log
 # this depending on your deployment strategy.
 /priv/static/
 /uploads
+
+# Ignore VS Code application files.
+/.metals/
+/.vscode/

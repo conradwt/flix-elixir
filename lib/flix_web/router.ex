@@ -16,6 +16,20 @@ defmodule FlixWeb.Router do
     plug :accepts, ["json"]
   end
 
+  scope "/" do
+    pipe_through :api
+
+    forward "/graphql",
+            Absinthe.Plug,
+            schema: FlixWeb.Graphql.Schema
+
+    forward "/graphiql",
+            Absinthe.Plug.GraphiQL,
+            schema: FlixWeb.Graphql.Schema,
+            json_codec: Jason,
+            interface: :playground
+  end
+
   scope "/", FlixWeb do
     pipe_through :browser
 

@@ -75,6 +75,7 @@ defmodule FlixWeb.GenreControllerTest do
     test "deletes chosen genre", %{conn: conn, genre: genre} do
       conn = delete(conn, Routes.genre_path(conn, :delete, genre))
       assert redirected_to(conn) == Routes.genre_path(conn, :index)
+
       assert_error_sent 404, fn ->
         get(conn, Routes.genre_path(conn, :show, genre))
       end

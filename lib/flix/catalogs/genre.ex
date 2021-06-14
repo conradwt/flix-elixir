@@ -7,8 +7,6 @@ defmodule Flix.Catalogs.Genre do
   schema "genres" do
     field(:name, :string)
 
-    # has_many(:characterizations, Characterization)
-    # has_many :movies, through: [:characterizations, :movie]
     many_to_many(:movies, Movie, join_through: Characterization)
 
     timestamps()
@@ -19,6 +17,6 @@ defmodule Flix.Catalogs.Genre do
     genre
     |> cast(attrs, [:name])
     |> validate_required([:name])
-    |> unique_constraint(:name)
+      |> unique_constraint(:name)
   end
 end
