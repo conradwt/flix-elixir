@@ -4,7 +4,7 @@ defmodule FlixWeb.GenreController do
   import FlixWeb.UserAuth, only: [require_authenticated_user: 2]
 
   plug :require_authenticated_user
-  # before_action :require_admin, except: %i[index show]
+  plug :require_admin
 
   alias Flix.Catalogs
   alias Flix.Catalogs.Genre
@@ -63,5 +63,16 @@ defmodule FlixWeb.GenreController do
     conn
     |> put_flash(:notice, "Genre deleted successfully.")
     |> redirect(to: Routes.genre_path(conn, :index))
+  end
+
+  defp require_admin(conn, _params) do
+    if conn.assigns.current_user.admin do
+      conn
+    else
+      conn
+      |> put_flash(:error, "Unauthorized access!")
+      |> redirect(to: Routes.movie_path(conn, :index))
+      |> halt()
+    end
   end
 end
