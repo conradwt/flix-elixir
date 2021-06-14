@@ -3,9 +3,36 @@ defmodule FlixWeb.MovieControllerTest do
 
   alias Flix.Catalogs
 
-  @create_attrs %{description: "some description", director: "some director", duration: "some duration", rating: "some rating", released_on: ~D[2010-04-17], slug: "some slug", title: "some title", total_gross: "120.5"}
-  @update_attrs %{description: "some updated description", director: "some updated director", duration: "some updated duration", rating: "some updated rating", released_on: ~D[2011-05-18], slug: "some updated slug", title: "some updated title", total_gross: "456.7"}
-  @invalid_attrs %{description: nil, director: nil, duration: nil, rating: nil, released_on: nil, slug: nil, title: nil, total_gross: nil}
+  @create_attrs %{
+    description: "some description",
+    director: "some director",
+    duration: "some duration",
+    rating: "some rating",
+    released_on: ~D[2010-04-17],
+    slug: "some slug",
+    title: "some title",
+    total_gross: "120.5"
+  }
+  @update_attrs %{
+    description: "some updated description",
+    director: "some updated director",
+    duration: "some updated duration",
+    rating: "some updated rating",
+    released_on: ~D[2011-05-18],
+    slug: "some updated slug",
+    title: "some updated title",
+    total_gross: "456.7"
+  }
+  @invalid_attrs %{
+    description: nil,
+    director: nil,
+    duration: nil,
+    rating: nil,
+    released_on: nil,
+    slug: nil,
+    title: nil,
+    total_gross: nil
+  }
 
   def fixture(:movie) do
     {:ok, movie} = Catalogs.create_movie(@create_attrs)
@@ -75,6 +102,7 @@ defmodule FlixWeb.MovieControllerTest do
     test "deletes chosen movie", %{conn: conn, movie: movie} do
       conn = delete(conn, Routes.movie_path(conn, :delete, movie))
       assert redirected_to(conn) == Routes.movie_path(conn, :index)
+
       assert_error_sent 404, fn ->
         get(conn, Routes.movie_path(conn, :show, movie))
       end

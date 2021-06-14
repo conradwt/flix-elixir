@@ -10,11 +10,11 @@ defmodule FlixWeb.Graphql.Types.User do
 
     @desc "avatar url for the user"
     field :avatar_url, non_null(:string) do
-      arg :size, :integer, default_value: 100
+      arg(:size, :integer, default_value: 100)
 
-      resolve fn user, %{size: size}, _info ->
-        {:ok, "https://www.gravatar.com/avatar/#{User.gravatar_id(user)}?s=#{size}&d=robohash" }
-      end
+      resolve(fn user, %{size: size}, _info ->
+        {:ok, "https://www.gravatar.com/avatar/#{User.gravatar_id(user)}?s=#{size}&d=robohash"}
+      end)
     end
 
     @desc "name for the user"

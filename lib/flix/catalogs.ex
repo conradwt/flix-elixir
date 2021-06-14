@@ -248,7 +248,6 @@ defmodule Flix.Catalogs do
     Review.changeset(review, attrs)
   end
 
-
   @doc """
   Returns the list of genres.
 

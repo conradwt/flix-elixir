@@ -14,7 +14,7 @@ defmodule FlixWeb.Graphql.Schema do
   })
 
   query do
-    import_fields :movie_queries
-    import_fields :user_queries
+    import_fields(:movie_queries)
+    import_fields(:user_queries)
   end
 end

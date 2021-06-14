@@ -8,14 +8,14 @@ defmodule FlixWeb.Graphql.Schemas.Queries.Movie do
     field :movie, :movie do
       arg :id, non_null(:id)
 
-      resolve &MovieResolver.get_movie/3
+      resolve(&MovieResolver.get_movie/3)
     end
 
     @desc "list all movies"
     field :movies, list_of(:movie) do
-      arg :filter, :string, default_value: nil
+      arg(:filter, :string, default_value: nil)
 
-      resolve &MovieResolver.list_movies/3
+      resolve(&MovieResolver.list_movies/3)
     end
   end
 end

@@ -11,6 +11,6 @@ defmodule FlixWeb.Graphql.Resolvers.MovieResolver do
   end
 
   def list_movies(_root, %{filter: filter}, _info) do
-    {:ok, Catalogs.list_movies(filter) }
+    {:ok, Catalogs.list_movies(filter)}
   end
 end

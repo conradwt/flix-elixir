@@ -8,7 +8,7 @@ defmodule FlixWeb.Graphql.Schemas.Queries.User do
   object :user_queries do
     @desc "get a single user"
     field :user, :user do
-      arg :id, non_null(:id)
+      arg(:id, non_null(:id))
 
       resolve(&UserResolver.get_user/3)
     end

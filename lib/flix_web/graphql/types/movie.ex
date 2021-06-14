@@ -1,7 +1,7 @@
 defmodule FlixWeb.Graphql.Types.Movie do
   use Absinthe.Schema.Notation
 
-  import_types Absinthe.Type.Custom
+  import_types(Absinthe.Type.Custom)
 
   alias FlixWeb.Graphql.Resolvers
 
@@ -21,9 +21,9 @@ defmodule FlixWeb.Graphql.Types.Movie do
 
     @desc "poster url of the movie"
     field :poster_url, non_null(:string) do
-      resolve fn movie, _args, _info ->
+      resolve(fn movie, _args, _info ->
         {:ok, Flix.MainImageUploader.url({movie.main_image, movie}, :thumb, signed: true)}
-      end
+      end)
     end
 
     @desc "rating of a movie"
@@ -46,12 +46,12 @@ defmodule FlixWeb.Graphql.Types.Movie do
 
     @desc "a list of genres for our movie"
     field :genres, list_of(:genre) do
-      resolve &Resolvers.GenreResolver.list_genres/3
+      resolve(&Resolvers.GenreResolver.list_genres/3)
     end
 
     @desc "a list of reviews for our movie"
     field :reviews, list_of(:review) do
-      resolve &Resolvers.ReviewResolver.list_reviews/3
+      resolve(&Resolvers.ReviewResolver.list_reviews/3)
     end
   end
 end
