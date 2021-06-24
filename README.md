@@ -10,11 +10,11 @@ The purpose of this project is to implement an application where fans can commen
 
 - Erlang 24.0.2 or newer
 
-- Node 14.17.0 or newer
+- Node 14.17.1 or newer
 
 - Phoenix 1.5.9 or newer
 
-- PostgreSQL 13.2 or newer
+- PostgreSQL 13.3 or newer
 
 Note: This tutorial was updated on macOS 11.4
 
