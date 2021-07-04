@@ -6,11 +6,11 @@ The purpose of this project is to implement an application where fans can commen
 
 ## Software requirements
 
-- Elixir 1.12.1 or newer
+- Elixir 1.12.2 or newer
 
-- Erlang 24.0.2 or newer
+- Erlang 24.0.3 or newer
 
-- Node 14.17.1 or newer
+- Node 14.17.2 or newer
 
 - Phoenix 1.5.9 or newer
 
