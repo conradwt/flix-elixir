@@ -26,9 +26,8 @@ defmodule Flix.Catalogs.Review do
     |> validate_movie_id
     |> validate_stars
     |> validate_user_id
-
-    # |> assoc_constraint(:movie)
-    # |> assoc_constraint(:user)
+    |> unique_constraint([:movie_id, :user_id], message:
+    "already left a review for this movie")
   end
 
   defp validate_comment(changeset) do
@@ -54,8 +53,6 @@ defmodule Flix.Catalogs.Review do
   end
 
   def past_n_days(query, number) do
-    # where('created_at >= ?', number.days.ago)
-
     from(review in query,
       where: review.inserted_at >= ago(^number, "day")
     )
