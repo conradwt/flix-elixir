@@ -3,7 +3,6 @@ defmodule FlixWeb.ReviewController do
 
   import FlixWeb.UserAuth, only: [require_authenticated_user: 2]
   import Ecto.Changeset
-  import Ecto.Query, only: [from: 2]
 
   plug :require_authenticated_user
   plug :put_movie
@@ -104,15 +103,9 @@ defmodule FlixWeb.ReviewController do
 
   defp require_correct_user(conn, _params) do
     current_user = conn.assigns.current_user
-
-    review_id = conn.params["id"]
     movie_id  = conn.assigns.movie.id
 
-    review = Repo.one(from r in Review,
-                        where: r.id == ^review_id and
-                               r.user_id == ^current_user.id and
-                               r.movie_id == ^movie_id
-                     )
+    review = Repo.get_by(Review, movie_id: movie_id, user_id: current_user.id)
 
     if conn.assigns.current_user.admin || !is_nil(review) do
       conn
