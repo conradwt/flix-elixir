@@ -6,9 +6,11 @@ defmodule FlixWeb.ReviewController do
 
   plug :require_authenticated_user
   plug :put_movie
+  plug :require_correct_user when action in [:edit, :update, :delete]
 
   alias Flix.Catalogs
   alias Flix.Catalogs.Review
+  alias Flix.Repo
 
   def index(conn, _params) do
     %{movie: movie} = conn.assigns
@@ -97,5 +99,21 @@ defmodule FlixWeb.ReviewController do
     movie = Catalogs.get_movie!(conn.params["movie_id"])
 
     assign(conn, :movie, movie)
+  end
+
+  defp require_correct_user(conn, _params) do
+    current_user = conn.assigns.current_user
+    movie_id  = conn.assigns.movie.id
+
+    review = Repo.get_by(Review, movie_id: movie_id, user_id: current_user.id)
+
+    if conn.assigns.current_user.admin || !is_nil(review) do
+      conn
+    else
+      conn
+      |> put_flash(:error, "Unauthorized access!")
+      |> redirect(to: Routes.movie_path(conn, :index))
+      |> halt()
+    end
   end
 end
