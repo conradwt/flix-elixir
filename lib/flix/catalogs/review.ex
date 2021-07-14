@@ -27,7 +27,7 @@ defmodule Flix.Catalogs.Review do
     |> validate_stars
     |> validate_user_id
     |> unique_constraint([:movie_id, :user_id], message:
-    "already left a review for this movie")
+    "already has a review from user")
   end
 
   defp validate_comment(changeset) do

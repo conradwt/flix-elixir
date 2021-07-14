@@ -1,0 +1,18 @@
+<div class="alert alert-danger">
+  <%= if Enum.any?(@changeset.errors) do %>
+    <section class="errors">
+      <h2>
+        Opps! Your form could not be saved.
+      </h2>
+      <h3>
+        Please correct the following
+        <%= pluralize(length(@changeset.errors), "error") %>:
+      </h3>
+      <ul>
+        <%= for {key, value} <- @changeset.errors do %>
+          <li><%= Phoenix.Naming.humanize(key) %>&nbsp;<%= elem(value, 0) %></li>
+        <% end %>
+      </ul>
+    </section>
+  <% end %>
+</div>
