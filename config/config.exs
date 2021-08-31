@@ -31,9 +31,20 @@ config :phoenix, :json_library, Jason
 # https://en.wikipedia.org/wiki/List_of_tz_database_time_zones
 config :elixir, :time_zone_database, Tzdata.TimeZoneDatabase
 
+# Configure Bamboo Mailer
 config :flix, Flix.Mailer,
   adapter: Bamboo.SendGridAdapter,
   api_key: System.get_env("SENDGRID_API_KEY")
+
+# Configure mix_test_watch
+if Mix.env == :dev do
+  config :mix_test_watch,
+    clear: true,
+    tasks: [
+      "test",
+      "credo",
+    ]
+end
 
 # Configure Absinthe SDL/JSON code generation.
 config :absinthe,

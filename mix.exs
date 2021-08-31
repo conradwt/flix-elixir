@@ -60,7 +60,9 @@ defmodule Flix.MixProject do
       {:bamboo, "~> 2.1.0"},
       {:bamboo_phoenix, "~> 1.0"},
       {:absinthe_plug, "~> 1.5.8"},
-      {:cors_plug, "~> 2.0.3"}
+      {:cors_plug, "~> 2.0.3"},
+      {:credo, "~> 1.5", only: [:dev, :test], runtime: false},
+      {:mix_test_watch, "~> 1.1"}
     ]
   end
 
