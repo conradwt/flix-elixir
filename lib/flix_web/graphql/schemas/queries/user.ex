@@ -1,8 +1,6 @@
 defmodule FlixWeb.Graphql.Schemas.Queries.User do
   use Absinthe.Schema.Notation
 
-  alias Flix.Accounts.User
-  alias Flix.Repo
   alias FlixWeb.Graphql.Resolvers.UserResolver
 
   object :user_queries do
