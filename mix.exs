@@ -5,7 +5,7 @@ defmodule Flix.MixProject do
     [
       app: :flix,
       version: "0.1.0",
-      elixir: "~> 1.12.2",
+      elixir: "~> v1.13.0-dev",
       elixirc_paths: elixirc_paths(Mix.env()),
       compilers: [:phoenix, :gettext] ++ Mix.compilers(),
       start_permanent: Mix.env() == :prod,
