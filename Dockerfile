@@ -97,7 +97,6 @@ ENV MIX_ENV=dev
 RUN mix do deps.get --only ${MIX_ENV}, deps.compile
 
 # build assets
-# COPY assets/package.json assets/package-lock.json ./assets/
 RUN npm install --prefix ./assets
 
 COPY priv priv
@@ -127,6 +126,8 @@ RUN \
    -D "${USER}" \
   && su "${USER}"
 
+RUN chown ${USER}:${USER} /app
+
 USER ${USER}:${USER}
 
 CMD ["mix", "phx.server"]
@@ -142,16 +143,6 @@ COPY . .
 USER ${USER}:${USER}
 
 RUN mix test
-
-##
-## Pre-Production
-##
-
-# FROM test as pre-prod
-
-# USER root
-
-# RUN rm -rf ./test
 
 ##
 ## Production

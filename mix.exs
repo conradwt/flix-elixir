@@ -5,7 +5,7 @@ defmodule Flix.MixProject do
     [
       app: :flix,
       version: "0.1.0",
-      elixir: "~> 1.13.0-dev",
+      elixir: "~> 1.12.2",
       elixirc_paths: elixirc_paths(Mix.env()),
       compilers: [:phoenix, :gettext] ++ Mix.compilers(),
       start_permanent: Mix.env() == :prod,
@@ -20,7 +20,7 @@ defmodule Flix.MixProject do
   def application do
     [
       mod: {Flix.Application, []},
-      extra_applications: [:logger, :runtime_tools, :phoenix_html_simplified_helpers]
+      extra_applications: [:logger, :runtime_tools, :phoenix_html_simplified_helpers, :ssl]
     ]
   end
 
@@ -34,7 +34,7 @@ defmodule Flix.MixProject do
   defp deps do
     [
       {:bcrypt_elixir, "~> 2.0"},
-      {:phoenix, "~> 1.5.10"},
+      {:phoenix, "~> 1.5.12"},
       {:phoenix_ecto, "~> 4.1"},
       {:ecto_sql, "~> 3.4"},
       {:postgrex, ">= 0.0.0"},
@@ -45,7 +45,7 @@ defmodule Flix.MixProject do
       {:telemetry_poller, "~> 0.4"},
       {:gettext, "~> 0.11"},
       {:jason, "~> 1.0"},
-      {:plug_cowboy, "~> 2.0"},
+      {:plug_cowboy, "~> 2.5.1"},
       {:phx_gen_auth, "~> 0.6", only: [:dev], runtime: false},
       {:number, "~> 1.0"},
       {:phoenix_html_simplified_helpers, "~> 2.1"},
