@@ -8,13 +8,11 @@ The purpose of this project is to implement an application where fans can commen
 
 - Elixir 1.13.0 or newer
 
-- Erlang 24.0.5 or newer
-
 - Node 14.17.5 or newer
 
 - Phoenix 1.5.10 or newer
 
-- PostgreSQL 13.3 or newer
+- PostgreSQL 13.4 or newer
 
 Note: This tutorial was updated on macOS 11.5.1
 
