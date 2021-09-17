@@ -14,7 +14,7 @@ The purpose of this project is to implement an application where fans can commen
 
 - PostgreSQL 13.4 or newer
 
-Note: This tutorial was updated on macOS 11.5.1
+Note: This tutorial was updated on macOS 11.5.2.
 
 ## Communication
 
