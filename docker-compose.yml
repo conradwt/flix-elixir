@@ -12,7 +12,7 @@ services:
     environment:
       - POSTGRES_HOST=db
       - POSTGRES_USER=postgres
-      - POSTGRES_PASSWORD=password
+      - POSTGRES_PASSWORD=postgres
       - MIX_ENV=dev
 
     ports:
@@ -23,7 +23,7 @@ services:
     tty: true
 
     volumes:
-      - .:/app
+      - .:/home/darnoc/app
 
     depends_on:
       db:
@@ -38,7 +38,7 @@ services:
     environment:
       - POSTGRES_HOST_AUTH_METHOD=trust
       - POSTGRES_USER=postgres
-      - POSTGRES_PASSWORD=password
+      - POSTGRES_PASSWORD=postgres
 
     ports:
       - 5432:5432
