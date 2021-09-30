@@ -7,7 +7,7 @@ defmodule Flix.MixProject do
       version: "0.1.0",
       elixir: "~> 1.12.3",
       elixirc_paths: elixirc_paths(Mix.env()),
-      compilers: [:phoenix, :gettext] ++ Mix.compilers(),
+      compilers: [:gettext] ++ Mix.compilers(),
       start_permanent: Mix.env() == :prod,
       aliases: aliases(),
       deps: deps()
@@ -20,7 +20,7 @@ defmodule Flix.MixProject do
   def application do
     [
       mod: {Flix.Application, []},
-      extra_applications: [:logger, :runtime_tools, :phoenix_html_simplified_helpers]
+      extra_applications: [:logger, :runtime_tools, :phoenix_html_simplified_helpers, :ssl]
     ]
   end
 
@@ -33,8 +33,7 @@ defmodule Flix.MixProject do
   # Type `mix help deps` for examples and options.
   defp deps do
     [
-      {:bcrypt_elixir, "~> 2.0"},
-      {:phoenix, "~> 1.5.10"},
+      {:phoenix, "~> 1.5.12"},
       {:phoenix_ecto, "~> 4.1"},
       {:ecto_sql, "~> 3.4"},
       {:postgrex, ">= 0.0.0"},
@@ -45,7 +44,7 @@ defmodule Flix.MixProject do
       {:telemetry_poller, "~> 0.4"},
       {:gettext, "~> 0.11"},
       {:jason, "~> 1.0"},
-      {:plug_cowboy, "~> 2.0"},
+      {:plug_cowboy, "~> 2.5.1"},
       {:phx_gen_auth, "~> 0.6", only: [:dev], runtime: false},
       {:number, "~> 1.0"},
       {:phoenix_html_simplified_helpers, "~> 2.1"},
@@ -62,7 +61,8 @@ defmodule Flix.MixProject do
       {:absinthe_plug, "~> 1.5.8"},
       {:cors_plug, "~> 2.0.3"},
       {:credo, "~> 1.5", only: [:dev, :test], runtime: false},
-      {:mix_test_watch, "~> 1.1"}
+      {:mix_test_watch, "~> 1.1", only: :dev, runtime: false},
+      {:bcrypt_elixir, "~> 2.0"}
     ]
   end
 

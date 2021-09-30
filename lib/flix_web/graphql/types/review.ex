@@ -1,8 +1,6 @@
 defmodule FlixWeb.Graphql.Types.Review do
   use Absinthe.Schema.Notation
 
-  alias FlixWeb.Graphql.Resolvers
-
   @desc "a review"
   object :review do
     @desc "unique identifier for the review"
