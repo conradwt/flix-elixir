@@ -19,10 +19,86 @@
 #   Character.create(name: 'Luke', movie: movies.first)
 
 # delete movie records in movies table.
+Flix.Repo.delete_all("users")
 Flix.Repo.delete_all("movies")
 Flix.Repo.delete_all("genres")
 
+alias Flix.Accounts
 alias Flix.Catalogs
+
+# create users
+user_data = [
+  %{
+    name: "Conrad Taylor",
+    email: "conradwt@gmail.com",
+    username: "conradwt",
+    password: "123456123456",
+    admin: true,
+    confirmed_at: NaiveDateTime.utc_now()
+  },
+  %{
+    name: "Crazy Jane",
+    email: "jane@example.com",
+    username: "crazyj",
+    password: "123456123456",
+    admin: false,
+    confirmed_at: NaiveDateTime.utc_now()
+  },
+  %{
+    name: "Rita Far",
+    email: "rita@example.com",
+    username: "ritaf",
+    password: "123456123456",
+    admin: false,
+    confirmed_at: NaiveDateTime.utc_now()
+  },
+  %{
+    name: "Larry Trainor",
+    email: "larry@example.com",
+    username: "larryt",
+    password: "123456123456",
+    admin: false,
+    confirmed_at: NaiveDateTime.utc_now()
+  },
+  %{
+    name: "Cliff Steele",
+    email: "cliff@example.com",
+    username: "cliffs",
+    password: "123456123456",
+    admin: false,
+    confirmed_at: NaiveDateTime.utc_now()
+  },
+  %{
+    name: "Niles Caulder",
+    email: "nilesc@example.com",
+    username: "nilesc",
+    password: "123456123456",
+    admin: false,
+    confirmed_at: NaiveDateTime.utc_now()
+  },
+  %{
+    name: "Victor Stone",
+    email: "victors@example.com",
+    username: "victors",
+    password: "123456123456",
+    admin: false,
+    confirmed_at: NaiveDateTime.utc_now()
+  },
+  %{
+    name: "Eric Morden",
+    email: "ericm@example.com",
+    username: "ericm",
+    password: "123456123456",
+    admin: false,
+    confirmed_at: NaiveDateTime.utc_now()
+  }
+]
+
+Enum.each(user_data, fn data ->
+  Accounts.register_user(data)
+end)
+
+assets_directory = "#{File.cwd!()}/assets/static/images"
 
 # create movies
 movie_data = [
@@ -35,7 +111,7 @@ movie_data = [
     total_gross: 1_223_641_414,
     director: "Anthony Russo",
     duration: "181 min",
-    main_image: "avengers-end-game.png"
+    main_image: "#{assets_directory}/avengers-end-game.png"
   },
   %{
     title: "Captain Marvel",
@@ -46,7 +122,7 @@ movie_data = [
     total_gross: 1_110_662_849,
     director: "Anna Boden",
     duration: "124 min",
-    main_image: "captain-marvel.png"
+    main_image: "#{assets_directory}/captain-marvel.png"
   },
   %{
     title: "Black Panther",
@@ -57,7 +133,7 @@ movie_data = [
     total_gross: 1_346_913_161,
     director: "Ryan Coogler",
     duration: "134 min",
-    main_image: "black-panther.png"
+    main_image: "#{assets_directory}/black-panther.png"
   },
   %{
     title: "Avengers: Infinity War",
@@ -68,7 +144,7 @@ movie_data = [
     total_gross: 2_048_359_754,
     director: "Anthony Russo",
     duration: "149 min",
-    main_image: "avengers-infinity-war.png"
+    main_image: "#{assets_directory}/avengers-infinity-war.png"
   },
   %{
     title: "Green Lantern",
@@ -79,7 +155,7 @@ movie_data = [
     total_gross: 219_851_172,
     director: "Martin Campbell",
     duration: "114 min",
-    main_image: "green-lantern.png"
+    main_image: "#{assets_directory}/green-lantern.png"
   },
   %{
     title: "Fantastic Four",
@@ -90,7 +166,7 @@ movie_data = [
     total_gross: 168_257_860,
     director: "Josh Trank",
     duration: "100 min",
-    main_image: "fantastic-four.png"
+    main_image: "#{assets_directory}/fantastic-four.png"
   },
   %{
     title: "Iron Man",
@@ -101,7 +177,7 @@ movie_data = [
     total_gross: 585_366_247,
     director: "Jon Favreau",
     duration: "126 min",
-    main_image: "ironman.png"
+    main_image: "#{assets_directory}/ironman.png"
   },
   %{
     title: "Superman",
@@ -112,7 +188,7 @@ movie_data = [
     total_gross: 300_451_603,
     director: "Richard Donner",
     duration: "143 min",
-    main_image: "superman.png"
+    main_image: "#{assets_directory}/superman.png"
   },
   %{
     title: "Spider-Man",
@@ -124,7 +200,7 @@ movie_data = [
     total_gross: 825_025_036,
     director: "Sam Raimi",
     duration: "121 min",
-    main_image: "spiderman.png"
+    main_image: "#{assets_directory}/spiderman.png"
   },
   %{
     title: "Batman",
@@ -135,7 +211,7 @@ movie_data = [
     total_gross: 411_348_924,
     director: "Tim Burton",
     duration: "126 min",
-    main_image: "batman.png"
+    main_image: "#{assets_directory}/batman.png"
   },
   %{
     title: "Catwoman",
@@ -146,7 +222,7 @@ movie_data = [
     total_gross: 82_102_379,
     director: "Jean-Christophe 'Pitof' Comar",
     duration: "101 min",
-    main_image: "catwoman.png"
+    main_image: "#{assets_directory}/catwoman.png"
   },
   %{
     title: "Wonder Woman",
@@ -157,9 +233,20 @@ movie_data = [
     total_gross: 821_847_012,
     director: "Patty Jenkins",
     duration: "141 min",
-    main_image: "wonder-woman.png"
+    main_image: "#{assets_directory}/wonder-woman.png"
   }
 ]
+
+# assets_directory = "#{File.cwd!()}/assets/static/images/"
+
+# Enum.each(movie_data, fn data ->
+#   case File.read!("#{assets_directory}/#{data.main_image}") do
+#     {:ok, body}      ->
+#       Catalogs.create_movie!(%{data | main_image: body})
+#     {:error, reason} ->
+#       raise reason
+#   end
+# end)
 
 Enum.each(movie_data, fn data ->
   Catalogs.create_movie!(data)
