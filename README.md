@@ -8,7 +8,7 @@ The purpose of this project is to implement an application where fans can commen
 
 - Elixir 1.12.3 or newer
 
-- Node 14.17.6 or newer
+- Node 14.18.0 or newer
 
 - Phoenix 1.5.12 or newer
 
