@@ -5,9 +5,9 @@ defmodule Flix.MixProject do
     [
       app: :flix,
       version: "0.1.0",
-      elixir: "~> 1.12.2",
+      elixir: "~> 1.12.3",
       elixirc_paths: elixirc_paths(Mix.env()),
-      compilers: [:phoenix, :gettext] ++ Mix.compilers(),
+      compilers: [:gettext] ++ Mix.compilers(),
       start_permanent: Mix.env() == :prod,
       aliases: aliases(),
       deps: deps()
@@ -33,7 +33,6 @@ defmodule Flix.MixProject do
   # Type `mix help deps` for examples and options.
   defp deps do
     [
-      {:bcrypt_elixir, "~> 2.0"},
       {:phoenix, "~> 1.5.12"},
       {:phoenix_ecto, "~> 4.1"},
       {:ecto_sql, "~> 3.4"},
@@ -62,7 +61,8 @@ defmodule Flix.MixProject do
       {:absinthe_plug, "~> 1.5.8"},
       {:cors_plug, "~> 2.0.3"},
       {:credo, "~> 1.5", only: [:dev, :test], runtime: false},
-      {:mix_test_watch, "~> 1.1"}
+      {:mix_test_watch, "~> 1.1", only: :dev, runtime: false},
+      {:bcrypt_elixir, "~> 2.0"}
     ]
   end
 
