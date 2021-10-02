@@ -8,11 +8,11 @@ The purpose of this project is to implement an application where fans can commen
 
 - Elixir 1.12.3 or newer
 
-- Erlang 24.0.6 or newer
+- Erlang 24.1.1 or newer
 
-- Node 14.17.6 or newer
+- Node 14.18.0 or newer
 
-- Phoenix 1.5.12 or newer
+- Phoenix 1.5.13 or newer
 
 - PostgreSQL 13.4 or newer
 
