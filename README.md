@@ -14,7 +14,7 @@ The purpose of this project is to implement an application where fans can commen
 
 - Phoenix 1.5.13 or newer
 
-- PostgreSQL 13.4 or newer
+- PostgreSQL 14.0 or newer
 
 Note: This tutorial was updated on macOS 11.6.
 
