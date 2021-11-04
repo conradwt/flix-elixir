@@ -8,7 +8,7 @@ The purpose of this project is to implement an application where fans can commen
 
 - Elixir 1.12.3 or newer
 
-- Erlang 24.1.3 or newer
+- Erlang 24.1.4 or newer
 
 - Node 14.18.1 or newer
 
@@ -16,7 +16,7 @@ The purpose of this project is to implement an application where fans can commen
 
 - PostgreSQL 14.0 or newer
 
-Note: This tutorial was updated on macOS 11.6.
+Note: This tutorial was updated on macOS 11.6.1.
 
 ## Communication
 
