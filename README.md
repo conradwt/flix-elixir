@@ -64,10 +64,6 @@ Note: This tutorial was updated on macOS 11.6.1.
     open http://localhost:4000
     ```
 
-## Docker Installation
-
-TBD
-
 ## Production Setup
 
 Ready to run in production? Please [check our deployment guides](https://hexdocs.pm/phoenix/deployment.html).
