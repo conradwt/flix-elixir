@@ -19,15 +19,17 @@ defmodule FlixWeb.Router do
   scope "/" do
     pipe_through :api
 
-    forward "/graphql",
-            Absinthe.Plug,
-            schema: FlixWeb.Graphql.Schema
+    if Mix.env() in [:dev, :test] do
+      forward "/graphiql",
+        Absinthe.Plug.GraphiQL,
+        schema: FlixWeb.Graphql.Schema,
+        json_codec: Jason,
+        interface: :playground
+    end
 
-    forward "/graphiql",
-            Absinthe.Plug.GraphiQL,
-            schema: FlixWeb.Graphql.Schema,
-            json_codec: Jason,
-            interface: :playground
+    forward "/graphql",
+      Absinthe.Plug,
+      schema: FlixWeb.Graphql.Schema
   end
 
   scope "/", FlixWeb do
