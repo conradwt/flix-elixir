@@ -1,4 +1,4 @@
-use Mix.Config
+import Config
 
 # Configure your database
 config :flix, Flix.Repo,
@@ -16,10 +16,13 @@ config :flix, Flix.Repo,
 # watchers to your application. For example, we use it
 # with webpack to recompile .js and .css sources.
 config :flix, FlixWeb.Endpoint,
-  http: [port: 4000],
-  debug_errors: true,
-  code_reloader: true,
+  # Binding to loopback ipv4 address prevents access from other machines.
+  # Change to `ip: {0, 0, 0, 0}` to allow access from other machines.
+  http: [ip: {127, 0, 0, 1}, port: 4000],
   check_origin: false,
+  code_reloader: true,
+  debug_errors: true,
+  secret_key_base: "tCI4Bo4USd+jHzx1Wj3qeOT4/rhp60jxq/QJqsod9pf4aI/lHaaNAMkgX/9dwM4d",
   watchers: [
     node: [
       "node_modules/webpack/bin/webpack.js",
