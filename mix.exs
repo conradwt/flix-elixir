@@ -42,7 +42,6 @@ defmodule Flix.MixProject do
       {:phoenix_live_view, "~> 0.17.5"},
       {:floki, ">= 0.30.0", only: :test},
       {:phoenix_live_dashboard, "~> 0.5"},
-      {:esbuild, "~> 0.2", runtime: Mix.env() == :dev},
       {:swoosh, "~> 1.3"},
       {:telemetry_metrics, "~> 0.6.1"},
       {:telemetry_poller, "~> 1.0"},
@@ -52,7 +51,6 @@ defmodule Flix.MixProject do
       {:absinthe_plug, "~> 1.5.8"},
       {:cors_plug, "~> 2.0.3"},
       {:bcrypt_elixir, "~> 2.0"},
-      # {:phx_gen_auth, "~> 0.7.0", only: [:dev], runtime: false},
       {:number, "~> 1.0"},
       {:phoenix_html_simplified_helpers, "~> 2.1"},
       {:phoenix_mtm, git: "https://github.com/adam12/phoenix_mtm"},
@@ -81,8 +79,7 @@ defmodule Flix.MixProject do
       setup: ["deps.get", "ecto.setup", "cmd npm install --prefix assets"],
       "ecto.setup": ["ecto.create", "ecto.migrate", "run priv/repo/seeds.exs"],
       "ecto.reset": ["ecto.drop", "ecto.setup"],
-      test: ["ecto.create --quiet", "ecto.migrate --quiet", "test"],
-      "assets.deploy": ["esbuild default --minify", "phx.digest"]
+      test: ["ecto.create --quiet", "ecto.migrate --quiet", "test"]
     ]
   end
 end

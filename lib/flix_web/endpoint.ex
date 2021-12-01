@@ -25,7 +25,7 @@ defmodule FlixWeb.Endpoint do
     at: "/",
     from: :flix,
     gzip: false,
-    only: ~w(css fonts images js favicon.ico robots.txt)
+    only: ~w(assets css fonts images js favicon.ico robots.txt)
   )
 
   plug(Plug.Static,
