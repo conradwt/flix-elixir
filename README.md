@@ -6,7 +6,7 @@ The purpose of this project is to implement an application where fans can commen
 
 ## Software requirements
 
-- Elixir 1.13.0 or newer
+- Elixir 1.13.1 or newer
 
 - Erlang 24.1.7 or newer
 
@@ -16,7 +16,7 @@ The purpose of this project is to implement an application where fans can commen
 
 - PostgreSQL 14.0 or newer
 
-Note: This tutorial was updated on macOS 11.6.1.
+Note: This tutorial was updated on macOS 11.6.2.
 
 ## Communication
 
