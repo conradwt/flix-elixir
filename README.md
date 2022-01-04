@@ -8,13 +8,13 @@ The purpose of this project is to implement an application where fans can commen
 
 - Elixir 1.13.1 or newer
 
-- Erlang 24.1.7 or newer
+- Erlang 24.2 or newer
 
 - Node 14.18.2 or newer
 
-- Phoenix 1.6.2 or newer
+- Phoenix 1.6.4 or newer
 
-- PostgreSQL 14.0 or newer
+- PostgreSQL 14.1 or newer
 
 Note: This tutorial was updated on macOS 11.6.2.
 
@@ -88,4 +88,4 @@ Flix is released under the [MIT license](./LICENSE.md).
 
 ## Copyright
 
-copyright:: (c) Copyright 2021 Conrad Taylor. All Rights Reserved.
+copyright:: (c) Copyright 2021 - 2022 Conrad Taylor. All Rights Reserved.
