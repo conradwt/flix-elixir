@@ -1,4 +1,4 @@
-defmodule FlixWeb.Graphql.Resolvers.UserResolver do
+defmodule FlixWeb.GraphQL.Resolvers.UserResolver do
   alias Flix.Accounts
   alias Flix.Accounts.User
   alias Flix.Repo

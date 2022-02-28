@@ -1,7 +1,7 @@
-defmodule FlixWeb.Graphql.Schemas.Queries.Movie do
+defmodule FlixWeb.GraphQL.Schemas.Queries.Movie do
   use Absinthe.Schema.Notation
 
-  alias FlixWeb.Graphql.Resolvers.MovieResolver
+  alias FlixWeb.GraphQL.Resolvers.MovieResolver
 
   object :movie_queries do
     @desc "get a single movie"

@@ -1,7 +1,7 @@
-defmodule FlixWeb.Graphql.Schemas.Queries.User do
+defmodule FlixWeb.GraphQL.Schemas.Queries.User do
   use Absinthe.Schema.Notation
 
-  alias FlixWeb.Graphql.Resolvers.UserResolver
+  alias FlixWeb.GraphQL.Resolvers.UserResolver
 
   object :user_queries do
     @desc "get a single user"
