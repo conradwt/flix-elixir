@@ -25,7 +25,16 @@ config :flix, FlixWeb.Endpoint,
   secret_key_base: "vid9zdVnRXd222rxwtBh7w+rhTvs/CbnucU8oZPxSFXOJMStIugIvrhgynxXSKZv",
   watchers: [
     # Start the esbuild watcher by calling Esbuild.install_and_run(:default, args)
-    esbuild: {Esbuild, :install_and_run, [:default, ~w(--sourcemap=inline --watch)]}
+    esbuild: {
+      Esbuild,
+      :install_and_run,
+      [:default, ~w(--sourcemap=inline --watch)]},
+    # Start the sass watcher by calling DartSass.install_and_run(:default, args)
+    sass: {
+      DartSass,
+      :install_and_run,
+      [:default, ~w(--embed-source-map --source-map-urls=absolute --watch)]
+    }
   ]
 
 # ## SSL Support
