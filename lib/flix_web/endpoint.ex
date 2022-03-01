@@ -10,11 +10,6 @@ defmodule FlixWeb.Endpoint do
     signing_salt: "NFzKYqak"
   ]
 
-  socket("/socket", FlixWeb.UserSocket,
-    websocket: [timeout: 45_000],
-    longpoll: false
-  )
-
   socket("/live", Phoenix.LiveView.Socket, websocket: [connect_info: [session: @session_options]])
 
   # Serve at "/" the static files from "priv/static" directory.

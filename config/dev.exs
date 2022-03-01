@@ -4,8 +4,8 @@ import Config
 config :flix, Flix.Repo,
   username: "postgres",
   password: "postgres",
-  database: "flix_dev",
   hostname: "localhost",
+  database: "flix_dev",
   show_sensitive_data_on_connection_error: true,
   pool_size: 10
 
@@ -14,7 +14,7 @@ config :flix, Flix.Repo,
 #
 # The watchers configuration can be used to run external
 # watchers to your application. For example, we use it
-# with webpack to recompile .js and .css sources.
+# with esbuild to bundle .js and .css sources.
 config :flix, FlixWeb.Endpoint,
   # Binding to loopback ipv4 address prevents access from other machines.
   # Change to `ip: {0, 0, 0, 0}` to allow access from other machines.
@@ -22,15 +22,10 @@ config :flix, FlixWeb.Endpoint,
   check_origin: false,
   code_reloader: true,
   debug_errors: true,
-  secret_key_base: "tCI4Bo4USd+jHzx1Wj3qeOT4/rhp60jxq/QJqsod9pf4aI/lHaaNAMkgX/9dwM4d",
+  secret_key_base: "vid9zdVnRXd222rxwtBh7w+rhTvs/CbnucU8oZPxSFXOJMStIugIvrhgynxXSKZv",
   watchers: [
-    node: [
-      "node_modules/webpack/bin/webpack.js",
-      "--mode",
-      "development",
-      "--watch-stdin",
-      cd: Path.expand("../assets", __DIR__)
-    ]
+    # Start the esbuild watcher by calling Esbuild.install_and_run(:default, args)
+    esbuild: {Esbuild, :install_and_run, [:default, ~w(--sourcemap=inline --watch)]}
   ]
 
 # ## SSL Support
