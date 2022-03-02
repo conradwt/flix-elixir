@@ -8,6 +8,7 @@ defmodule Flix.Catalogs do
   alias Flix.Catalogs.{Genre, Favorite, Movie, Review}
   alias Flix.Repo
   alias Ecto
+  # alias Ecto.Multi
 
   @doc """
   Returns the list of movies.
@@ -71,9 +72,14 @@ defmodule Flix.Catalogs do
 
   """
   def create_movie(attrs \\ %{}) do
-    %Movie{}
-    |> Movie.changeset(attrs)
-    |> Repo.insert()
+    # %Movie{}
+    # |> Movie.changeset(attrs)
+    # |> Repo.insert()
+
+    Ecto.Multi.new()
+    |> Ecto.Multi.insert(:movie, Movie.changeset(%Movie{}, attrs))
+    |> Ecto.Multi.update(:movie_with_poster, &Movie.poster_changeset(&1.movie, attrs))
+    |> Repo.transaction()
   end
 
   @doc """
@@ -89,9 +95,14 @@ defmodule Flix.Catalogs do
 
   """
   def create_movie!(attrs \\ %{}) do
-    %Movie{}
-    |> Movie.changeset(attrs)
-    |> Repo.insert!()
+    # %Movie{}
+    # |> Movie.changeset(attrs)
+    # |> Repo.insert!()
+
+    Ecto.Multi.new()
+    |> Ecto.Multi.insert(:movie, Movie.changeset(%Movie{}, attrs))
+    |> Ecto.Multi.update(:movie_with_poster, &Movie.poster_changeset(&1.movie, attrs))
+    |> Repo.transaction()
   end
 
   @doc """
@@ -272,13 +283,13 @@ defmodule Flix.Catalogs do
       [%Genre{}, ...]
 
   """
-  def list_genres do
+  def list_genres() do
     query =
-      from(Genre,
-        order_by: [asc: :name]
-      )
+      from g in Genre,
+        order_by: [asc: :name],
+        select: [:name, :id]
 
-    query |> Repo.all()
+    Repo.all(query)
   end
 
   @doc """
