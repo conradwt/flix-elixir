@@ -42,11 +42,17 @@ defmodule Flix.Accounts.User do
   """
   def registration_changeset(user, attrs, opts \\ []) do
     user
-    |> cast(attrs, [:email, :name, :password, :username])
+    |> cast(attrs, [:email, :name, :password, :username, :admin])
     |> validate_email()
     |> validate_password(opts)
     |> validate_name
     |> validate_username()
+    |> validate_admin()
+  end
+
+  defp validate_admin(changeset) do
+    changeset
+    |> validate_required([:admin])
   end
 
   defp validate_name(changeset) do
