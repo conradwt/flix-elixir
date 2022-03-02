@@ -100,7 +100,6 @@ defmodule Flix.Catalogs.Movie do
 
   defp validate_main_image(changeset) do
     changeset
-    |> validate_required(:main_image)
   end
 
   defp validate_rating(changeset) do
