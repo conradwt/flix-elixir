@@ -58,7 +58,7 @@ defmodule Flix.Catalogs do
     |> Repo.preload(:genres)
   end
 
-  @doc """
+ @doc """
   Creates a movie.
 
   ## Examples
@@ -71,9 +71,14 @@ defmodule Flix.Catalogs do
 
   """
   def create_movie(attrs \\ %{}) do
-    %Movie{}
-    |> Movie.changeset(attrs)
-    |> Repo.insert()
+    # %Movie{}
+    # |> Movie.changeset(attrs)
+    # |> Repo.insert()
+
+    Ecto.Multi.new()
+    |> Ecto.Multi.insert(:movie, Movie.changeset(%Movie{}, attrs))
+    |> Ecto.Multi.update(:movie_with_poster, &Movie.poster_changeset(&1.movie, attrs))
+    |> Repo.transaction()
   end
 
   @doc """
@@ -89,9 +94,14 @@ defmodule Flix.Catalogs do
 
   """
   def create_movie!(attrs \\ %{}) do
-    %Movie{}
-    |> Movie.changeset(attrs)
-    |> Repo.insert!()
+    # %Movie{}
+    # |> Movie.changeset(attrs)
+    # |> Repo.insert!()
+
+    Ecto.Multi.new()
+    |> Ecto.Multi.insert(:movie, Movie.changeset(%Movie{}, attrs))
+    |> Ecto.Multi.update(:movie_with_poster, &Movie.poster_changeset(&1.movie, attrs))
+    |> Repo.transaction()
   end
 
   @doc """
