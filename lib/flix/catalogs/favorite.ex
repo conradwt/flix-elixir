@@ -5,6 +5,8 @@ defmodule Flix.Catalogs.Favorite do
   alias Flix.Accounts.User
   alias Flix.Catalogs.Movie
 
+  @primary_key {:id, :binary_id, autogenerate: true}
+  @foreign_key_type :binary_id
   schema "favorites" do
     belongs_to :user, User
     belongs_to :movie, Movie
