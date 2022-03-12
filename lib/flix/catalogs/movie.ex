@@ -58,20 +58,14 @@ defmodule Flix.Catalogs.Movie do
       :title,
       :total_gross
     ])
-    |> cast_attachments(attrs, [:main_image])
-    |> PhoenixMTM.Changeset.cast_collection(:genres, fn ids ->
-      # Convert Strings back to Integers
-      # ids = Enum.map(ids, &String.to_integer/1)
-      Repo.all(from(g in Genre, where: g.id in ^ids))
-    end)
-    |> validate_description
-    |> validate_director
-    |> validate_duration
-    |> validate_genres
-    |> validate_rating
-    |> validate_released_on
-    |> validate_title
-    |> validate_total_gross
+    |> validate_description()
+    |> validate_director()
+    |> validate_duration()
+    |> validate_genres()
+    |> validate_rating()
+    |> validate_released_on()
+    |> validate_title()
+    |> validate_total_gross()
   end
 
   defp validate_description(changeset) do
@@ -98,10 +92,6 @@ defmodule Flix.Catalogs.Movie do
       Repo.all(from(g in Genre, where: g.id in ^ids))
     end)
   end
-
-  # defp validate_main_image(changeset) do
-  #   changeset
-  # end
 
   defp validate_rating(changeset) do
     changeset
