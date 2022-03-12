@@ -18,8 +18,12 @@
 #   movies = Movie.create([{ name: 'Star Wars' }, { name: 'Lord of the Rings' }])
 #   Character.create(name: 'Luke', movie: movies.first)
 
+import Ecto.Query
+
 alias Flix.Accounts
 alias Flix.Catalogs
+alias Flix.Catalogs.Genre
+alias Flix.Repo
 
 # clear database
 
@@ -116,6 +120,14 @@ Enum.each(genre_data, fn data ->
   Catalogs.create_genre!(%{name: data})
 end)
 
+query =
+  from(g in Genre,
+    where: g.name in ["Action", "Adventure", "Sci-Fi"],
+    order_by: g.name,
+    select: g.id)
+
+get_genres = Repo.all(query)
+
 # create movies
 
 movie_data = [
@@ -124,7 +136,7 @@ movie_data = [
     "After the devastating events of Avengers: Infinity War, the universe is in ruins. With the help of remaining allies, the Avengers assemble once more in order to undo Thanos' actions and restore order to the universe.",
     director: "Anthony Russo",
     duration: "181 min",
-    genres: ["1", "2", "5", ""],
+    genres: get_genres,
     main_image: %Plug.Upload{
       content_type: "image/png",
       filename: "avengers-end-game.png",
@@ -140,7 +152,7 @@ movie_data = [
     "Carol Danvers becomes one of the universe's most powerful heroes when Earth is caught in the middle of a galactic war between two alien races.",
     director: "Anna Boden",
     duration: "124 min",
-    genres: ["1", "2", "5", ""],
+    genres: get_genres,
     main_image: %Plug.Upload{
       content_type: "image/png",
       filename: "avengers-end-game.png",
@@ -156,7 +168,7 @@ movie_data = [
     "T'Challa, heir to the hidden but advanced kingdom of Wakanda, must step forward to lead his people into a new future and must confront a challenger from his country's past.",
     director: "Ryan Coogler",
     duration: "134 min",
-    genres: ["1", "2", "5", ""],
+    genres: get_genres,
     main_image: %Plug.Upload{
       content_type: "image/png",
       filename: "avengers-end-game.png",
@@ -172,7 +184,7 @@ movie_data = [
     "The Avengers and their allies must be willing to sacrifice all in an attempt to defeat the powerful Thanos before his blitz of devastation and ruin puts an end to the universe.",
     director: "Anthony Russo",
     duration: "149 min",
-    genres: ["1", "2", "5", ""],
+    genres: get_genres,
     main_image: %Plug.Upload{
       content_type: "image/png",
       filename: "avengers-end-game.png",
@@ -188,7 +200,7 @@ movie_data = [
     "Reckless test pilot Hal Jordan is granted an alien ring that bestows him with otherworldly powers that inducts him into an intergalactic police force, the Green Lantern Corps.",
     director: "Martin Campbell",
     duration: "114 min",
-    genres: ["1", "2", "5", ""],
+    genres: get_genres,
     main_image: %Plug.Upload{
       content_type: "image/png",
       filename: "avengers-end-game.png",
@@ -204,7 +216,7 @@ movie_data = [
     "Four young outsiders teleport to an alternate and dangerous universe which alters their physical form in shocking ways. The four must learn to harness their new abilities and work together to save Earth from a former friend turned enemy.",
     director: "Josh Trank",
     duration: "100 min",
-    genres: ["1", "2", "5", ""],
+    genres: get_genres,
     main_image: %Plug.Upload{
       content_type: "image/png",
       filename: "avengers-end-game.png",
@@ -220,7 +232,7 @@ movie_data = [
     "When wealthy industrialist Tony Stark is forced to build an armored suit after a life-threatening incident, he ultimately decides to use its technology to fight against evil.",
     director: "Jon Favreau",
     duration: "126 min",
-    genres: ["1", "2", "5", ""],
+    genres: get_genres,
     main_image: %Plug.Upload{
       content_type: "image/png",
       filename: "avengers-end-game.png",
@@ -236,7 +248,7 @@ movie_data = [
     "An alien orphan is sent from his dying planet to Earth, where he grows up to become his adoptive home's first and greatest super-hero.",
     director: "Richard Donner",
     duration: "143 min",
-    genres: ["1", "2", "5", ""],
+    genres: get_genres,
     main_image: %Plug.Upload{
       content_type: "image/png",
       filename: "avengers-end-game.png",
@@ -253,7 +265,7 @@ movie_data = [
     befalls his family.",
     director: "Sam Raimi",
     duration: "121 min",
-    genres: ["1", "2", "5", ""],
+    genres: get_genres,
     main_image: %Plug.Upload{
       content_type: "image/png",
       filename: "avengers-end-game.png",
@@ -269,7 +281,7 @@ movie_data = [
     "The Dark Knight of Gotham City begins his war on crime with his first major enemy being the clownishly homicidal Joker.",
     director: "Tim Burton",
     duration: "126 min",
-    genres: ["1", "2", "5", ""],
+    genres: get_genres,
     main_image: %Plug.Upload{
       content_type: "image/png",
       filename: "avengers-end-game.png",
@@ -285,7 +297,7 @@ movie_data = [
     "Patience Philips seems destined to spend her life apologizing for taking up space. Despite her artistic ability she has a more than respectable career as a graphic designer.",
     director: "Jean-Christophe 'Pitof' Comar",
     duration: "101 min",
-    genres: ["1", "2", "5", ""],
+    genres: get_genres,
     main_image: %Plug.Upload{
       content_type: "image/png",
       filename: "avengers-end-game.png",
@@ -301,7 +313,7 @@ movie_data = [
     "When a pilot crashes and tells of conflict in the outside world, Diana, an Amazonian warrior in training, leaves home to fight a war, discovering her full powers and true destiny.",
     director: "Patty Jenkins",
     duration: "141 min",
-    genres: ["1", "2", "5", ""],
+    genres: get_genres,
     main_image: %Plug.Upload{
       content_type: "image/png",
       filename: "avengers-end-game.png",

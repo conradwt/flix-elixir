@@ -6,12 +6,14 @@ defmodule Flix.Catalogs.Review do
   alias Flix.Accounts.User
   alias Flix.Catalogs.Movie
 
+  @primary_key {:id, :binary_id, autogenerate: true}
+  @foreign_key_type :binary_id
   schema "reviews" do
-    field(:comment, :string)
-    field(:stars, :integer)
+    field :comment, :string
+    field :stars, :integer
 
-    belongs_to(:movie, Movie)
-    belongs_to(:user, User)
+    belongs_to :movie, Movie
+    belongs_to :user, User
 
     timestamps()
   end

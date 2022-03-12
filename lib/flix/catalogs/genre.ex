@@ -4,6 +4,8 @@ defmodule Flix.Catalogs.Genre do
 
   alias Flix.Catalogs.{Characterization, Movie}
 
+  @primary_key {:id, :binary_id, autogenerate: true}
+  @foreign_key_type :binary_id
   schema "genres" do
     field(:name, :string)
 
