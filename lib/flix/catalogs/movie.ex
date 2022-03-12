@@ -9,6 +9,8 @@ defmodule Flix.Catalogs.Movie do
   alias Flix.Catalogs.{Favorite, Genre, Review, Characterization}
   alias Flix.Repo
 
+  @primary_key {:id, :binary_id, autogenerate: true}
+  @foreign_key_type :binary_id
   schema "movies" do
     field(:description, :string)
     field(:director, :string)
@@ -59,7 +61,7 @@ defmodule Flix.Catalogs.Movie do
     |> cast_attachments(attrs, [:main_image])
     |> PhoenixMTM.Changeset.cast_collection(:genres, fn ids ->
       # Convert Strings back to Integers
-      ids = Enum.map(ids, &String.to_integer/1)
+      # ids = Enum.map(ids, &String.to_integer/1)
       Repo.all(from(g in Genre, where: g.id in ^ids))
     end)
     |> validate_description
@@ -93,7 +95,7 @@ defmodule Flix.Catalogs.Movie do
     changeset
     |> PhoenixMTM.Changeset.cast_collection(:genres, fn ids ->
       # Convert Strings back to Integers
-      ids = Enum.map(ids, &String.to_integer/1)
+      # ids = Enum.map(ids, &String.to_integer/1)
       Repo.all(from(g in Genre, where: g.id in ^ids))
     end)
   end
