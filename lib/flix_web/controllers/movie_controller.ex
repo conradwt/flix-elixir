@@ -31,12 +31,20 @@ defmodule FlixWeb.MovieController do
 
   def create(conn, %{"movie" => movie_params}) do
     case Catalogs.create_movie(movie_params) do
-      {:ok, movie} ->
+      {:ok, %{movie_info: movie_info, movie_poster: _movie_poster}} ->
         conn
         |> put_flash(:notice, "Movie created successfully.")
-        |> redirect(to: Routes.movie_path(conn, :show, movie))
+        |> redirect(to: Routes.movie_path(conn, :show, movie_info))
 
-      {:error, %Ecto.Changeset{} = changeset} ->
+      {:error, :movie_info, changeset, _changes_so_far} ->
+        conn
+        |> put_flash(:error, "There was a problem creating the movie.  Please try again.")
+        |> render("new.html",
+          changeset: changeset,
+          genres: Catalogs.list_genres()
+        )
+
+      {:error, :movie_poster, changeset, _changes_so_far} ->
         conn
         |> put_flash(:error, "There was a problem creating the movie.  Please try again.")
         |> render("new.html",
@@ -111,11 +119,22 @@ defmodule FlixWeb.MovieController do
 
   def delete(conn, %{"id" => id}) do
     movie = Catalogs.get_movie!(id)
-    {:ok, _movie} = Catalogs.delete_movie(movie)
 
-    conn
-    |> put_flash(:notice, "Movie deleted successfully.")
-    |> redirect(to: Routes.movie_path(conn, :index))
+    case Catalogs.delete_movie(movie) do
+      {:ok, _movie} ->
+        conn
+        |> put_flash(:notice, "Movie deleted successfully.")
+        |> redirect(to: Routes.movie_path(conn, :index))
+
+      {:error, %Ecto.Changeset{} = changeset} ->
+        conn
+        |> put_flash(:error, "There was a problem deleting the movie.  Please try again.")
+        |> render("show.html",
+          movie: movie,
+          changeset: changeset,
+          genres: Catalogs.list_genres()
+        )
+    end
   end
 
   defp get_user_favorite(movie, current_user) do

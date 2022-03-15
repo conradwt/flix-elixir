@@ -1,3 +1,5 @@
+IEx.configure(inspect: [charlists: false])
+
 alias Flix.Accounts
 alias Flix.Accounts.User
 
