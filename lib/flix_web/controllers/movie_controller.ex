@@ -119,11 +119,22 @@ defmodule FlixWeb.MovieController do
 
   def delete(conn, %{"id" => id}) do
     movie = Catalogs.get_movie!(id)
-    {:ok, _movie} = Catalogs.delete_movie(movie)
 
-    conn
-    |> put_flash(:notice, "Movie deleted successfully.")
-    |> redirect(to: Routes.movie_path(conn, :index))
+    case Catalogs.delete_movie(movie) do
+      {:ok, _movie} ->
+        conn
+        |> put_flash(:notice, "Movie deleted successfully.")
+        |> redirect(to: Routes.movie_path(conn, :index))
+
+      {:error, %Ecto.Changeset{} = changeset} ->
+        conn
+        |> put_flash(:error, "There was a problem deleting the movie.  Please try again.")
+        |> render("show.html",
+          movie: movie,
+          changeset: changeset,
+          genres: Catalogs.list_genres()
+        )
+    end
   end
 
   defp get_user_favorite(movie, current_user) do
