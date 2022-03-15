@@ -36,7 +36,15 @@ defmodule FlixWeb.MovieController do
         |> put_flash(:notice, "Movie created successfully.")
         |> redirect(to: Routes.movie_path(conn, :show, movie))
 
-      {:error, %Ecto.Changeset{} = changeset} ->
+      {:error, :movie_info, changeset, _changes_so_far} ->
+        conn
+        |> put_flash(:error, "There was a problem creating the movie.  Please try again.")
+        |> render("new.html",
+          changeset: changeset,
+          genres: Catalogs.list_genres()
+        )
+
+      {:error, :movie_poster, changeset, _changes_so_far} ->
         conn
         |> put_flash(:error, "There was a problem creating the movie.  Please try again.")
         |> render("new.html",

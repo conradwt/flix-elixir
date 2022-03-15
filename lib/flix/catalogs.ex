@@ -71,13 +71,9 @@ defmodule Flix.Catalogs do
 
   """
   def create_movie(attrs \\ %{}) do
-    # %Movie{}
-    # |> Movie.changeset(attrs)
-    # |> Repo.insert()
-
     Ecto.Multi.new()
-    |> Ecto.Multi.insert(:movie, Movie.changeset(%Movie{}, attrs))
-    |> Ecto.Multi.update(:movie_with_poster, &Movie.poster_changeset(&1.movie, attrs))
+    |> Ecto.Multi.insert(:movie_info, Movie.changeset(%Movie{}, attrs))
+    |> Ecto.Multi.update(:movie_poster, &Movie.poster_changeset(&1.movie, attrs))
     |> Repo.transaction()
   end
 
@@ -99,8 +95,8 @@ defmodule Flix.Catalogs do
     # |> Repo.insert!()
 
     Ecto.Multi.new()
-    |> Ecto.Multi.insert(:movie, Movie.changeset(%Movie{}, attrs))
-    |> Ecto.Multi.update(:movie_with_poster, &Movie.poster_changeset(&1.movie, attrs))
+    |> Ecto.Multi.insert(:movie_info, Movie.changeset(%Movie{}, attrs))
+    |> Ecto.Multi.update(:movie_poster, &Movie.poster_changeset(&1.movie, attrs))
     |> Repo.transaction()
   end
 
@@ -119,6 +115,7 @@ defmodule Flix.Catalogs do
   def update_movie(%Movie{} = movie, attrs) do
     movie
     |> Movie.changeset(attrs)
+    |> Movie.poster_changeset(attrs)
     |> Repo.update()
   end
 
@@ -206,6 +203,8 @@ defmodule Flix.Catalogs do
 
   """
   def create_review(attrs \\ %{}) do
+    IO.inspect(attrs, label: "create_review")
+
     %Review{}
     |> Review.changeset(attrs)
     |> Repo.insert()
