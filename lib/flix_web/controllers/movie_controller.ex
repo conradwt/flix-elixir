@@ -31,10 +31,10 @@ defmodule FlixWeb.MovieController do
 
   def create(conn, %{"movie" => movie_params}) do
     case Catalogs.create_movie(movie_params) do
-      {:ok, %{movie_info: movie_info, movie_poster: _movie_poster}} ->
+      {:ok, %{movie: movie, movie_poster: _movie_poster}} ->
         conn
         |> put_flash(:notice, "Movie created successfully.")
-        |> redirect(to: Routes.movie_path(conn, :show, movie_info))
+        |> redirect(to: Routes.movie_path(conn, :show, movie))
 
       {:error, :movie_info, changeset, _changes_so_far} ->
         conn

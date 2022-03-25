@@ -12,11 +12,12 @@ defmodule Flix.Application do
       # Start the Telemetry supervisor
       FlixWeb.Telemetry,
       # Start the PubSub system
-      {Phoenix.PubSub, name: Flix.PubSub},
+      {Phoenix.PubSub, [name: Flix.PubSub, adapter: Phoenix.PubSub.PG2]},
       # Start the Endpoint (http/https)
-      FlixWeb.Endpoint
+      FlixWeb.Endpoint,
       # Start a worker by calling: Flix.Worker.start_link(arg)
       # {Flix.Worker, arg}
+      {Absinthe.Subscription, FlixWeb.Endpoint}
     ]
 
     # See https://hexdocs.pm/elixir/Supervisor.html

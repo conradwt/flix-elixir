@@ -2,6 +2,8 @@ IEx.configure(inspect: [charlists: false])
 
 alias Flix.Accounts
 alias Flix.Accounts.User
+alias Flix.Accounts.UserToken
+alias Flix.Accounts.UserNotifier
 
 alias Flix.Catalogs
 alias Flix.Catalogs.Characterization

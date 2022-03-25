@@ -14,6 +14,7 @@ defmodule FlixWeb.Router do
 
   pipeline :api do
     plug :accepts, ["json"]
+    plug FlixWeb.Plugs.SetCurrentUser
   end
 
   scope "/" do
@@ -22,14 +23,14 @@ defmodule FlixWeb.Router do
     if Mix.env() in [:dev, :test] do
       forward "/graphiql",
         Absinthe.Plug.GraphiQL,
-        schema: FlixWeb.Graphql.Schema,
-        json_codec: Jason,
-        interface: :playground
+        schema: FlixWeb.GraphQL.Schema,
+        socket: FlixWeb.Channels.UserSocket,
+        json_codec: Jason
     end
 
-    forward "/graphql",
+    forward "/api",
       Absinthe.Plug,
-      schema: FlixWeb.Graphql.Schema
+      schema: FlixWeb.GraphQL.Schema
   end
 
   scope "/", FlixWeb do

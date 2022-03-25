@@ -1,5 +1,6 @@
 defmodule FlixWeb.Endpoint do
   use Phoenix.Endpoint, otp_app: :flix
+  use Absinthe.Phoenix.Endpoint
 
   # The session will be stored in the cookie and signed,
   # this means its contents can be read but not tampered with.
@@ -10,10 +11,9 @@ defmodule FlixWeb.Endpoint do
     signing_salt: "NFzKYqak"
   ]
 
-  socket("/socket", FlixWeb.UserSocket,
+  socket "/socket", FlixWeb.Channels.UserSocket,
     websocket: [timeout: 45_000],
     longpoll: false
-  )
 
   socket("/live", Phoenix.LiveView.Socket, websocket: [connect_info: [session: @session_options]])
 

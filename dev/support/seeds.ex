@@ -30,6 +30,8 @@ defmodule Flix.Seeds do
     Flix.Repo.delete_all("movies")
     Flix.Repo.delete_all("genres")
     Flix.Repo.delete_all("users")
+    Flix.Repo.delete_all("users")
+    Flix.Repo.delete_all("users_tokens")
   end
 
   defp create_users() do

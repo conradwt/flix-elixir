@@ -1,5 +1,6 @@
-defmodule FlixWeb.UserSocket do
+defmodule FlixWeb.Channels.UserSocket do
   use Phoenix.Socket
+  use Absinthe.Phoenix.Socket, schema: FlixWeb.GraphQL.Schema
 
   ## Channels
   # channel "room:*", FlixWeb.RoomChannel
