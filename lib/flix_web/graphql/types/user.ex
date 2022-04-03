@@ -1,4 +1,4 @@
-defmodule FlixWeb.Graphql.Types.User do
+defmodule FlixWeb.GraphQL.Types.User do
   use Absinthe.Schema.Notation
 
   alias Flix.Accounts.User

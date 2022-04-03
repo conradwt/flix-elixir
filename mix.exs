@@ -26,6 +26,7 @@ defmodule Flix.MixProject do
 
   # Specifies which paths to compile per environment.
   defp elixirc_paths(:test), do: ["lib", "test/support"]
+  defp elixirc_paths(:dev), do: ["lib", "dev/support"]
   defp elixirc_paths(_), do: ["lib"]
 
   # Specifies your project dependencies.
@@ -46,9 +47,10 @@ defmodule Flix.MixProject do
       {:telemetry_metrics, "~> 0.6.1"},
       {:telemetry_poller, "~> 1.0"},
       {:gettext, "~> 0.18.2"},
-      {:jason, "~> 1.2.2"},
+      {:jason, "~> 1.3.0"},
       {:plug_cowboy, "~> 2.5.2"},
       {:absinthe_plug, "~> 1.5.8"},
+      {:absinthe_phoenix, "~> 2.0.2"},
       {:cors_plug, "~> 2.0.3"},
       {:bcrypt_elixir, "~> 2.0"},
       {:number, "~> 1.0"},

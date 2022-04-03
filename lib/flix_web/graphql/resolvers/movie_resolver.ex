@@ -1,4 +1,4 @@
-defmodule FlixWeb.Graphql.Resolvers.MovieResolver do
+defmodule FlixWeb.GraphQL.Resolvers.MovieResolver do
   alias Flix.Catalogs
   alias Flix.Catalogs.Movie
   alias Flix.Repo

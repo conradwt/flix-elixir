@@ -60,6 +60,30 @@ defmodule Flix.Accounts do
   end
 
   @doc """
+  Gets a user by email and password.
+
+  ## Examples
+
+      iex> authenticate("foo@example.com", "correct_password")
+      {:ok, %User{}}
+
+      iex> authenticate("foo@example.com", "invalid_password")
+      :error
+
+  """
+  def authenticate(email, password)
+    when is_binary(email) and is_binary(password) do
+
+    user = Repo.get_by(User, email: email)
+
+    with true <- User.valid_password?(user, password) do
+      {:ok, user}
+    else
+      _ -> :error
+    end
+  end
+
+  @doc """
   Gets a single user.
 
   Raises `Ecto.NoResultsError` if the User does not exist.
