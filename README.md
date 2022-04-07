@@ -10,7 +10,7 @@ The purpose of this project is to implement an application where fans can commen
 
 - Erlang 24.3.2 or newer
 
-- Node >= 14.19.0 and <= 15.0
+- Node >= 14.19.1 and <= 15.0
 
 - Phoenix 1.6.6 or newer
 
