@@ -12,7 +12,7 @@ The purpose of this project is to implement an application where fans can commen
 
 - Node >= 14.19.0 and <= 15.0
 
-- Phoenix 1.6.6 or newer
+- Phoenix 1.6.7 or newer
 
 - PostgreSQL 14.1 or newer
 
