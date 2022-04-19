@@ -10,7 +10,10 @@ defmodule Flix.MixProject do
       compilers: [:gettext] ++ Mix.compilers(),
       start_permanent: Mix.env() == :prod,
       aliases: aliases(),
-      deps: deps()
+      deps: deps(),
+      preferred_cli_env: [
+        "test.watch": :test
+      ]
     ]
   end
 
@@ -21,10 +24,9 @@ defmodule Flix.MixProject do
     [
       mod: {Flix.Application, []},
       extra_applications: [
-        :ex_machina,
         :logger,
-        :runtime_tools,
-        :phoenix_html_simplified_helpers
+        :phoenix_html_simplified_helpers,
+        :runtime_tools
       ]
     ]
   end
@@ -70,9 +72,8 @@ defmodule Flix.MixProject do
       {:ex_parameterize, "~> 1.0"},
       {:bamboo, "~> 2.1.0"},
       {:bamboo_phoenix, "~> 1.0"},
-      {:credo, "~> 1.5", only: [:dev, :test], runtime: false},
-      # ,
-      # {:mix_test_watch, "~> 1.1"},
+      {:credo, "~> 1.6.4", only: [:dev, :test], runtime: false},
+      {:mix_test_watch, "~> 1.1.0", only: [:dev, :test], runtime: false},
       {:ex_machina, "~> 2.7.0", only: :test}
    ]
   end
