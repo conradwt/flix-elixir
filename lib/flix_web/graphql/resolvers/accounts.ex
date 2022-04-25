@@ -8,7 +8,7 @@ defmodule FlixWeb.GraphQL.Resolvers.Accounts do
         {:error, "Whoops, invalid credentials!"}
 
       {:ok, user} ->
-        token = Accounts.generate_user_session_token(user)
+        token = FlixWeb.AuthToken.sign(user)
         {:ok, %{user: user, token: token}}
     end
   end
@@ -23,7 +23,7 @@ defmodule FlixWeb.GraphQL.Resolvers.Accounts do
         }
 
       {:ok, user} ->
-        token = Accounts.generate_user_session_token(user)
+        token = FlixWeb.AuthToken.sign(user)
         {:ok, %{user: user, token: token}}
     end
   end
