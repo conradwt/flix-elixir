@@ -74,9 +74,8 @@ defmodule Flix.Accounts do
   def authenticate(email, password)
     when is_binary(email) and is_binary(password) do
 
-    user = Repo.get_by(User, email: email)
-
-    with true <- User.valid_password?(user, password) do
+    with user <- Repo.get_by(User, email: email),
+      true <- User.valid_password?(user, password) do
       {:ok, user}
     else
       _ -> :error

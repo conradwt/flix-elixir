@@ -203,8 +203,6 @@ defmodule Flix.Catalogs do
 
   """
   def create_review(attrs \\ %{}) do
-    IO.inspect(attrs, label: "create_review")
-
     %Review{}
     |> Review.changeset(attrs)
     |> Repo.insert()
