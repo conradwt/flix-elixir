@@ -34,7 +34,9 @@ config :flix, FlixWeb.Endpoint,
       DartSass,
       :install_and_run,
       [:default, ~w(--embed-source-map --source-map-urls=absolute --watch)]
-    }
+    },
+    # Start the sass watcher by calling Tailwind.install_and_run(:default, args)
+    tailwind: {Tailwind, :install_and_run, [:default, ~w(--watch)]}
   ]
 
 # ## SSL Support
