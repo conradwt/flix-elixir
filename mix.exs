@@ -63,9 +63,8 @@ defmodule Flix.MixProject do
       {:ex_parameterize, "~> 1.0"},
       {:bamboo, "~> 2.1.0"},
       {:bamboo_phoenix, "~> 1.0"},
-      {:credo, "~> 1.5", only: [:dev, :test], runtime: false}
-      # ,
-      # {:mix_test_watch, "~> 1.1"}
+      {:credo, "~> 1.6.4", only: [:dev, :test], runtime: false},
+      {:mix_test_watch, "~> 1.1.0", only: [:dev, :test], runtime: false}
    ]
   end
 
