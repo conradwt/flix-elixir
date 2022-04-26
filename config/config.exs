@@ -49,14 +49,14 @@ config :flix, Flix.Mailer,
   api_key: System.get_env("SENDGRID_API_KEY")
 
 # Configure mix_test_watch
-# if Mix.env == :dev do
-#   config :mix_test_watch,
-#     clear: true,
-#     tasks: [
-#       "test",
-#       "credo",
-#     ]
-# end
+if Mix.env == :dev do
+  config :mix_test_watch,
+    clear: true,
+    tasks: [
+      "test",
+      "credo"
+    ]
+end
 
 # Configure Absinthe SDL/JSON code generation.
 config :absinthe,
