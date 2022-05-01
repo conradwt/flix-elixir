@@ -72,7 +72,7 @@ defmodule Flix.Catalogs do
   """
   def create_movie(attrs \\ %{}) do
     Ecto.Multi.new()
-    |> Ecto.Multi.insert(:movie_info, Movie.changeset(%Movie{}, attrs))
+    |> Ecto.Multi.insert(:movie, Movie.changeset(%Movie{}, attrs))
     |> Ecto.Multi.update(:movie_poster, &Movie.poster_changeset(&1.movie, attrs))
     |> Repo.transaction()
   end
@@ -95,7 +95,7 @@ defmodule Flix.Catalogs do
     # |> Repo.insert!()
 
     Ecto.Multi.new()
-    |> Ecto.Multi.insert(:movie_info, Movie.changeset(%Movie{}, attrs))
+    |> Ecto.Multi.insert(:movie, Movie.changeset(%Movie{}, attrs))
     |> Ecto.Multi.update(:movie_poster, &Movie.poster_changeset(&1.movie, attrs))
     |> Repo.transaction()
   end
