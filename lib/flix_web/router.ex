@@ -22,14 +22,14 @@ defmodule FlixWeb.Router do
     if Mix.env() in [:dev, :test] do
       forward "/graphiql",
         Absinthe.Plug.GraphiQL,
-        schema: FlixWeb.Graphql.Schema,
+        schema: FlixWeb.GraphQL.Schema,
         json_codec: Jason,
         interface: :playground
     end
 
     forward "/graphql",
       Absinthe.Plug,
-      schema: FlixWeb.Graphql.Schema
+      schema: FlixWeb.GraphQL.Schema
   end
 
   scope "/", FlixWeb do

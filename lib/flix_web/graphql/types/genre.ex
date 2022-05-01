@@ -1,4 +1,4 @@
-defmodule FlixWeb.Graphql.Types.Genre do
+defmodule FlixWeb.GraphQL.Types.Genre do
   use Absinthe.Schema.Notation
 
   @desc "a genre"

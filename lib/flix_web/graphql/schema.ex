@@ -1,14 +1,14 @@
-defmodule FlixWeb.Graphql.Schema do
+defmodule FlixWeb.GraphQL.Schema do
   use Absinthe.Schema
 
-  import_types(FlixWeb.Graphql.Types.{
+  import_types(FlixWeb.GraphQL.Types.{
     Genre,
     Movie,
     Review,
     User
   })
 
-  import_types(FlixWeb.Graphql.Schemas.Queries.{
+  import_types(FlixWeb.GraphQL.Schemas.Queries.{
     Movie,
     User
   })

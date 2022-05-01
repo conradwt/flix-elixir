@@ -1,4 +1,4 @@
-defmodule FlixWeb.Graphql.Types.Review do
+defmodule FlixWeb.GraphQL.Types.Review do
   use Absinthe.Schema.Notation
 
   @desc "a review"

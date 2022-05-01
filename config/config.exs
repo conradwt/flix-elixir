@@ -60,7 +60,7 @@ config :flix, Flix.Mailer,
 
 # Configure Absinthe SDL/JSON code generation.
 config :absinthe,
-  schema: FlixWeb.Graphql.Schema
+  schema: FlixWeb.GraphQL.Schema
 
 # Import environment specific config. This must remain at the bottom
 # of this file so it overrides the configuration defined above.
