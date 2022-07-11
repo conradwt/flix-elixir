@@ -10,7 +10,10 @@ defmodule Flix.MixProject do
       compilers: [:gettext] ++ Mix.compilers(),
       start_permanent: Mix.env() == :prod,
       aliases: aliases(),
-      deps: deps()
+      deps: deps(),
+      preferred_cli_env: [
+        "test.watch": :test
+      ]
     ]
   end
 
@@ -33,7 +36,7 @@ defmodule Flix.MixProject do
   # Type `mix help deps` for examples and options.
   defp deps do
     [
-      {:phoenix, "~> 1.6.9"},
+      {:phoenix, "~> 1.6.10"},
       {:phoenix_ecto, "~> 4.4"},
       {:ecto_sql, "~> 3.7.1"},
       {:postgrex, "~> 0.15.9"},
@@ -66,9 +69,8 @@ defmodule Flix.MixProject do
       {:ex_parameterize, "~> 1.0"},
       {:bamboo, "~> 2.1.0"},
       {:bamboo_phoenix, "~> 1.0"},
-      {:credo, "~> 1.5", only: [:dev, :test], runtime: false}
-      # ,
-      # {:mix_test_watch, "~> 1.1"}
+      {:credo, "~> 1.5", only: [:dev, :test], runtime: false},
+      {:mix_test_watch, "~> 1.1", only: [:dev, :test], runtime: false}
     ]
   end
 
