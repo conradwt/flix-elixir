@@ -50,7 +50,7 @@ config :dart_sass,
 
 # Configure tailwind (the version is required)
 config :tailwind,
-  version: "3.0.24",
+  version: "3.1.6",
   default: [
     args: ~w(
       --config=tailwind.config.js

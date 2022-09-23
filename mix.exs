@@ -36,7 +36,7 @@ defmodule Flix.MixProject do
   # Type `mix help deps` for examples and options.
   defp deps do
     [
-      {:phoenix, "~> 1.6.10"},
+      {:phoenix, "~> 1.6.12"},
       {:phoenix_ecto, "~> 4.4"},
       {:ecto_sql, "~> 3.7.1"},
       {:postgrex, "~> 0.15.9"},
@@ -47,7 +47,7 @@ defmodule Flix.MixProject do
       {:phoenix_live_dashboard, "~> 0.5"},
       {:esbuild, "~> 0.4.0", runtime: Mix.env() == :dev},
       {:dart_sass, "~> 0.4.0", runtime: Mix.env() == :dev},
-      {:tailwind, "~> 0.1.5", runtime: Mix.env() == :dev},
+      {:tailwind, "~> 0.1.9", runtime: Mix.env() == :dev},
       {:swoosh, "~> 1.3"},
       {:telemetry_metrics, "~> 0.6.1"},
       {:telemetry_poller, "~> 1.0.0"},
