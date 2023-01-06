@@ -1,6 +1,6 @@
 # Flix
 
-The purpose of this project is to implement an application where fans can comment on and rate movies. Also, the running application can be found [here](https://flix-elixir-cwt.herokuapp.com).
+The purpose of this project is to implement an application where fans can comment on and rate movies. Also, the running application can be found [here](https://www.example.com).
 
 ## Getting Started
 
@@ -88,4 +88,4 @@ Flix is released under the [MIT license](./LICENSE.md).
 
 ## Copyright
 
-copyright:: (c) Copyright 2021 - 2022 Conrad Taylor. All Rights Reserved.
+copyright:: (c) Copyright 2021 - 2023 Conrad Taylor. All Rights Reserved.
