@@ -144,7 +144,7 @@ movie_data = [
     },
     rating: "PG-13",
     released_on: "2019-04-26",
-    title: "My Avengers: Endgame",
+    title: "Avengers: Endgame",
     total_gross: 1_223_641_414
   },
   %{
