@@ -5,7 +5,7 @@ defmodule Flix.MixProject do
     [
       app: :flix,
       version: "0.1.0",
-      elixir: "~> 1.13.3",
+      elixir: "~> 1.14.2",
       elixirc_paths: elixirc_paths(Mix.env()),
       compilers: [:gettext] ++ Mix.compilers(),
       start_permanent: Mix.env() == :prod,
@@ -66,7 +66,7 @@ defmodule Flix.MixProject do
       {:credo, "~> 1.5", only: [:dev, :test], runtime: false}
       # ,
       # {:mix_test_watch, "~> 1.1"}
-   ]
+    ]
   end
 
   # Aliases are shortcuts or tasks specific to the current project.
