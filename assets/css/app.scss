@@ -1,7 +1,9 @@
 /* This file is for your main application css. */
-// @import './phoenix.css';
-@import '~bootstrap/scss/bootstrap.scss';
-@import './css/custom.scss';
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@import './custom.scss';
 
 /* Alerts and form errors */
 .alert {

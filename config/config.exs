@@ -30,6 +30,36 @@ config :flix, Flix.Mailer, adapter: Swoosh.Adapters.Local
 # Swoosh API client is needed for adapters other than SMTP.
 config :swoosh, :api_client, false
 
+# Configure esbuild (the version is required)
+config :esbuild,
+  version: "0.14.29",
+  default: [
+    args:
+      ~w(js/app.js --bundle --target=es2017 --outdir=../priv/static/assets --external:/fonts/* --external:/images/*),
+    cd: Path.expand("../assets", __DIR__),
+    env: %{"NODE_PATH" => Path.expand("../deps", __DIR__)}
+  ]
+
+# Configure dart_sass (the version is required)
+config :dart_sass,
+  version: "1.49.11",
+  default: [
+    args: ~w(css/app.scss ../priv/static/assets/app.tailwind.css),
+    cd: Path.expand("../assets", __DIR__)
+  ]
+
+# Configure tailwind (the version is required)
+config :tailwind,
+  version: "3.1.6",
+  default: [
+    args: ~w(
+      --config=tailwind.config.js
+      --input=../priv/static/assets/app.tailwind.css
+      --output=../priv/static/assets/app.css
+    ),
+    cd: Path.expand("../assets", __DIR__)
+  ]
+
 # Configures Elixir's Logger
 config :logger, :console,
   format: "$time $metadata[$level] $message\n",
@@ -49,14 +79,14 @@ config :flix, Flix.Mailer,
   api_key: System.get_env("SENDGRID_API_KEY")
 
 # Configure mix_test_watch
-# if Mix.env == :dev do
-#   config :mix_test_watch,
-#     clear: true,
-#     tasks: [
-#       "test",
-#       "credo",
-#     ]
-# end
+if Mix.env() == :dev do
+  config :mix_test_watch,
+    clear: true,
+    tasks: [
+      "test",
+      "credo"
+    ]
+end
 
 # Configure Absinthe SDL/JSON code generation.
 config :absinthe,

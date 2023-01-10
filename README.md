@@ -1,22 +1,20 @@
 # Flix
 
-The purpose of this project is to implement an application where fans can comment on and rate movies. Also, the running application can be found [here](https://flix-elixir-cwt.herokuapp.com).
+The purpose of this project is to implement an application where fans can comment on and rate movies. Also, the running application can be found [here](https://www.example.com).
 
 ## Getting Started
 
 ## Software requirements
 
-- Elixir 1.13.3 or newer
+- Elixir 1.14.2 or newer
 
-- Erlang 24.3.3 or newer
+- Erlang 25.2 or newer
 
-- Node >= 14.19.0 and <= 15.0
+- Phoenix 1.6.15 or newer
 
-- Phoenix 1.6.7 or newer
+- PostgreSQL 14.5 or newer
 
-- PostgreSQL 14.1 or newer
-
-Note: This tutorial was updated on macOS 12.3.1.
+Note: This tutorial was updated on macOS 12.6.1.
 
 ## Communication
 
@@ -88,4 +86,4 @@ Flix is released under the [MIT license](./LICENSE.md).
 
 ## Copyright
 
-copyright:: (c) Copyright 2021 - 2022 Conrad Taylor. All Rights Reserved.
+copyright:: (c) Copyright 2021 - 2023 Conrad Taylor. All Rights Reserved.

@@ -27,7 +27,7 @@ defmodule FlixWeb.Router do
         interface: :playground
     end
 
-    forward "/graphql",
+    forward "/api",
       Absinthe.Plug,
       schema: FlixWeb.Graphql.Schema
   end

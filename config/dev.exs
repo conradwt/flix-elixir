@@ -14,7 +14,7 @@ config :flix, Flix.Repo,
 #
 # The watchers configuration can be used to run external
 # watchers to your application. For example, we use it
-# with webpack to recompile .js and .css sources.
+# with esbuild to recompile .js and .css sources.
 config :flix, FlixWeb.Endpoint,
   # Binding to loopback ipv4 address prevents access from other machines.
   # Change to `ip: {0, 0, 0, 0}` to allow access from other machines.
@@ -24,13 +24,19 @@ config :flix, FlixWeb.Endpoint,
   debug_errors: true,
   secret_key_base: "tCI4Bo4USd+jHzx1Wj3qeOT4/rhp60jxq/QJqsod9pf4aI/lHaaNAMkgX/9dwM4d",
   watchers: [
-    node: [
-      "node_modules/webpack/bin/webpack.js",
-      "--mode",
-      "development",
-      "--watch-stdin",
-      cd: Path.expand("../assets", __DIR__)
-    ]
+    # Start the esbuild watcher by calling Esbuild.install_and_run(:default, args)
+    esbuild: {
+      Esbuild,
+      :install_and_run,
+      [:default, ~w(--sourcemap=inline --watch)]},
+    # Start the sass watcher by calling DartSass.install_and_run(:default, args)
+    sass: {
+      DartSass,
+      :install_and_run,
+      [:default, ~w(--embed-source-map --source-map-urls=absolute --watch)]
+    },
+    # Start the sass watcher by calling Tailwind.install_and_run(:default, args)
+    tailwind: {Tailwind, :install_and_run, [:default, ~w(--watch)]}
   ]
 
 # ## SSL Support
