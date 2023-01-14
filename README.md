@@ -6,15 +6,15 @@ The purpose of this project is to implement an application where fans can commen
 
 ## Software requirements
 
-- Elixir 1.13.3 or newer
+- Elixir 1.14.2 or newer
 
-- Erlang 24.3.3 or newer
+- Erlang 25.2 or newer
 
 - Node >= 14.19.0 and <= 15.0
 
-- Phoenix 1.6.7 or newer
+- Phoenix 1.6.15 or newer
 
-- PostgreSQL 14.1 or newer
+- PostgreSQL 14.6 or newer
 
 - Python >= 2.7 and < 3.0
 
