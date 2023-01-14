@@ -1,6 +1,6 @@
 # Flix
 
-The purpose of this project is to implement an application where fans can comment on and rate movies. Also, the running application can be found [here](https://flix-elixir-cwt.herokuapp.com).
+The purpose of this project is to implement an application where fans can comment on and rate movies. Also, the running application can be found [here](https://www.example.com).
 
 ## Getting Started
 
