@@ -14,7 +14,7 @@ The purpose of this project is to implement an application where fans can commen
 
 - Phoenix 1.6.15 or newer
 
-- PostgreSQL 14.6 or newer
+- PostgreSQL 14.7 or newer
 
 - Python >= 2.7 and < 3.0
 
