@@ -6,15 +6,15 @@ The purpose of this project is to implement an application where fans can commen
 
 ## Software requirements
 
-- Elixir 1.14.3 or newer
+- Elixir 1.14.4 or newer
 
 - Erlang 25.3 or newer
 
 - Phoenix 1.6.16 or newer
 
-- PostgreSQL 14.5 or newer
+- PostgreSQL 14.7 or newer
 
-Note: This tutorial was updated on macOS 12.6.2.
+Note: This tutorial was updated on macOS 13.3.
 
 ## Communication
 
