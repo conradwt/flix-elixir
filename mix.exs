@@ -5,7 +5,7 @@ defmodule Flix.MixProject do
     [
       app: :flix,
       version: "0.1.0",
-      elixir: "~> 1.14.4",
+      elixir: "~> 1.14.5",
       elixirc_paths: elixirc_paths(Mix.env()),
       compilers: [:gettext] ++ Mix.compilers(),
       start_permanent: Mix.env() == :prod,
@@ -37,9 +37,9 @@ defmodule Flix.MixProject do
   defp deps do
     [
       {:phoenix, "~> 1.6.16"},
-      {:phoenix_ecto, "~> 4.4"},
-      {:ecto_sql, "~> 3.7.1"},
-      {:postgrex, "~> 0.15.9"},
+      {:phoenix_ecto, "~> 4.4.2"},
+      {:ecto_sql, "~> 3.10.1"},
+      {:postgrex, "~> 0.17.1"},
       {:phoenix_html, "~> 3.0"},
       {:phoenix_live_reload, "~> 1.3.3", only: :dev},
       {:phoenix_live_view, "~> 0.17.5"},
