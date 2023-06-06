@@ -32,7 +32,7 @@ config :swoosh, :api_client, false
 
 # Configure esbuild (the version is required)
 config :esbuild,
-  version: "0.14.29",
+  version: "0.17.19",
   default: [
     args:
       ~w(js/app.js --bundle --target=es2017 --outdir=../priv/static/assets --external:/fonts/* --external:/images/*),
@@ -42,19 +42,19 @@ config :esbuild,
 
 # Configure dart_sass (the version is required)
 config :dart_sass,
-  version: "1.49.11",
+  version: "1.61.0",
   default: [
-    args: ~w(css/app.scss ../priv/static/assets/app.tailwind.css),
+    args: ~w(css/app.scss ../priv/static/assets/app.css.tailwind),
     cd: Path.expand("../assets", __DIR__)
   ]
 
 # Configure tailwind (the version is required)
 config :tailwind,
-  version: "3.1.6",
+  version: "3.3.2",
   default: [
     args: ~w(
       --config=tailwind.config.js
-      --input=../priv/static/assets/app.tailwind.css
+      --input=../priv/static/assets/app.css.tailwind
       --output=../priv/static/assets/app.css
     ),
     cd: Path.expand("../assets", __DIR__)

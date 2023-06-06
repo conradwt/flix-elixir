@@ -70,11 +70,22 @@ defmodule Flix.Catalogs do
       {:error, %Ecto.Changeset{}}
 
   """
+  # def create_movie(attrs \\ %{}) do
+  #   Ecto.Multi.new()
+  #   |> Ecto.Multi.insert(:movie, Movie.changeset(%Movie{}, attrs))
+  #   |> Ecto.Multi.update(:movie_with_poster, &Movie.poster_changeset(&1.movie, attrs))
+  #   |> Repo.transaction()
+  # end
+
   def create_movie(attrs \\ %{}) do
     Ecto.Multi.new()
-    |> Ecto.Multi.insert(:movie_info, Movie.changeset(%Movie{}, attrs))
-    |> Ecto.Multi.update(:movie_poster, &Movie.poster_changeset(&1.movie, attrs))
+    |> Ecto.Multi.insert(:movie, Movie.changeset(%Movie{}, attrs))
+    |> Ecto.Multi.update(:movie_with_poster, &Movie.poster_changeset(&1.movie, attrs))
     |> Repo.transaction()
+    |> case do
+        {:ok, %{movie_with_poster: movie}} -> {:ok, movie}
+        {:error, _, changeset, _changes_so_far} -> {:error, changeset}
+    end
   end
 
   @doc """
@@ -95,7 +106,7 @@ defmodule Flix.Catalogs do
     # |> Repo.insert!()
 
     Ecto.Multi.new()
-    |> Ecto.Multi.insert(:movie_info, Movie.changeset(%Movie{}, attrs))
+    |> Ecto.Multi.insert(:movie, Movie.changeset(%Movie{}, attrs))
     |> Ecto.Multi.update(:movie_poster, &Movie.poster_changeset(&1.movie, attrs))
     |> Repo.transaction()
   end

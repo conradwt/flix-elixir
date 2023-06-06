@@ -140,7 +140,7 @@ movie_data = [
     main_image: %Plug.Upload{
       content_type: "image/png",
       filename: "avengers-end-game.png",
-      path: "#{File.cwd!()}/assets/static/images/avengers-end-game.png"
+      path: "#{File.cwd!()}/priv/static/images/avengers-end-game.png"
     },
     rating: "PG-13",
     released_on: "2019-04-26",
@@ -156,7 +156,7 @@ movie_data = [
     main_image: %Plug.Upload{
       content_type: "image/png",
       filename: "avengers-end-game.png",
-      path: "#{File.cwd!()}/assets/static/images/captain-marvel.png"
+      path: "#{File.cwd!()}/priv/static/images/captain-marvel.png"
     },
     rating: "PG-13",
     released_on: "2019-03-08",
@@ -172,7 +172,7 @@ movie_data = [
     main_image: %Plug.Upload{
       content_type: "image/png",
       filename: "avengers-end-game.png",
-      path: "#{File.cwd!()}/assets/static/images/black-panther.png"
+      path: "#{File.cwd!()}/priv/static/images/black-panther.png"
     },
     rating: "PG-13",
     released_on: "2018-02-16",
@@ -188,7 +188,7 @@ movie_data = [
     main_image: %Plug.Upload{
       content_type: "image/png",
       filename: "avengers-end-game.png",
-      path: "#{File.cwd!()}/assets/static/images/avengers-infinity-war.png"
+      path: "#{File.cwd!()}/priv/static/images/avengers-infinity-war.png"
     },
     rating: "PG-13",
     released_on: "2018-04-27",
@@ -204,7 +204,7 @@ movie_data = [
     main_image: %Plug.Upload{
       content_type: "image/png",
       filename: "avengers-end-game.png",
-      path: "#{File.cwd!()}/assets/static/images/green-lantern.png"
+      path: "#{File.cwd!()}/priv/static/images/green-lantern.png"
     },
     rating: "PG-13",
     released_on: "2011-06-17",
@@ -220,7 +220,7 @@ movie_data = [
     main_image: %Plug.Upload{
       content_type: "image/png",
       filename: "avengers-end-game.png",
-      path: "#{File.cwd!()}/assets/static/images/fantastic-four.png"
+      path: "#{File.cwd!()}/priv/static/images/fantastic-four.png"
     },
     rating: "PG-13",
     released_on: "2015-08-07",
@@ -236,7 +236,7 @@ movie_data = [
     main_image: %Plug.Upload{
       content_type: "image/png",
       filename: "avengers-end-game.png",
-      path: "#{File.cwd!()}/assets/static/images/ironman.png"
+      path: "#{File.cwd!()}/priv/static/images/ironman.png"
     },
     rating: "PG-13",
     released_on: "2008-05-02",
@@ -252,7 +252,7 @@ movie_data = [
     main_image: %Plug.Upload{
       content_type: "image/png",
       filename: "avengers-end-game.png",
-      path: "#{File.cwd!()}/assets/static/images/superman.png"
+      path: "#{File.cwd!()}/priv/static/images/superman.png"
     },
     rating: "PG",
     released_on: "1978-12-15",
@@ -269,7 +269,7 @@ movie_data = [
     main_image: %Plug.Upload{
       content_type: "image/png",
       filename: "avengers-end-game.png",
-      path: "#{File.cwd!()}/assets/static/images/spiderman.png"
+      path: "#{File.cwd!()}/priv/static/images/spiderman.png"
     },
     rating: "PG-13",
     released_on: "2002-05-03",
@@ -285,7 +285,7 @@ movie_data = [
     main_image: %Plug.Upload{
       content_type: "image/png",
       filename: "avengers-end-game.png",
-      path: "#{File.cwd!()}/assets/static/images/batman.png"
+      path: "#{File.cwd!()}/priv/static/images/batman.png"
     },
     rating: "PG-13",
     released_on: "1989-06-23",
@@ -301,7 +301,7 @@ movie_data = [
     main_image: %Plug.Upload{
       content_type: "image/png",
       filename: "avengers-end-game.png",
-      path: "#{File.cwd!()}/assets/static/images/catwoman.png"
+      path: "#{File.cwd!()}/priv/static/images/catwoman.png"
     },
     rating: "PG-13",
     released_on: "2004-07-23",
@@ -317,7 +317,7 @@ movie_data = [
     main_image: %Plug.Upload{
       content_type: "image/png",
       filename: "avengers-end-game.png",
-      path: "#{File.cwd!()}/assets/static/images/wonder-woman.png"
+      path: "#{File.cwd!()}/priv/static/images/wonder-woman.png"
     },
     rating: "PG-13",
     released_on: "2017-06-02",
@@ -326,6 +326,36 @@ movie_data = [
   }
 ]
 
+# add the movie info
+
 Enum.each(movie_data, fn data ->
   Catalogs.create_movie(data)
 end)
+
+# add movie poster
+
+# movie_titles_and_filenames =
+#   Enum.map(Repo.all(from m in Movie, select: {m.title, m.slug}), fn {title, slug} ->
+#     [title, "#{slug}.png"]
+#   end)
+
+# Enum.each(movie_titles_and_filenames, fn [title, filename] ->
+#   movie = Movie |> Repo.get_by(title: title)
+#   path = "#{File.cwd!()}/priv/static/images/#{filename}"
+#   main_image =
+#     %Plug.Upload{content_type: "image/png",
+#     filename: filename,
+#     path: path
+#   }
+
+#   # MainImageUploader.store({
+#   #   %Plug.Upload{
+#   #     content_type: "image/png",
+#   #     filename: filename,
+#   #     path: path
+#   #   },
+#   #   movie
+#   # })
+
+#   Catalogs.update_movie(movie, %{main_image: main_image})
+# end)
