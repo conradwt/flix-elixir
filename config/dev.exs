@@ -35,7 +35,7 @@ config :flix, FlixWeb.Endpoint,
       :install_and_run,
       [:default, ~w(--embed-source-map --source-map-urls=absolute --watch)]
     },
-    # Start the sass watcher by calling Tailwind.install_and_run(:default, args)
+    # Start the tailwind watcher by calling Tailwind.install_and_run(:default, args)
     tailwind: {Tailwind, :install_and_run, [:default, ~w(--watch)]}
   ]
 

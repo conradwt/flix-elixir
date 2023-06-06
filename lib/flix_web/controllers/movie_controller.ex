@@ -29,22 +29,39 @@ defmodule FlixWeb.MovieController do
     render(conn, "new.html", changeset: changeset, genres: genres)
   end
 
+  # def create(conn, %{"movie" => movie_params}) do
+  #   case Catalogs.create_movie(movie_params) do
+  #     {:ok, %{movie: movie, movie_with_poster: _movie_with_poster}} ->
+  #       conn
+  #       |> put_flash(:notice, "Movie created successfully.")
+  #       |> redirect(to: Routes.movie_path(conn, :show, movie))
+
+  #     {:error, :movie, changeset, _changes_so_far} ->
+  #       conn
+  #       |> put_flash(:error, "There was a problem creating the movie.  Please try again.")
+  #       |> render("new.html",
+  #         changeset: changeset,
+  #         genres: Catalogs.list_genres()
+  #       )
+
+  #     {:error, :movie_with_poster, changeset, _changes_so_far} ->
+  #       conn
+  #       |> put_flash(:error, "There was a problem creating the movie.  Please try again.")
+  #       |> render("new.html",
+  #         changeset: changeset,
+  #         genres: Catalogs.list_genres()
+  #       )
+  #   end
+  # end
+
   def create(conn, %{"movie" => movie_params}) do
     case Catalogs.create_movie(movie_params) do
-      {:ok, %{movie_info: movie_info, movie_poster: _movie_poster}} ->
+      {:ok, movie} ->
         conn
         |> put_flash(:notice, "Movie created successfully.")
-        |> redirect(to: Routes.movie_path(conn, :show, movie_info))
+        |> redirect(to: Routes.movie_path(conn, :show, movie))
 
-      {:error, :movie_info, changeset, _changes_so_far} ->
-        conn
-        |> put_flash(:error, "There was a problem creating the movie.  Please try again.")
-        |> render("new.html",
-          changeset: changeset,
-          genres: Catalogs.list_genres()
-        )
-
-      {:error, :movie_poster, changeset, _changes_so_far} ->
+      {:error, changeset} ->
         conn
         |> put_flash(:error, "There was a problem creating the movie.  Please try again.")
         |> render("new.html",
