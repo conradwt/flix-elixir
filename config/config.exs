@@ -57,7 +57,8 @@ config :tailwind,
       --input=../priv/static/assets/app.css.tailwind
       --output=../priv/static/assets/app.css
     ),
-    cd: Path.expand("../assets", __DIR__)
+    cd: Path.expand("../assets", __DIR__),
+    env: %{"BROWSERSLIST_IGNORE_OLD_DATA" => "1"}
   ]
 
 # Configures Elixir's Logger
