@@ -8,7 +8,7 @@ The purpose of this project is to implement an application where fans can commen
 
 - Elixir 1.14.5 or newer
 
-- Erlang 26.0 or newer
+- Erlang 25.3.2.2 or newer
 
 - Phoenix 1.6.16 or newer
 
