@@ -1,41 +1,83 @@
-<header>
-  <nav>
+<header class="block p-2 mb-12 leading-6 text-left bg-sky-600 text-neutral-700">
+  <nav class="flex relative flex-wrap justify-between items-center py-2 px-4 text-left md:justify-start box-border">
     <%=
       "/images/logo.png"
-      |> img_tag()
-      |> link(to: Routes.movie_path(@conn, :index))
+      |> img_tag(class: "mr-2 h-12 text-cyan-800 align-middle border-none box-border")
+      |> link(to: Routes.movie_path(@conn, :index),
+              class: "text-blue-200 bg-transparent cursor-pointer box-border hover:text-cyan-800",
+              style: "text-decoration: none;")
     %>
-    <ul class="left">
-      <li>
-        <%= link "Released", to: Routes.movie_path(@conn, :index) %>
+    <ul
+      class="flex flex-col flex-wrap pl-0 my-0 mr-auto tracking-wider md:flex-row box-border"
+      style="list-style: none;">
+      <li class="mr-1 text-lg leading-7 box-border"
+        style="list-style: outside none none;">
+        <%= link "Released",
+              to: Routes.movie_path(@conn, :index),
+              class: "block px-0 pt-2 pb-px text-blue-200 bg-transparent cursor-pointer md:px-2 box-border hover:border-b hover:border-solid hover:border-gray-200 hover:text-gray-200",
+              style: "text-decoration: none; list-style: outside none none;" %>
       </li>
-      <li>
-        <%= link "Upcoming", to: Routes.filtered_movies_path(@conn, :index, :upcoming) %>
+      <li class="mr-1 text-lg leading-7 box-border"
+        style="list-style: outside none none;">
+        <%= link "Upcoming",
+              to: Routes.filtered_movies_path(@conn, :index, :upcoming),
+              class: "block px-0 pt-2 pb-px text-blue-200 bg-transparent cursor-pointer md:px-2 box-border hover:border-b hover:border-solid hover:border-gray-200 hover:text-gray-200",
+              style: "text-decoration: none; list-style: outside none none;" %>
       </li>
-      <li>
-        <%= link "Recent", to: Routes.filtered_movies_path(@conn, :index, :recent) %>
+      <li class="mr-1 text-lg leading-7 box-border"
+        style="list-style: outside none none;">
+        <%= link "Recent",
+              to: Routes.filtered_movies_path(@conn, :index, :recent),
+              class: "block px-0 pt-2 pb-px text-blue-200 bg-transparent cursor-pointer md:px-2 box-border hover:border-b hover:border-solid hover:border-gray-200 hover:text-gray-200",
+              style: "text-decoration: none; list-style: outside none none;" %>
       </li>
-      <li>
-        <%= link "Hits", to: Routes.filtered_movies_path(@conn, :index, :hits) %>
+      <li class="mr-1 text-lg leading-7 box-border"
+        style="list-style: outside none none;">
+        <%= link "Hits",
+              to: Routes.filtered_movies_path(@conn, :index, :hits),
+              class: "block px-0 pt-2 pb-px text-blue-200 bg-transparent cursor-pointer md:px-2 box-border hover:border-b hover:border-solid hover:border-gray-200 hover:text-gray-200",
+              style: "text-decoration: none; list-style: outside none none;" %>
       </li>
-      <li>
-        <%= link "Flops", to: Routes.filtered_movies_path(@conn, :index, :flops) %>
+      <li class="mr-1 text-lg leading-7 box-border"
+        style="list-style: outside none none;">
+        <%= link "Flops",
+              to: Routes.filtered_movies_path(@conn, :index, :flops),
+              class: "block px-0 pt-2 pb-px text-blue-200 bg-transparent cursor-pointer md:px-2 box-border hover:border-b hover:border-solid hover:border-gray-200 hover:text-gray-200",
+              style: "text-decoration: none; list-style: outside none none;" %>
       </li>
     </ul>
-    <ul class="right">
+    <ul class="flex flex-col flex-wrap pl-0 my-0 ml-auto tracking-wider md:flex-row box-border"
+      style="list-style: none;">
       <%= if @current_user do %>
-        <li>
-          <%= link @current_user.email, to: Routes.movie_path(@conn, :index) %>
+        <li class="mr-1 text-lg leading-7 box-border"
+        style="list-style: outside none none;">
+          <%= link @current_user.email,
+                to: Routes.movie_path(@conn, :index),
+                class: "inline-block py-1 px-3 mr-2 text-base font-normal leading-normal text-center text-gray-200 align-middle bg-transparent rounded border border-gray-200 border-solid cursor-pointer select-none md:px-2 box-border hover:border-sky-600 hover:bg-gray-200 hover:text-sky-600",
+                style: "text-decoration: none; transition: none 0s ease 0s; list-style: outside none none;" %>
         </li>
-        <li>
-          <%= link "Sign Out", to: Routes.user_session_path(@conn, :delete), method: :delete, class: "button" %>
+        <li class="mr-1 text-lg leading-7 box-border"
+        style="list-style: outside none none;">
+          <%= link "Sign Out",
+                to: Routes.user_session_path(@conn, :delete),
+                method: :delete,
+                class: "inline-block py-1 px-3 mr-2 text-base font-normal leading-normal text-center text-gray-200 align-middle bg-transparent rounded border border-gray-200 border-solid cursor-pointer select-none md:px-2 box-border hover:border-sky-600 hover:bg-gray-200 hover:text-sky-600",
+                style: "text-decoration: none; transition: none 0s ease 0s; list-style: outside none none;" %>
         </li>
       <% else %>
-        <li>
-          <%= link "Sign In", to: Routes.user_session_path(@conn, :new), class: "button" %>
+        <li class="mr-1 text-lg leading-7 box-border"
+        style="list-style: outside none none;">
+          <%= link "Sign In",
+                to: Routes.user_session_path(@conn, :new),
+                class: "inline-block py-1 px-3 mr-2 text-base font-normal leading-normal text-center text-gray-200 align-middle bg-transparent rounded border border-gray-200 border-solid cursor-pointer select-none md:px-2 box-border hover:border-sky-600 hover:bg-gray-200 hover:text-sky-600",
+                style: "text-decoration: none; transition: none 0s ease 0s; list-style: outside none none;" %>
         </li>
-        <li>
-          <%= link "Sign Up", to: Routes.user_registration_path(@conn, :new), class: "button" %>
+        <li class="mr-1 text-lg leading-7 box-border"
+        style="list-style: outside none none;">
+          <%= link "Sign Up",
+                to: Routes.user_registration_path(@conn, :new),
+                class: "inline-block py-1 px-3 mr-2 text-base font-normal leading-normal text-center text-gray-200 align-middle bg-transparent rounded border border-gray-200 border-solid cursor-pointer select-none md:px-2 box-border hover:border-sky-600 hover:bg-gray-200 hover:text-sky-600",
+                style: "text-decoration: none; transition: none 0s ease 0s; list-style: outside none none;" %>
         </li>
       <% end %>
     </ul>
