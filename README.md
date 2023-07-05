@@ -6,9 +6,9 @@ The purpose of this project is to implement an application where fans can commen
 
 ## Software requirements
 
-- Elixir 1.15.0 or newer
+- Elixir 1.15.2 or newer
 
-- Erlang 25.3.2.2 or newer
+- Erlang 26.0.2 or newer
 
 - Phoenix 1.6.16 or newer
 
