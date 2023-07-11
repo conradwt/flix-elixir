@@ -48,7 +48,7 @@ defmodule Flix.MixProject do
       {:esbuild, "~> 0.7.1", runtime: Mix.env() == :dev},
       {:dart_sass, "~> 0.6.0", runtime: Mix.env() == :dev},
       {:tailwind, "~> 0.2.1", runtime: Mix.env() == :dev},
-      {:swoosh, "~> 1.3"},
+      {:swoosh, "~> 1.11.3"},
       {:telemetry_metrics, "~> 0.6.1"},
       {:telemetry_poller, "~> 1.0.0"},
       {:gettext, "~> 0.18.2"},
