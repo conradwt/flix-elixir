@@ -13,6 +13,7 @@ config :flix,
 
 # Configures the endpoint
 config :flix, FlixWeb.Endpoint,
+  adapter: Bandit.PhoenixAdapter,
   url: [host: "localhost"],
   render_errors: [view: FlixWeb.ErrorView, accepts: ~w(html json), layout: false],
   pubsub_server: Flix.PubSub,
