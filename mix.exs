@@ -53,7 +53,7 @@ defmodule Flix.MixProject do
       {:telemetry_poller, "~> 1.0.0"},
       {:gettext, "~> 0.18.2"},
       {:jason, "~> 1.3.0"},
-      {:plug_cowboy, "~> 2.5.2"},
+      {:bandit, "~> 1.0.0-pre.13"},
       {:absinthe_plug, "~> 1.5.8"},
       {:cors_plug, "~> 3.0.3"},
       {:bcrypt_elixir, "~> 2.0"},
