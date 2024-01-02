@@ -6,7 +6,7 @@ The purpose of this project is to implement an application where fans can commen
 
 ## Software requirements
 
-- Elixir 1.15.7 or newer
+- Elixir 1.16.0 or newer
 
 - Erlang 26.1.2 or newer
 
@@ -14,7 +14,7 @@ The purpose of this project is to implement an application where fans can commen
 
 - PostgreSQL 15.4 or newer
 
-Note: This tutorial was updated on macOS 14.0.0.
+Note: This tutorial was updated on macOS 14.2.1.
 
 ## Communication
 
@@ -86,4 +86,4 @@ Flix is released under the [MIT license](./LICENSE.md).
 
 ## Copyright
 
-copyright:: (c) Copyright 2021 - 2023 Conrad Taylor. All Rights Reserved.
+copyright:: (c) Copyright 2021 - 2024 Conrad Taylor. All Rights Reserved.
