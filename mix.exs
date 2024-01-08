@@ -37,9 +37,9 @@ defmodule Flix.MixProject do
   defp deps do
     [
       {:phoenix, "~> 1.6.16"},
-      {:phoenix_ecto, "~> 4.4.2"},
+      {:phoenix_ecto, "~> 4.4.3"},
       {:ecto_sql, "~> 3.10.1"},
-      {:postgrex, "~> 0.17.3"},
+      {:postgrex, "~> 0.17.4"},
       {:phoenix_html, "~> 3.3.3"},
       {:phoenix_live_reload, "~> 1.3.3", only: :dev},
       {:phoenix_live_view, "~> 0.17.5"},
@@ -47,7 +47,7 @@ defmodule Flix.MixProject do
       {:phoenix_live_dashboard, "~> 0.5"},
       {:esbuild, "~> 0.7.1", runtime: Mix.env() == :dev},
       {:dart_sass, "~> 0.6.0", runtime: Mix.env() == :dev},
-      {:tailwind, "~> 0.2.1", runtime: Mix.env() == :dev},
+      {:tailwind, "~> 0.2.2", runtime: Mix.env() == :dev},
       {:swoosh, "~> 1.11.6"},
       {:telemetry_metrics, "~> 0.6.1"},
       {:telemetry_poller, "~> 1.0.0"},
@@ -69,7 +69,7 @@ defmodule Flix.MixProject do
       {:ex_parameterize, "~> 1.0"},
       {:bamboo, "~> 2.1.0"},
       {:bamboo_phoenix, "~> 1.0"},
-      {:credo, "~> 1.7.1", only: [:dev, :test], runtime: false},
+      {:credo, "~> 1.7.3", only: [:dev, :test], runtime: false},
       {:mix_test_watch, "~> 1.1.1", only: [:dev, :test], runtime: false}
     ]
   end
