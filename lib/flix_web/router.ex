@@ -21,15 +21,15 @@ defmodule FlixWeb.Router do
 
     if Mix.env() in [:dev, :test] do
       forward "/graphiql",
-        Absinthe.Plug.GraphiQL,
-        schema: FlixWeb.Graphql.Schema,
-        json_codec: Jason,
-        interface: :playground
+              Absinthe.Plug.GraphiQL,
+              schema: FlixWeb.Graphql.Schema,
+              json_codec: Jason,
+              interface: :playground
     end
 
     forward "/api",
-      Absinthe.Plug,
-      schema: FlixWeb.Graphql.Schema
+            Absinthe.Plug,
+            schema: FlixWeb.Graphql.Schema
   end
 
   scope "/", FlixWeb do
@@ -55,26 +55,21 @@ defmodule FlixWeb.Router do
   #   pipe_through :api
   # end
 
-  # Enables LiveDashboard only for development
-  #
-  # If you want to use the LiveDashboard in production, you should put
-  # it behind authentication and allow only admins to access it.
-  # If your application does not have an admins-only section yet,
-  # you can use Plug.BasicAuth to set up some basic authentication
-  # as long as you are also using SSL (which you should anyway).
-  if Mix.env() in [:dev, :test] do
+  # Enable LiveDashboard and Swoosh mailbox preview in development
+  if Application.compile_env(:flix, :dev_routes) do
+    # If you want to use the LiveDashboard in production, you should put
+    # it behind authentication and allow only admins to access it.
+    # If your application does not have an admins-only section yet,
+    # you can use Plug.BasicAuth to set up some basic authentication
+    # as long as you are also using SSL (which you should anyway).
     import Phoenix.LiveDashboard.Router
 
-    scope "/" do
-      pipe_through(:browser)
-      live_dashboard("/dashboard", metrics: FlixWeb.Telemetry)
+    scope "/dev" do
+      pipe_through :browser
+
+      live_dashboard "/dashboard", metrics: FlixWeb.Telemetry
+      forward "/mailbox", Plug.Swoosh.MailboxPreview
     end
-  end
-
-  # Enables send e-mails views only for development
-
-  if Mix.env() == :dev do
-    forward "/sent_emails", Bamboo.SentEmailViewerPlug
   end
 
   ## Authentication routes

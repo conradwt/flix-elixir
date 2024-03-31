@@ -9,15 +9,18 @@ import Config
 
 config :flix,
   ecto_repos: [Flix.Repo],
-  generators: [binary_id: true]
+  generators: [timestamp_type: :utc_datetime, binary_id: true]
 
 # Configures the endpoint
 config :flix, FlixWeb.Endpoint,
-  adapter: Bandit.PhoenixAdapter,
   url: [host: "localhost"],
-  render_errors: [view: FlixWeb.ErrorView, accepts: ~w(html json), layout: false],
+  adapter: Bandit.PhoenixAdapter,
+  render_errors: [
+    formats: [html: FlixWeb.ErrorHTML, json: FlixWeb.ErrorJSON],
+    layout: false
+  ],
   pubsub_server: Flix.PubSub,
-  live_view: [signing_salt: "C/wWe4Zy"]
+  live_view: [signing_salt: "6jqhXaaD"]
 
 # Configures the mailer
 #
@@ -33,33 +36,24 @@ config :swoosh, :api_client, false
 
 # Configure esbuild (the version is required)
 config :esbuild,
-  version: "0.18.11",
-  default: [
+  version: "0.17.11",
+  flix: [
     args:
       ~w(js/app.js --bundle --target=es2017 --outdir=../priv/static/assets --external:/fonts/* --external:/images/*),
     cd: Path.expand("../assets", __DIR__),
     env: %{"NODE_PATH" => Path.expand("../deps", __DIR__)}
   ]
 
-# Configure dart_sass (the version is required)
-config :dart_sass,
-  version: "1.61.0",
-  default: [
-    args: ~w(css/app.scss ../priv/static/assets/app.css.tailwind),
-    cd: Path.expand("../assets", __DIR__)
-  ]
-
 # Configure tailwind (the version is required)
 config :tailwind,
-  version: "3.3.2",
-  default: [
+  version: "3.4.3",
+  flix: [
     args: ~w(
       --config=tailwind.config.js
-      --input=../priv/static/assets/app.css.tailwind
+      --input=css/app.css
       --output=../priv/static/assets/app.css
     ),
-    cd: Path.expand("../assets", __DIR__),
-    env: %{"BROWSERSLIST_IGNORE_OLD_DATA" => "1"}
+    cd: Path.expand("../assets", __DIR__)
   ]
 
 # Configures Elixir's Logger
@@ -69,16 +63,6 @@ config :logger, :console,
 
 # Use Jason for JSON parsing in Phoenix
 config :phoenix, :json_library, Jason
-
-# Configure the time zone database.
-# https://mikezornek.com/posts/2020/3/working-with-time-zones-in-an-elixir-phoenix-app
-# https://en.wikipedia.org/wiki/List_of_tz_database_time_zones
-config :elixir, :time_zone_database, Tzdata.TimeZoneDatabase
-
-# Configure Bamboo Mailer
-config :flix, Flix.Mailer,
-  adapter: Bamboo.SendGridAdapter,
-  api_key: System.get_env("SENDGRID_API_KEY")
 
 # Configure mix_test_watch
 if Mix.env() == :dev do

@@ -7,40 +7,36 @@ defmodule FlixWeb.Endpoint do
   @session_options [
     store: :cookie,
     key: "_flix_key",
-    signing_salt: "NFzKYqak"
+    signing_salt: "MpQjjKl3",
+    same_site: "Lax"
   ]
 
-  socket("/socket", FlixWeb.UserSocket,
-    websocket: [timeout: 45_000],
-    longpoll: false
-  )
-
-  socket("/live", Phoenix.LiveView.Socket, websocket: [connect_info: [session: @session_options]])
+  socket "/live", Phoenix.LiveView.Socket,
+    websocket: [connect_info: [session: @session_options]],
+    longpoll: [connect_info: [session: @session_options]]
 
   # Serve at "/" the static files from "priv/static" directory.
   #
   # You should set gzip to true if you are running phx.digest
   # when deploying your static files in production.
-  plug(Plug.Static,
+  plug Plug.Static,
     at: "/",
     from: :flix,
     gzip: false,
-    only: ~w(assets css fonts images js favicon.ico robots.txt)
-  )
+    only: FlixWeb.static_paths()
 
-  plug(Plug.Static,
+  plug Plug.Static,
     at: "/uploads",
     from: Path.expand("./uploads"),
     gzip: false
-  )
 
   # Code reloading can be explicitly enabled under the
   # :code_reloader configuration of your endpoint.
   if code_reloading? do
-    socket("/phoenix/live_reload/socket", Phoenix.LiveReloader.Socket)
-    plug(Phoenix.LiveReloader)
-    plug(Phoenix.CodeReloader)
-    plug(Phoenix.Ecto.CheckRepoStatus, otp_app: :flix)
+    socket "/phoenix/live_reload/socket", Phoenix.LiveReloader.Socket
+    plug Phoenix.LiveReloader
+    plug Phoenix.CodeReloader
+    plug Phoenix.Ecto.CheckRepoStatus, otp_app: :flix
   end
 
   plug(Phoenix.LiveDashboard.RequestLogger,

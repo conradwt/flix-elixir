@@ -5,18 +5,19 @@ defmodule Flix.Application do
 
   use Application
 
+  @impl true
   def start(_type, _args) do
     children = [
-      # Start the Ecto repository
-      Flix.Repo,
-      # Start the Telemetry supervisor
       FlixWeb.Telemetry,
-      # Start the PubSub system
+      Flix.Repo,
+      {DNSCluster, query: Application.get_env(:flix, :dns_cluster_query) || :ignore},
       {Phoenix.PubSub, name: Flix.PubSub},
-      # Start the Endpoint (http/https)
-      FlixWeb.Endpoint
+      # Start the Finch HTTP client for sending emails
+      {Finch, name: Flix.Finch},
       # Start a worker by calling: Flix.Worker.start_link(arg)
-      # {Flix.Worker, arg}
+      # {Flix.Worker, arg},
+      # Start to serve requests, typically the last entry
+      FlixWeb.Endpoint
     ]
 
     # See https://hexdocs.pm/elixir/Supervisor.html
@@ -27,6 +28,7 @@ defmodule Flix.Application do
 
   # Tell Phoenix to update the endpoint configuration
   # whenever the application is updated.
+  @impl true
   def config_change(changed, _new, removed) do
     FlixWeb.Endpoint.config_change(changed, removed)
     :ok

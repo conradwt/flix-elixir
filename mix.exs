@@ -7,7 +7,6 @@ defmodule Flix.MixProject do
       version: "0.1.0",
       elixir: "~> 1.16.2",
       elixirc_paths: elixirc_paths(Mix.env()),
-      compilers: [:gettext] ++ Mix.compilers(),
       start_permanent: Mix.env() == :prod,
       aliases: aliases(),
       deps: deps(),
@@ -36,24 +35,32 @@ defmodule Flix.MixProject do
   # Type `mix help deps` for examples and options.
   defp deps do
     [
-      {:phoenix, "~> 1.6.16"},
+      {:phoenix, "~> 1.7.11"},
       {:phoenix_ecto, "~> 4.4.3"},
       {:ecto_sql, "~> 3.10.1"},
       {:postgrex, "~> 0.17.5"},
-      {:phoenix_html, "~> 3.3.3"},
+      {:phoenix_html, "~> 4.1.1"},
       {:phoenix_live_reload, "~> 1.3.3", only: :dev},
-      {:phoenix_live_view, "~> 0.17.5"},
+      {:phoenix_live_view, "~> 0.20.2"},
       {:floki, ">= 0.36.1", only: :test},
-      {:phoenix_live_dashboard, "~> 0.5"},
-      {:esbuild, "~> 0.7.1", runtime: Mix.env() == :dev},
-      {:dart_sass, "~> 0.6.0", runtime: Mix.env() == :dev},
+      {:phoenix_live_dashboard, "~> 0.8.3"},
+      {:esbuild, "~> 0.8.1", runtime: Mix.env() == :dev},
       {:tailwind, "~> 0.2.2", runtime: Mix.env() == :dev},
-      {:swoosh, "~> 1.11.6"},
+      {:heroicons,
+       github: "tailwindlabs/heroicons",
+       tag: "v2.1.1",
+       sparse: "optimized",
+       app: false,
+       compile: false,
+       depth: 1},
+      {:swoosh, "~> 1.16.3"},
+      {:finch, "~> 0.18.0"},
       {:telemetry_metrics, "~> 0.6.2"},
       {:telemetry_poller, "~> 1.0.0"},
-      {:gettext, "~> 0.18.2"},
+      {:gettext, "~> 0.20.0"},
       {:jason, "~> 1.3.0"},
-      {:bandit, "~> 1.0.0"},
+      {:dns_cluster, "~> 0.1.1"},
+      {:bandit, "~> 1.4.1"},
       {:absinthe_plug, "~> 1.5.8"},
       {:cors_plug, "~> 3.0.3"},
       {:bcrypt_elixir, "~> 2.0"},
@@ -67,8 +74,6 @@ defmodule Flix.MixProject do
       {:hackney, "~> 1.18.2"},
       {:sweet_xml, "~> 0.6"},
       {:ex_parameterize, "~> 1.0"},
-      {:bamboo, "~> 2.1.0"},
-      {:bamboo_phoenix, "~> 1.0"},
       {:credo, "~> 1.7.5", only: [:dev, :test], runtime: false},
       {:mix_test_watch, "~> 1.1.2", only: [:dev, :test], runtime: false}
     ]
@@ -82,19 +87,15 @@ defmodule Flix.MixProject do
   # See the documentation for `Mix` for more info on aliases.
   defp aliases do
     [
-      setup: ["deps.get", "ecto.setup", "assets.build"],
+      setup: ["deps.get", "ecto.setup", "assets.setup", "assets.build"],
       "ecto.setup": ["ecto.create", "ecto.migrate", "run priv/repo/seeds.exs"],
       "ecto.reset": ["ecto.drop", "ecto.setup"],
       test: ["ecto.create --quiet", "ecto.migrate --quiet", "test"],
-      "assets.build": [
-        "esbuild default",
-        "sass default",
-        "tailwind default"
-      ],
+      "assets.setup": ["tailwind.install --if-missing", "esbuild.install --if-missing"],
+      "assets.build": ["tailwind flix", "esbuild flix"],
       "assets.deploy": [
-        "esbuild default --minify",
-        "sass default --no-source-map --style=compressed",
-        "tailwind default --minify",
+        "tailwind flix --minify",
+        "esbuild flix --minify",
         "phx.digest"
       ]
     ]

@@ -10,7 +10,7 @@ The purpose of this project is to implement an application where fans can commen
 
 - Erlang 26.2.3 or newer
 
-- Phoenix 1.6.16 or newer
+- Phoenix 1.17.11 or newer
 
 - PostgreSQL 15.6 or newer
 

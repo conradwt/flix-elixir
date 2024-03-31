@@ -8,23 +8,26 @@ import Config
 config :flix, Flix.Repo,
   username: "postgres",
   password: "postgres",
-  database: "flix_test#{System.get_env("MIX_TEST_PARTITION")}",
   hostname: "localhost",
+  database: "flix_test#{System.get_env("MIX_TEST_PARTITION")}",
   pool: Ecto.Adapters.SQL.Sandbox,
-  pool_size: 10
+  pool_size: System.schedulers_online() * 2
 
 # We don't run a server during test. If one is required,
 # you can enable the server option below.
 config :flix, FlixWeb.Endpoint,
   http: [ip: {127, 0, 0, 1}, port: 4002],
-  secret_key_base: "36x+Owok727HAPW0YsIMAqf6uF9/Rqpgzvg06aS+7+CGGs9QlkrQlPN5bB7QhlTv",
+  secret_key_base: "0tGKECPKVrlL6aWOZtMHm2MJZUwa7vhTz/EaK6YD2mgh2+HMNT+lpP6j1V7lc9+t",
   server: false
 
 # In test we don't send emails.
 config :flix, Flix.Mailer, adapter: Swoosh.Adapters.Test
 
+# Disable swoosh api client as it is only required for production adapters.
+config :swoosh, :api_client, false
+
 # Print only warnings and errors during test
-config :logger, level: :warn
+config :logger, level: :warning
 
 # Initialize plugs at runtime for faster test compilation
 config :phoenix, :plug_init_mode, :runtime
