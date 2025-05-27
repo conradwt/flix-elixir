@@ -3,21 +3,27 @@
 #
 # This configuration file is loaded before any dependency and
 # is restricted to this project.
-
+  
 # General application configuration
 import Config
 
 config :flix,
   ecto_repos: [Flix.Repo],
-  generators: [binary_id: true]
+  generators: [
+    timestamp_type: :utc_datetime,
+    binary_id: true
+  ]
 
 # Configures the endpoint
 config :flix, FlixWeb.Endpoint,
-  adapter: Bandit.PhoenixAdapter,
   url: [host: "localhost"],
-  render_errors: [view: FlixWeb.ErrorView, accepts: ~w(html json), layout: false],
+  adapter: Bandit.PhoenixAdapter,
+  render_errors: [
+    formats: [html: FlixWeb.ErrorHTML, json: FlixWeb.ErrorJSON],
+    layout: false
+  ],
   pubsub_server: Flix.PubSub,
-  live_view: [signing_salt: "C/wWe4Zy"]
+  live_view: [signing_salt: "RxTjReWK"]
 
 # Configures the mailer
 #
@@ -28,38 +34,25 @@ config :flix, FlixWeb.Endpoint,
 # at the `config/runtime.exs`.
 config :flix, Flix.Mailer, adapter: Swoosh.Adapters.Local
 
-# Swoosh API client is needed for adapters other than SMTP.
-config :swoosh, :api_client, false
-
 # Configure esbuild (the version is required)
 config :esbuild,
-  version: "0.18.11",
-  default: [
+  version: "0.17.11",
+  flix: [
     args:
       ~w(js/app.js --bundle --target=es2017 --outdir=../priv/static/assets --external:/fonts/* --external:/images/*),
     cd: Path.expand("../assets", __DIR__),
     env: %{"NODE_PATH" => Path.expand("../deps", __DIR__)}
   ]
 
-# Configure dart_sass (the version is required)
-config :dart_sass,
-  version: "1.61.0",
-  default: [
-    args: ~w(css/app.scss ../priv/static/assets/app.css.tailwind),
-    cd: Path.expand("../assets", __DIR__)
-  ]
-
 # Configure tailwind (the version is required)
 config :tailwind,
-  version: "3.3.2",
-  default: [
+  version: "4.1.7",
+  flix: [
     args: ~w(
-      --config=tailwind.config.js
-      --input=../priv/static/assets/app.css.tailwind
-      --output=../priv/static/assets/app.css
+      --input=assets/css/app.css
+      --output=priv/static/assets/app.css
     ),
-    cd: Path.expand("../assets", __DIR__),
-    env: %{"BROWSERSLIST_IGNORE_OLD_DATA" => "1"}
+    cd: Path.expand("..", __DIR__)
   ]
 
 # Configures Elixir's Logger
