@@ -3,16 +3,13 @@
 #
 # This configuration file is loaded before any dependency and
 # is restricted to this project.
-  
+
 # General application configuration
 import Config
 
 config :flix,
   ecto_repos: [Flix.Repo],
-  generators: [
-    timestamp_type: :utc_datetime,
-    binary_id: true
-  ]
+  generators: [timestamp_type: :utc_datetime, binary_id: true]
 
 # Configures the endpoint
 config :flix, FlixWeb.Endpoint,
@@ -23,7 +20,7 @@ config :flix, FlixWeb.Endpoint,
     layout: false
   ],
   pubsub_server: Flix.PubSub,
-  live_view: [signing_salt: "RxTjReWK"]
+  live_view: [signing_salt: "leT9DDdX"]
 
 # Configures the mailer
 #
@@ -62,16 +59,6 @@ config :logger, :console,
 
 # Use Jason for JSON parsing in Phoenix
 config :phoenix, :json_library, Jason
-
-# Configure the time zone database.
-# https://mikezornek.com/posts/2020/3/working-with-time-zones-in-an-elixir-phoenix-app
-# https://en.wikipedia.org/wiki/List_of_tz_database_time_zones
-config :elixir, :time_zone_database, Tzdata.TimeZoneDatabase
-
-# Configure Bamboo Mailer
-config :flix, Flix.Mailer,
-  adapter: Bamboo.SendGridAdapter,
-  api_key: System.get_env("SENDGRID_API_KEY")
 
 # Configure mix_test_watch
 if Mix.env() == :dev do
