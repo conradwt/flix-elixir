@@ -1,6 +1,6 @@
 # Flix
 
-The purpose of this project is to implement an application where fans can comment on and rate movies. Also, the running application can be found [here](https://www.example.com).
+The purpose of this project is to develop an application that allows fans to comment on and rate movies.
 
 ## Getting Started
 
